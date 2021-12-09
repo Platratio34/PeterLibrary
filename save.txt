@@ -1,0 +1,33 @@
+sector<0>: {
+	sectors:2
+	refrences:;
+}
+sector<1>: {
+	object: {
+		type:null;
+		position:[0,0];
+		rotation:[0];
+		destroyed:false;
+		name:"game";
+		tag:"null";
+		null;
+	}
+	object: {
+		type:Player;
+		position:[13,10];
+		rotation:[0];
+		destroyed:false;
+		name:"object";
+		tag:"null";
+		null;
+	}
+	object: {
+		type:GamePlayer;
+		position:[0,0];
+		rotation:[0];
+		destroyed:false;
+		name:"object";
+		tag:"null";
+		null;
+	}
+}
