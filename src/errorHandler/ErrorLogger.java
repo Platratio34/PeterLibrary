@@ -31,7 +31,7 @@ public class ErrorLogger {
 	 * @return
 	 */
 	public JFrame getFrame() {
-		return log.frame;
+		return log.getFrame();
 	}
 	
 	/**
