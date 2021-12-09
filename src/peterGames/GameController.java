@@ -4,9 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,7 +13,6 @@ import java.util.UUID;
 import javax.swing.JFrame;
 
 import errorHandler.ErrorLogger;
-import inputs.Files;
 import peterGames.timers.TickEvent;
 import peterGames.timers.TickTimer;
 import peterGraphics.util.Drawing;
@@ -410,7 +406,6 @@ public class GameController {
 //		objects[0].setTexture(g);
 	}
 	
-	//init
 	/**
 	 * Beginning of initilazation cycle
 	 *  -runs preInit on all objects
@@ -432,9 +427,7 @@ public class GameController {
 			public void mousePressed(MouseEvent e) {
 //				System.out.println(e.getX() + "," + e.getY());
 //				System.out.println(mouseUsers.size());
-				for (int i = 0; i < mouseUsers.size(); i++) {
-					mouseUsers.get(i).onMousePressed(e.getX() , e.getY());
-				};
+				onMousePressed(e.getX(), e.getY());
 			}
 		});
 		
@@ -556,6 +549,12 @@ public class GameController {
 	 */
 	public void removeMouseUser(GameObject g) {
 		mouseUsers.remove(g);
+	}
+	
+	public void onMousePressed(int x, int y) {
+		for (int i = 0; i < mouseUsers.size(); i++) {
+			mouseUsers.get(i).onMousePressed(x, y);
+		};
 	}
 	
 	/**

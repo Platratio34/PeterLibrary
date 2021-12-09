@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import peterLibrary.Arrays;
-
 public class Shape {	
 	public int xA;
 	public int yA;
