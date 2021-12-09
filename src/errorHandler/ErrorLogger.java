@@ -57,7 +57,7 @@ public class ErrorLogger {
 	 * @param origin : class of origin
 	 * @param line : line of origin
 	 */
-	public void logError(ErrorType type,String origin, int line) {
+	public void logError(ErrorType type, String origin, int line) {
 		
 		LocalDateTime now = LocalDateTime.now();
 		
@@ -98,7 +98,7 @@ public class ErrorLogger {
 	 * @param line : line of origin
 	 * @param info : extra information
 	 */
-	public void logError(ErrorType type,String origin, int line, String info) {
+	public void logError(ErrorType type, String origin, int line, String info) {
 		
 		LocalDateTime now = LocalDateTime.now();
 		
@@ -132,13 +132,15 @@ public class ErrorLogger {
 		}
 		log.visible(true);
 	}
+	@Deprecated
 	/**
+	 * *DEPREICATED* not yet working
 	 * Logs a new error
 	 * @param e : error
 	 * @param origin : class of origin
 	 * @param line : line of origin
 	 */
-	public void logError(Exception e,String origin, int line) {
+	public void logError(Exception e, String origin, int line) {
 		
 		LocalDateTime now = LocalDateTime.now();
 		String info = "";
@@ -170,7 +172,7 @@ public class ErrorLogger {
 	 * @param line : line of origin
 	 * @param info : extra information
 	 */
-	public void logError(String error,String origin, int line, String info) {
+	public void logError(String error, String origin, int line, String info) {
 		
 		LocalDateTime now = LocalDateTime.now();
 		log.appendln(dtf.format(now) + ": Error: " + error + "; At: " + origin + "," + line + "; " + info);
