@@ -113,7 +113,7 @@ public class GameController {
 			public void onGTick() {
 				if(config.debug > 0) {
 					texture.clear();
-					texture.setDeapth(29);
+					texture.setDepth(29);
 					texture.rectF(0, 0, config.width, 30, 255, 255, 255);
 					texture.text(2, 12, getTime(), 0, 0, 0);
 					texture.text(2, 24, "fps:" + Afps, 0, 0, 0);

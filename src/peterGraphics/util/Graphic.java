@@ -405,7 +405,7 @@ public class Graphic {
 			}
 		}
 	}
-	public void setDeapth(int d) {
+	public void setDepth(int d) {
 		deapth = d;
 	}
 	public int getDeapth() {

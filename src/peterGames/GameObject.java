@@ -135,8 +135,8 @@ public abstract class GameObject {
 	/**
 	 * sets the depth of the object
 	 */
-	public void setDeapth(int Depth) {
-		texture.setDeapth(Depth);
+	public void setDepth(int Depth) {
+		texture.setDepth(Depth);
 	}
 	
 	/**
