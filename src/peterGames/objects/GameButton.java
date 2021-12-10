@@ -4,8 +4,8 @@ import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
 import peterGames.InputManeger;
+import peterGames.util.Config;
 import peterGraphics.util.Graphic;
-import petetUtil.Config;
 
 public abstract class GameButton extends GameObject {
 	

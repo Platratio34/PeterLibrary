@@ -1,4 +1,4 @@
-package petetUtil;
+package peterGames.util;
 
 public class Key {
 	public int id;

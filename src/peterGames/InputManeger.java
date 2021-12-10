@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-import petetUtil.Key;
+import peterGames.util.Key;
 
 public class InputManeger implements KeyListener {
 	protected boolean[] externalD;

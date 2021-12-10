@@ -6,9 +6,9 @@ import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
 import peterGames.InputManeger;
+import peterGames.util.Config;
+import peterGames.util.Key;
 import peterGraphics.util.Graphic;
-import petetUtil.Config;
-import petetUtil.Key;
 
 public class GamePlayer extends GameObject {
 	

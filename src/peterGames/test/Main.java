@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 
 import peterGames.GameController;
 import peterGames.objects.GamePlayer;
+import peterGames.util.Config;
 import peterGraphics.util.Camera;
-import petetUtil.Config;
 
 public class Main {
 	

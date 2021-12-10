@@ -1,4 +1,4 @@
-package petetUtil;
+package peterGames.util;
 
 import java.util.ArrayList;
 import java.util.List;

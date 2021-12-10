@@ -15,11 +15,11 @@ import javax.swing.JFrame;
 import errorHandler.ErrorLogger;
 import peterGames.timers.TickEvent;
 import peterGames.timers.TickTimer;
+import peterGames.util.Config;
 import peterGraphics.util.Drawing;
 import peterGraphics.util.GText;
 import peterGraphics.util.Graphic;
 import peterLibrary.PeterMath;
-import petetUtil.Config;
 
 public class GameController {
 	protected int Afps;

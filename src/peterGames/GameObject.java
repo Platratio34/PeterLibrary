@@ -2,9 +2,9 @@ package peterGames;
 
 import java.awt.Point;
 
+import peterGames.util.Config;
 import peterGraphics.util.Drawing;
 import peterGraphics.util.Graphic;
-import petetUtil.Config;
 
 public abstract class GameObject {
 	protected Graphic texture;
