@@ -87,6 +87,15 @@ public class Arrays {
 			System.out.print("\n");
 		}
 	}
+	public static void printArray (Object[][] array) {
+		System.out.print("\n");
+		for(int i = 0; i < array.length; i++) {
+			for(int j = 0; j< array[1].length;j++) {
+				System.out.print(array[i][j].toString() + ", ");
+			}
+			System.out.print("\n");
+		}
+	}
 	
 	public static int[] setArray(int[] a, int b) {
 		int[] c = new int[a.length+1];
