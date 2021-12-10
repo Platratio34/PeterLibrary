@@ -26,10 +26,13 @@ public class Files {
 	}
 	
 	public static String[] fileAsArray(String fileName) {
+		return fileAsArray(new File(fileName));
+	}
+	public static String[] fileAsArray(File file) {
 		List<String> out = new ArrayList<String>();
 		Scanner scan = null;
 		try {
-			scan = new Scanner(new File(fileName));
+			scan = new Scanner(file);
 		} catch (FileNotFoundException e) {
 			System.out.println("invalid file");
 			scan = new Scanner(" ");
