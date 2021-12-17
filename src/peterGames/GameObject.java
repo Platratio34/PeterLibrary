@@ -158,6 +158,28 @@ public abstract class GameObject {
 	}
 	
 	/**
+	 * Moves only if it would not collide with somthing else
+	 * @param p : Amount to move by
+	 * @return if it moved
+	 */
+	public boolean moveC(Point p) {
+		if(!parentGame.colliding(this, new Point(p.x + point.x, p.y + point.y))) {
+			move(p);
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * Moves only if it would not collide with somthing else
+	 * @param x : Amount to move in the x
+	 * @param y : Amount to move in the y
+	 * @return if it moved
+	 */
+	public boolean moveC(int x, int y) {
+		return moveC(new Point(x,y));
+	}
+	
+	/**
 	 * get name of Object
 	 * @return String : name
 	 */
@@ -180,7 +202,7 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * Check if object is colliding with other
+	 * Check if object is colliding with other and triggers collided() on the both if they are
 	 * @param other : GameObject to check collision against
 	 * @return boolean : is colliding
 	 */
@@ -194,6 +216,19 @@ public abstract class GameObject {
 			return false;
 		} 
 	}
+	/**
+	 * Checks collision with offset for this game object, does not trigger collided()
+	 * @param other : GameObject to check collision against
+	 * @param p : Position offset
+	 * @return if they collided
+	 */
+	protected boolean checkcollide(GameObject other, Point p) {
+		if(mask.checkCollide(other.mask, p, other.point)) {
+			return true;
+		} else {
+			return false;
+		} 
+	}
 	
 	@Deprecated
 	/**
@@ -201,8 +236,7 @@ public abstract class GameObject {
 	 *  adds texture to Drawing object
 	 * @param draw : Drawing object to add to
 	 */
-	public void draw(Drawing draw) 
-	{
+	public void draw(Drawing draw) {
 		draw.addGraphic(texture,point.x,point.y);
 	}
 	@Deprecated
@@ -211,8 +245,7 @@ public abstract class GameObject {
 	 *  adds debug texture to Drawing object
 	 * @param draw : Drawing object to add to
 	 */
-	public void drawD(Drawing draw) 
-	{
+	public void drawD(Drawing draw) {
 		draw.addGraphic(mask.getGraphic(),point.x,point.y);
 	}
 	
@@ -255,7 +288,10 @@ public abstract class GameObject {
 		
 	}
 	
-	
+	/**
+	 * Saves the object to a string
+	 * @return the object as a string
+	 */
 	public String save() {
 		String out = "";
 		out += "\tobject: {" + "\n";
@@ -291,5 +327,9 @@ public abstract class GameObject {
 		return "\t\tnull;" + "\n";
 	}
 	
+	/**
+	 * Returns the type of object
+	 * @return the type
+	 */
 	public abstract String getType();
 }

@@ -395,7 +395,7 @@ public class GameController {
 //						System.out.println("check " + objects[i].getName() + " and  " + objects[k].getName());
 //						g.text(objects[i].getX(), objects[i].getY(), "1", 0, 0, 0);
 //						g.text(objects[k].getX() + 6, objects[k].getY(), "2", 0, 0, 0);
-						if(objects[i].checkcollide(objects[k])) { 
+						if(objects[i].checkcollide(objects[k])) {
 //							eLogger.logError("collsision", "", 0, objects[i].getName()/* + " at " + objects[i].point*/ + " and " + objects[k].getName()/* + " at " + objects[k].point*/);
 //							System.out.println("collision; " + objects[i].getName()/* + " at " + objects[i].point*/ + " and " + objects[k].getName()/* + " at " + objects[k].point*/);
 						}
@@ -523,6 +523,23 @@ public class GameController {
 		frameTimer.settps(config.fps);
 		config.print();
 		inputManeger.setKeys(config.keys);
+	}
+	
+	/**
+	 * Checks if a GameObject at position p would collide with anythigh else
+	 * @param gO : game object to check
+	 * @param p : position for gameobject
+	 * @return if it was colliding with anything
+	 */
+	public boolean colliding(GameObject gO, Point p) {
+		for(int k = 0; k < objects.length; k++) {
+			if(!objects[k].destroyed) {
+				if(gO.checkcollide(objects[k], p)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	/**
