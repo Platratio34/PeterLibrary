@@ -83,6 +83,33 @@ public class CollisionMask {
 	}
 	
 	/**
+	 * checks if it is collision with a line at given offset
+	 * @param line : line to check
+	 * @param offset : this mask's position
+	 * @return is colliding
+	 */
+	public boolean checkCollide(LineSegment line, Point offset) {
+		boolean collided = false;
+		for(int i = 1; i < lines.length; i++) {
+			if(lines[i].offset(offset.x, offset.y).colliding(line)) {
+				collided = true;
+			}
+		}
+		
+		return collided;
+	}
+	
+	/**
+	 * Checks if a given point is inside of the mask
+	 * @param point : Point to check
+	 * @param offset : Mask offset
+	 * @return If the point is inside
+	 */
+	public boolean checkInside(Point point, Point offset) {
+		return checkCollide(new LineSegment(point.x, offset.y-500, point.x, offset.y+500), offset) && checkCollide(new LineSegment(offset.x-500, point.y, offset.x+500, point.y), offset);
+	}
+	
+	/**
 	 * saves the mask to a string
 	 * @param d : depth (number of tabs)
 	 * @return string version of mask;
