@@ -9,6 +9,7 @@ import peterGames.InputManeger;
 import peterGames.util.Config;
 import peterGames.util.Key;
 import peterGraphics.util.Graphic;
+import peterGraphics.util.Shape;
 
 public class GamePlayer extends GameObject {
 	
@@ -18,6 +19,7 @@ public class GamePlayer extends GameObject {
 	public boolean down;
 	public boolean left;
 	public boolean right;
+	
 	public GamePlayer(GameController game, Config Cfg, int Speed) {
 		super(game, Cfg);
 		speed = Speed;
@@ -29,8 +31,7 @@ public class GamePlayer extends GameObject {
 
 	@Override
 	protected void setCollisionMask(CollisionMask mask) {
-		// TODO Auto-generated method stub
-		
+		mask.addShape(Shape.Rect(0,0,25,25));
 	}
 
 	@Override

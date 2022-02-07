@@ -6,12 +6,15 @@ import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
 import peterGames.InputManeger;
+import peterGames.objects.GamePlayer;
 import peterGames.util.Config;
 import peterGraphics.util.Graphic;
+import peterGraphics.util.Shape;
 
 public class Player extends GameObject {
 	
 	Point dir;
+	private int hN = 0;
 	
 	public Player(GameController game, Config Cfg) {
 		super(game, Cfg);
@@ -21,7 +24,7 @@ public class Player extends GameObject {
 
 	@Override
 	protected void setCollisionMask(CollisionMask mask) {
-		// TODO Auto-generated method stub
+		mask.addShape(Shape.Rect(0,0,20,20));
 		
 	}
 
@@ -54,9 +57,12 @@ public class Player extends GameObject {
 	}
 
 	@Override
-	protected void collided(GameObject object) {
+	protected void collideEnter(GameObject object) {
 		// TODO Auto-generated method stub
-		
+		if(object instanceof GamePlayer) {
+			System.out.println("HIT! " + hN + " with " + object.getType());
+			hN++;
+		}
 	}
 
 	@Override

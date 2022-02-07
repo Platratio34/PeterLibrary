@@ -3,6 +3,7 @@ package peterGames;
 import java.awt.Point;
 
 import peterGraphics.util.Graphic;
+import peterGraphics.util.Shape;
 import peterLibrary.*;
 import vectorLibrary.LineSegment;
 
@@ -33,6 +34,19 @@ public class CollisionMask {
 		lines = x.clone();
 	}
 	
+	public void addLines(LineSegment[] x) {
+		LineSegment[] linesT = new LineSegment[lines.length + x.length];
+		int m = 0;
+		for(int i = 0; i < lines.length; i++) {
+			linesT[i] = lines[i];
+			m = i;
+		}
+		for(int i = 0; i < x.length; i++) {
+			linesT[i+m] = x[i];
+		}
+		lines = linesT;
+	}
+	
 	/**
 	 * returns a graphic with lines representing the collision mask
 	 * @return Graphic
@@ -50,12 +64,16 @@ public class CollisionMask {
 		thing.line((int)line.getP1().x, (int)line.getP1().y, (int)line.getP2().x, (int)line.getP2().y, 255, 0, 0);
 	}
 	
+	public void addShape(Shape s) {
+		addLines(s.getLines());
+	}
+	
 	/**
 	 * resets to mask
 	 */
 	public void reset() {
-		lines = new LineSegment[1];
-		lines[0] = new LineSegment(0,0,0,0);
+		lines = new LineSegment[0];
+//		lines[0] = new LineSegment(0,0,0,0);
 		thing = new Graphic();
 	}
 	
@@ -69,8 +87,8 @@ public class CollisionMask {
 	public boolean checkCollide(CollisionMask mask, Point offset, Point oOffset) {
 		boolean collided = false;
 		LineSegment[] other = mask.getLines();
-		for(int i = 1; i < lines.length; i++) {
-			for(int j = 1; j < other.length; j++) {
+		for(int i = 0; i < lines.length; i++) {
+			for(int j = 0; j < other.length; j++) {
 //				System.out.println("mabey " + i + " " + j);
 				if(lines[i].offset(offset.x, offset.y).colliding(other[j].offset(oOffset.x, oOffset.y))) {
 //					System.out.println("yay");

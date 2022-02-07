@@ -170,7 +170,8 @@ public class Arrays {
 		c[a.length] = (LineSegment) b.clone();
 		return c;
 	}
-	public static boolean contains(int[] arr, int key) {
+	
+	public static <T> boolean contains(T[] arr, T key) {
 		for(int i = 0; i < arr.length; i++) {
 			if(arr[i] == key) {
 				return true;

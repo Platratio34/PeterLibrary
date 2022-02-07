@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import peterGraphics.Console;
 
 public class ErrorLogger {
+	
 	Console log = new Console(false,false,"Error Logger:");
 	protected int nullPointers;
 	protected int arrayIOBs;

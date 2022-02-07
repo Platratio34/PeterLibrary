@@ -1,6 +1,8 @@
 package peterGames;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import peterGames.util.Config;
 import peterGraphics.util.Drawing;
@@ -15,6 +17,8 @@ public abstract class GameObject {
 	protected boolean destroyed;
 	protected Config cfg;
 	protected String tag;
+	
+	private List<GameObject> lCollide;
 	
 	/**
 	 * Parent constructor
@@ -37,6 +41,7 @@ public abstract class GameObject {
 		point = new Point();
 		mask = new CollisionMask();
 		name = "object";
+		lCollide = new ArrayList<GameObject>();
 	}
 	
 	/**
@@ -101,7 +106,21 @@ public abstract class GameObject {
 	 *  -Called by GameController during physics tick
 	 * @param object
 	 */
-	protected abstract void collided(GameObject object);
+	protected void collided(GameObject object) {}
+	
+	/**
+	 * on collision enter with object
+	 *  -Called by GameController during physics tick
+	 * @param object
+	 */
+	protected void collideEnter(GameObject object) {}
+	
+	/**
+	 * on collision exit with object
+	 *  -Called by GameController during physics tick
+	 * @param object
+	 */
+	protected void collideExit(GameObject object) {}
 	
 	/**
 	 * get X pos of object
@@ -211,8 +230,18 @@ public abstract class GameObject {
 //			System.out.println(this.point + " " + other.point);
 			collided(other);
 			other.collided(this);
+			if (!lCollide.contains(other)) {
+				collideEnter(other);
+				other.collideEnter(this);
+				lCollide.add(other);
+			}
 			return true;
 		} else {
+			if(lCollide.contains(other)) {
+				lCollide.remove(other);
+				collideExit(other);
+				other.collideExit(this);
+			}
 			return false;
 		} 
 	}

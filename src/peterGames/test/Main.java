@@ -21,6 +21,9 @@ public class Main {
 		Player player = new Player(game, cfg);
 		player.move(10,10);
 		game.addObject(player);
+		Player player2 = new Player(game, cfg);
+		player2.move(10,50);
+		game.addObject(player2);
 		game.addObject(new GamePlayer(game,cfg,2));
 		game.run();
 		Camera camera = game.getdraw().getCamera();

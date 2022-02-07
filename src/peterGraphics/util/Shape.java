@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import vectorLibrary.LineSegment;
+import vectorLibrary.Vector2;
+
 public class Shape {	
 	public int xA;
 	public int yA;
@@ -314,5 +317,69 @@ public class Shape {
 		out += "font:[" + fontA.getFontName() + "," + fontA.getSize() + "];" + "\n";
 		
 		return out;
+	}
+	
+	/**
+	 * Creates an array of LineSemgnets, intend for inputing into a collision mask, of the shape
+	 * @return LineSemgnet array of the lines making up the shape
+	 */
+	public LineSegment[] getLines() {
+		LineSegment[] lines = new LineSegment[0];;
+		if(shapeA == ShapeE.RECTANGLE || shapeA == ShapeE.RECTANGLEF) {
+			lines = new LineSegment[] {
+					new LineSegment(xA,yA,xA+wA,yA),
+					new LineSegment(xA+wA,yA,xA+wA,yA+hA),
+					new LineSegment(xA,yA+hA,xA+wA,yA+hA),
+					new LineSegment(xA,yA+hA,xA,yA)
+			};
+		} else if(shapeA == ShapeE.POLYGON || shapeA == ShapeE.POLYGONF) {
+			lines = new LineSegment[px.length];
+			for(int i = 0; i < px.length; i++) {
+				if(i < px.length - 1) {
+					lines[i] = new LineSegment(px[i], py[i], px[i+1], py[i+1]);
+				} else {
+					lines[i] = new LineSegment(px[i], py[i], px[0], py[0]);
+				}
+			}
+		} else if(shapeA == ShapeE.LINE) {
+			lines = new LineSegment[] { new LineSegment(xA, yA, wA, hA) };
+		}
+		return lines;
+	}
+	
+	/**
+	 * Creates a new Rectangle Shape
+	 * @param x: x position
+	 * @param y: y position
+	 * @param w: width
+	 * @param h: height
+	 * @return
+	 */
+	public static Shape Rect(int x, int y, int w, int h) {
+		return Rect(x,y,w,h,Color.black);
+	}
+	/**
+	 * Creates a new Rectangle Shape
+	 * @param x: x position
+	 * @param y: y position
+	 * @param w: width
+	 * @param h: height
+	 * @param c: the color of the shape
+	 * @return
+	 */
+	public static Shape Rect(int x, int y, int w, int h, Color c) {
+		return new Shape(x,y,w,h,null,null,c,ShapeE.RECTANGLE,"");
+	}
+	/**
+	 * Creates a new filled Rectangle Shape
+	 * @param x: x position
+	 * @param y: y position
+	 * @param w: width
+	 * @param h: height
+	 * @param c: the color of the shape
+	 * @return
+	 */
+	public static Shape RectF(int x, int y, int w, int h, Color c) {
+		return new Shape(x,y,w,h,null,null,c,ShapeE.RECTANGLEF,"");
 	}
 }

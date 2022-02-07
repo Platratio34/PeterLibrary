@@ -14,7 +14,16 @@ sector<1>: {
 	}
 	object: {
 		type:Player;
-		position:[13,10];
+		position:[11,10];
+		rotation:[0];
+		destroyed:false;
+		name:"object";
+		tag:"null";
+		null;
+	}
+	object: {
+		type:Player;
+		position:[11,50];
 		rotation:[0];
 		destroyed:false;
 		name:"object";
