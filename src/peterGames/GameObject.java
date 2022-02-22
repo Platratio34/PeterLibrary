@@ -183,14 +183,22 @@ public abstract class GameObject {
 	 * @return if it moved
 	 */
 	public boolean moveC(Point p, String ignoreTag) {
-		while(parentGame.colliding(this, new Point(p.x + point.x, p.y + point.y),ignoreTag)) {
+		GameObject other = parentGame.collidingG(this, new Point(p.x + point.x, p.y + point.y),ignoreTag);
+		GameObject other2 = other;
+		while(other != null) {
 			if(p.x == 0 && p.y == 0) {
 				return false;
 			}
 			p.x /= 2;
 			p.y /= 2;
+			other2 = other;
+			other = parentGame.collidingG(this, new Point(p.x + point.x, p.y + point.y),ignoreTag);
 		}
 		move(p);
+		if(other2 != null) {
+			collided(other2);
+			other2.collided(this);
+		}
 		return true;
 	}
 	/**

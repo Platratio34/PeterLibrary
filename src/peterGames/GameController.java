@@ -570,6 +570,18 @@ public class GameController {
 		}
 		return false;
 	}
+	public GameObject collidingG(GameObject gO, Point p, String ignoreTag) {
+		for(int k = 0; k < objects.length; k++) {
+			if(!objects[k].destroyed && objects[k] != gO) {
+				if(gO.checkcollide(objects[k], p)) {
+					if(!objects[k].getTag().equals(ignoreTag)) {
+						return objects[k];
+					}
+				}
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Clamps a point the the window
