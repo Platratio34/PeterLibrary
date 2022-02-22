@@ -528,6 +528,9 @@ public class GameController {
 				gTick.get(i).onGTick();
 			}
 		}
+//		for (GText txt : infoText) {
+//			camera.
+//		}
 //		objects[0].draw(draw);
 	}
 	
