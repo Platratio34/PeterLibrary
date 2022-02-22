@@ -96,7 +96,7 @@ public class TickTimer extends Thread {
 						dropCount++;
 					}
 					
-					if(dropCount > 1) {
+					if(dropCount > 5) {
 						Eloger.logError("Dropping " + type + " Running " + (double)((long)(System.nanoTime()-behind)/1000)/1000 + "ms behind.","TickTimer.java",90, "Skipping " + dropCount + " " + type + "s ; " + ticks);
 					}
 				}

@@ -3,6 +3,7 @@ package peterGames;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import java.awt.Point;
 
 import peterGames.util.Key;
 
@@ -153,5 +154,9 @@ public class InputManeger implements KeyListener {
 			}
 		}
 		return false;
+	}
+	
+	public Point getMousePos() {
+		return null;
 	}
 }

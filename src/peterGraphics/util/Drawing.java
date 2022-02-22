@@ -16,6 +16,7 @@ public class Drawing extends JPanel {
 	private ErrorLogger eLogger;
 	private Font font;
 	private Camera camera1;
+	public List<GText> gText;
 	
 	/**
 	 * Generic constructor
@@ -60,6 +61,7 @@ public class Drawing extends JPanel {
 	 * clears and resets the Drawing object
 	 */
 	public void clear() {
+		gText = new ArrayList<GText>();
 		graphics = new Graphic[1];
 		graphics[0] = new Graphic();
 		updatingShapes = new ArrayList<Shape>();
@@ -328,6 +330,10 @@ public class Drawing extends JPanel {
 			shape.update();
 			shape.draw(g, 0, 0, camera1);
 //			System.out.println("drawing thing");
+		}
+		
+		for(int i = 0; i < gText.size(); i++) {
+			gText.get(i).draw(g);
 		}
 	}
 	

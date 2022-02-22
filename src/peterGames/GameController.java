@@ -28,7 +28,7 @@ public class GameController {
 	protected int Afps;
 	protected int Atps;
 	protected Config config;
-	protected GameObject[] objects;
+	protected List<GameObject> objects;
 	protected Drawing draw;
 	protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 	protected boolean go;
@@ -82,8 +82,8 @@ public class GameController {
 		config.tps = 30;
 		config.fps = 30;
 		config.debug = 0;
-		objects = new GameObject[1];
-		objects[0] = new GameObject(this, config) {
+		objects = new ArrayList<GameObject>();
+		addObject(new GameObject(this, config) {
 			
 			@Override
 			protected void setCollisionMask(CollisionMask mask) {
@@ -142,7 +142,7 @@ public class GameController {
 				return this;
 			}
 			
-		};
+		});
 		draw = new Drawing(eLogger);
 		go = true;
 		nextFrame = 0;
@@ -235,7 +235,7 @@ public class GameController {
 	 * @return GameObject[] objects
 	 */
 	public GameObject[] getobjects() {
-		return objects;
+		return objects.toArray(new GameObject[0]);
 	}
 	/**
 	 * gets the drawing object
@@ -266,6 +266,7 @@ public class GameController {
 	 */
 	public void addInfoText(GText text) {
 		infoText.add(text);
+		draw.gText.add(text);
 	}
 	/**
 	 * removes info text from screen
@@ -273,6 +274,7 @@ public class GameController {
 	 */
 	public void removeInfoText(GText text) {
 		infoText.remove(text);
+		draw.gText.remove(text);
 	}
 	
 	/**
@@ -294,7 +296,7 @@ public class GameController {
 		System.out.println("Start Time: " + getTime());
 		
 		if(!worldLoaded) {
-			world.loadWorld("default.txt");
+			world.loadDefault();
 		}
 		
 		preinit();
@@ -313,9 +315,9 @@ public class GameController {
 			public void tick(long frame) {
 				phisicsTick();
 				ticks++;
-				for(int i = 0; i < objects.length; i++) {
-					if(!objects[i].destroyed) {
-						objects[i].onTick(inputManeger);
+				for(int i = 0; i < objects.size(); i++) {
+					if(!objects.get(i).destroyed) {
+						objects.get(i).onTick(inputManeger);
 					}
 				}
 				for(int i = 0; i < deadTick.size(); i++) {
@@ -405,14 +407,14 @@ public class GameController {
 	 */
 	public void phisicsTick() {
 //		Graphic g = new Graphic();
-		for(int i = 0; i < objects.length; i++) {
-			if(!objects[i].destroyed) {
-				for(int k = i+1; k < objects.length; k++) {
-					if(!objects[k].destroyed) {
+		for(int i = 0; i < objects.size(); i++) {
+			if(!objects.get(i).destroyed) {
+				for(int k = i+1; k < objects.size(); k++) {
+					if(!objects.get(k).destroyed) {
 //						System.out.println("check " + objects[i].getName() + " and  " + objects[k].getName());
 //						g.text(objects[i].getX(), objects[i].getY(), "1", 0, 0, 0);
 //						g.text(objects[k].getX() + 6, objects[k].getY(), "2", 0, 0, 0);
-						if(objects[i].checkcollide(objects[k])) {
+						if(objects.get(i).checkcollide(objects.get(k))) {
 //							eLogger.logError("collsision", "", 0, objects[i].getName()/* + " at " + objects[i].point*/ + " and " + objects[k].getName()/* + " at " + objects[k].point*/);
 //							System.out.println("collision; " + objects[i].getName()/* + " at " + objects[i].point*/ + " and " + objects[k].getName()/* + " at " + objects[k].point*/);
 						}
@@ -434,8 +436,8 @@ public class GameController {
 		config.print();
 		frameTime = 1000/config.fps;
 		tickTime = 1000/config.tps;
-		for(int i = 0; i < objects.length; i++) {
-			objects[i].preInit();
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).preInit();
 		}
 		stage = 1;
 		
@@ -459,8 +461,8 @@ public class GameController {
 	protected void init() {
 		System.out.println("-------- Init --------");
 		
-		for(int i = 0; i < objects.length; i++) {
-			objects[i].Init();
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).Init();
 		}
 		stage = 2;
 		System.out.println("-------- Init --------");
@@ -476,15 +478,15 @@ public class GameController {
 		stage = 3;
 		frame.setPreferredSize(new Dimension(config.width,config.hight));
 		frame.addKeyListener(inputManeger);
-		inputManeger.keyPressed(48);
+//		inputManeger.keyPressed(48);
 		frame.getContentPane().add(draw);
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
-		for(int i = 0; i < objects.length; i++) {
-			objects[i].postInit();
-			draw.addGraphic(objects[i].texture);
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).postInit();
+			draw.addGraphic(objects.get(i).texture);
 		}
 		stage = 3;
 		System.out.println("-------- PostInit --------");
@@ -496,12 +498,13 @@ public class GameController {
 	 * @param x : GameObject to be added to the list
 	 */
 	public void addObject(GameObject x) {
-		GameObject[] objectsB = new GameObject[objects.length +1];
-		for(int i = 0; i < objects.length; i ++) {
-			objectsB[i] = objects[i];
-		}
-		objectsB[objects.length] = x;
-		objects = objectsB;
+		objects.add(x);
+//		GameObject[] objectsB = new GameObject[objects.size() +1];
+//		for(int i = 0; i < objects.size(); i ++) {
+//			objectsB[i] = objects.get(i);
+//		}
+//		objectsB[objects.size()] = x;
+//		objects = objectsB;
 		if(stage == 1) {
 			x.preInit();
 		} else if(stage == 2) {
@@ -513,6 +516,13 @@ public class GameController {
 			x.postInit();
 			draw.addGraphic(x.texture);
 		}
+	}
+	public boolean removeObject(GameObject x) {
+		if(objects.contains(x)) {
+			objects.remove(x);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -562,10 +572,10 @@ public class GameController {
 	 * @return if it was colliding with anything
 	 */
 	public boolean colliding(GameObject gO, Point p, String ignoreTag) {
-		for(int k = 0; k < objects.length; k++) {
-			if(!objects[k].destroyed && objects[k] != gO) {
-				if(gO.checkcollide(objects[k], p)) {
-					if(!objects[k].getTag().equals(ignoreTag)) {
+		for(int k = 0; k < objects.size(); k++) {
+			if(!objects.get(k).destroyed && objects.get(k) != gO) {
+				if(gO.checkcollide(objects.get(k), p)) {
+					if(!objects.get(k).getTag().equals(ignoreTag)) {
 						return true;
 					}
 				}
@@ -574,11 +584,11 @@ public class GameController {
 		return false;
 	}
 	public GameObject collidingG(GameObject gO, Point p, String ignoreTag) {
-		for(int k = 0; k < objects.length; k++) {
-			if(!objects[k].destroyed && objects[k] != gO) {
-				if(gO.checkcollide(objects[k], p)) {
-					if(!objects[k].getTag().equals(ignoreTag)) {
-						return objects[k];
+		for(int k = 0; k < objects.size(); k++) {
+			if(!objects.get(k).destroyed && objects.get(k) != gO) {
+				if(gO.checkcollide(objects.get(k), p)) {
+					if(!objects.get(k).getTag().equals(ignoreTag)) {
+						return objects.get(k);
 					}
 				}
 			}
@@ -680,12 +690,16 @@ public class GameController {
 	 * @param filename : file to save the world to
 	 */
 	public void saveWorld(String filename) {
-		world.saveWorld(filename,objects);
+		world.saveWorld(filename,objects.toArray(new GameObject[0]));
 	}
 	
 	public void loadWorld(String filename) {
 		worldLoaded = true;
 		world.loadWorld(filename);
+	}
+	public void loadWorld(String[] lines) {
+		worldLoaded = true;
+		world.loadWorld(lines);
 	}
 
 	public void addDefObj(GameObject obj) {
@@ -694,9 +708,9 @@ public class GameController {
 	
 	public GameObject[] getObjectsByTag(String tag) {
 		ArrayList<GameObject> objs = new ArrayList<GameObject>();
-		for(int i = 0; i < objects.length; i++) {
-			if(objects[i].getTag().equals(tag)) {
-				objs.add(objects[i]);
+		for(int i = 0; i < objects.size(); i++) {
+			if(objects.get(i).getTag().equals(tag)) {
+				objs.add(objects.get(i));
 			}
 		}
 		return objs.toArray(new GameObject[0]);

@@ -7,7 +7,6 @@ import java.util.List;
 import peterGames.util.Config;
 import peterGraphics.util.Drawing;
 import peterGraphics.util.Graphic;
-import peterLibrary.Arrays;
 
 public abstract class GameObject {
 	protected Graphic texture;
@@ -222,6 +221,11 @@ public abstract class GameObject {
 		return moveC(new Point(x,y),ignoreTag);
 	}
 	
+	public void moveA(int x, int y) {
+		point.x = x;
+		point.y = y;
+	}
+	
 	/**
 	 * get name of Object
 	 * @return String : name
@@ -310,6 +314,7 @@ public abstract class GameObject {
 	public void destroy() {
 		destroyed = true;
 		texture.setDraw(false);
+		onDestroy();
 	}
 	
 	/**
@@ -330,6 +335,8 @@ public abstract class GameObject {
 	public void setDestroyed(boolean x) {
 		destroyed = x;
 		texture.setDraw(!x);
+		if(x);
+		onDestroy();
 	}
 	
 	/**
@@ -338,6 +345,10 @@ public abstract class GameObject {
 	 * @param input : Input manger to use from Game
 	 */
 	public void deadTick(InputManeger input) {
+		
+	}
+	
+	protected void onDestroy() {
 		
 	}
 	

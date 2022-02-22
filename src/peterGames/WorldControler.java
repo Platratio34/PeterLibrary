@@ -1,11 +1,15 @@
 package peterGames;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import inputs.Files;
 
@@ -23,9 +27,31 @@ public class WorldControler {
 //		loadWorld(filename);
 	}
 	
+	public void loadDefault() {
+		ArrayList<String> strs = new ArrayList<String>();
+		try {
+			InputStream in = getClass().getResourceAsStream("default.txt");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			worldFile = reader.lines().toArray(String[]::new);
+			
+			loadWorld();
+		} catch (Exception e) {
+			
+		}
+//		System.out.println("loading default");
+	}
+	public void loadWorld(String[] lines) {
+		System.out.println("Starting world load from lines . . .");
+//		System.out.println(lines.length+"");
+		worldFile = lines;
+		loadWorld();
+	}
 	public void loadWorld(String filename) {
 		System.out.println("Starting world load: \"" + filename + "\" . . .");
 		worldFile = Files.fileAsArray(filename);
+		loadWorld();
+	}
+	private void loadWorld() {
 		if(worldFile.length > 1) {
 			int size = 1;
 			for(int i = 0; i < worldFile[1].length(); i++) {
