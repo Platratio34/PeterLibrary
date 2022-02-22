@@ -7,6 +7,7 @@ import java.util.List;
 import peterGames.util.Config;
 import peterGraphics.util.Drawing;
 import peterGraphics.util.Graphic;
+import peterLibrary.Arrays;
 
 public abstract class GameObject {
 	protected Graphic texture;
@@ -181,12 +182,24 @@ public abstract class GameObject {
 	 * @param p : Amount to move by
 	 * @return if it moved
 	 */
-	public boolean moveC(Point p) {
-		if(!parentGame.colliding(this, new Point(p.x + point.x, p.y + point.y))) {
-			move(p);
-			return true;
+	public boolean moveC(Point p, String ignoreTag) {
+		while(parentGame.colliding(this, new Point(p.x + point.x, p.y + point.y),ignoreTag)) {
+			if(p.x == 0 && p.y == 0) {
+				return false;
+			}
+			p.x /= 2;
+			p.y /= 2;
 		}
-		return false;
+		move(p);
+		return true;
+	}
+	/**
+	 * Moves only if it would not collide with somthing else
+	 * @param p : Amount to move by
+	 * @return if it moved
+	 */
+	public boolean moveC(Point p) {
+		return moveC(p,"");
 	}
 	/**
 	 * Moves only if it would not collide with somthing else
@@ -195,7 +208,10 @@ public abstract class GameObject {
 	 * @return if it moved
 	 */
 	public boolean moveC(int x, int y) {
-		return moveC(new Point(x,y));
+		return moveC(new Point(x,y),"");
+	}
+	public boolean moveC(int x, int y, String ignoreTag) {
+		return moveC(new Point(x,y),ignoreTag);
 	}
 	
 	/**
@@ -361,4 +377,17 @@ public abstract class GameObject {
 	 * @return the type
 	 */
 	public abstract String getType();
+	
+	public abstract GameObject newObj(String[] file);
+	
+	protected void setDefParm(String[] file) {
+		String posS = file[1].substring(12,file[1].length()-2);
+		String[] posSA = posS.split(",");
+		point.x = Integer.parseInt(posSA[0]);
+		point.y = Integer.parseInt(posSA[1]);
+		// TODO when rotation is added, add it here
+		destroyed = Boolean.parseBoolean(file[3].substring(12,file[3].length()-1));
+		name = file[4].substring(8,file[4].length()-2);
+		tag = file[5].substring(7,file[5].length()-2);
+	}
 }

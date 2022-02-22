@@ -10,6 +10,7 @@ import errorHandler.*;
 
 @SuppressWarnings("serial")
 public class Drawing extends JPanel {
+	
 	private Graphic[] graphics;
 	private List<Shape> updatingShapes;
 	private ErrorLogger eLogger;

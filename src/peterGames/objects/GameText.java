@@ -110,5 +110,10 @@ public class GameText extends GameObject {
 		
 		return out;
 	}
+	@Override
+	public GameObject newObj(String[] file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

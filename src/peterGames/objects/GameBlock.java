@@ -77,4 +77,20 @@ public class GameBlock extends GameObject {
 		return "GameBlock";
 	}
 
+	@Override
+	public GameObject newObj(String[] file) {
+		GameBlock nB = new GameBlock(parentGame, cfg, 0,0,0,0,0);
+		nB.setDefParm(file);
+		String sizeS = file[6].substring(8,file[6].length()-2);
+		String[] sizeA = sizeS.split(",");
+		nB.w = Integer.parseInt(sizeA[0]);
+		nB.h = Integer.parseInt(sizeA[1]);
+		String colorS = file[7].substring(9,file[7].length()-2);
+		String[] colorA = colorS.split(",");
+		nB.r = Integer.parseInt(colorA[0]);
+		nB.g = Integer.parseInt(colorA[1]);
+		nB.b = Integer.parseInt(colorA[2]);
+		return nB;
+	}
+
 }

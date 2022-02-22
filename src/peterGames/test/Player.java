@@ -70,4 +70,10 @@ public class Player extends GameObject {
 		return "Player";
 	}
 
+	@Override
+	public GameObject newObj(String[] file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -13,6 +13,9 @@ import java.util.UUID;
 import javax.swing.JFrame;
 
 import errorHandler.ErrorLogger;
+import peterGames.objects.GameBlock;
+import peterGames.objects.GamePlayer;
+import peterGames.objects.GameText;
 import peterGames.timers.TickEvent;
 import peterGames.timers.TickTimer;
 import peterGames.util.Config;
@@ -54,6 +57,8 @@ public class GameController {
 	
 	public Point worldSize;
 	public Point worldOffset;
+	
+	private boolean worldLoaded;
 	
 	/** 
 	 * Resets all variables
@@ -131,6 +136,11 @@ public class GameController {
 			public String getType() {
 				return "null";
 			}
+
+			@Override
+			public GameObject newObj(String[] file) {
+				return this;
+			}
 			
 		};
 		draw = new Drawing(eLogger);
@@ -147,6 +157,9 @@ public class GameController {
 		worldSize = new Point(config.width, config.hight);
 		worldOffset = new Point();
 		world = new WorldControler("default.txt", this);
+		world.addDefObj(new GameBlock(this,config,0,0,0,0,0));
+		world.addDefObj(new GamePlayer(this,config,0));
+		world.addDefObj(new GameText(this,config,""));
 	}
 	
 	//getters and setters
@@ -277,9 +290,13 @@ public class GameController {
 	 *  -starts tick, frame, and other timers
 	 *  -runs the init cycle
 	 */
-	public void run() {
-
+	public void run() {	
 		System.out.println("Start Time: " + getTime());
+		
+		if(!worldLoaded) {
+			world.loadWorld("default.txt");
+		}
+		
 		preinit();
 		init();
 		postinit();
@@ -532,10 +549,22 @@ public class GameController {
 	 * @return if it was colliding with anything
 	 */
 	public boolean colliding(GameObject gO, Point p) {
+		return colliding(gO,p,"");
+	}
+	/**
+	 * Checks if a GameObject at position p would collide with anythigh else
+	 * @param gO : game object to check
+	 * @param p : position for gameobject
+	 * @param ignoreTag : tag to ignore for the check
+	 * @return if it was colliding with anything
+	 */
+	public boolean colliding(GameObject gO, Point p, String ignoreTag) {
 		for(int k = 0; k < objects.length; k++) {
-			if(!objects[k].destroyed) {
+			if(!objects[k].destroyed && objects[k] != gO) {
 				if(gO.checkcollide(objects[k], p)) {
-					return true;
+					if(!objects[k].getTag().equals(ignoreTag)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -640,6 +669,11 @@ public class GameController {
 	}
 	
 	public void loadWorld(String filename) {
+		worldLoaded = true;
 		world.loadWorld(filename);
+	}
+
+	public void addDefObj(GameObject obj) {
+		world.addDefObj(obj);
 	}
 }
