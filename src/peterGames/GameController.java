@@ -688,4 +688,14 @@ public class GameController {
 	public void addDefObj(GameObject obj) {
 		world.addDefObj(obj);
 	}
+	
+	public GameObject[] getObjectsByTag(String tag) {
+		ArrayList<GameObject> objs = new ArrayList<GameObject>();
+		for(int i = 0; i < objects.length; i++) {
+			if(objects[i].getTag().equals(tag)) {
+				objs.add(objects[i]);
+			}
+		}
+		return objs.toArray(new GameObject[0]);
+	}
 }
