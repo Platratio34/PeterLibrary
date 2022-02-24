@@ -11,6 +11,11 @@ import peterGames.util.Key;
 import peterGraphics.util.Graphic;
 import peterGraphics.util.Shape;
 
+/**
+ * Basic player charecter. Uses inputs: "up"/"forward", "down"/"backword", "left", and "right". Tag: "player"
+ * @author Peter Crall
+ *
+ */
 public class GamePlayer extends GameObject {
 	
 	/**
@@ -39,6 +44,7 @@ public class GamePlayer extends GameObject {
 		down = false;
 		left = false;
 		right = false;
+		tag = "player";
 	}
 
 	@Override

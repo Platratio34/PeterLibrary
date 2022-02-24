@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Configuration file for a game. Has tps, fps, size, debug mode, and key maping
+ * @author peter
+ *
+ */
 public class Config {
 	
 	/**

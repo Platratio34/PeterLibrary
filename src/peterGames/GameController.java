@@ -24,6 +24,10 @@ import peterGraphics.util.GText;
 import peterGraphics.util.Graphic;
 import peterLibrary.PeterMath;
 
+/**
+ * Primary part of PeterGames. Handels ticks, frames, some physics, interfaceing with graphics, and input
+ * @author Peter Crall
+ */
 public class GameController {
 	protected int Afps;
 	protected int Atps;

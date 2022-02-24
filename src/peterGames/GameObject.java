@@ -8,6 +8,11 @@ import peterGames.util.Config;
 import peterGraphics.util.Drawing;
 import peterGraphics.util.Graphic;
 
+/**
+ * Base class for all objects in the game
+ * @author Peter Crall
+ *
+ */
 public abstract class GameObject {
 	
 	/**

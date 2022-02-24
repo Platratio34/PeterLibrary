@@ -9,6 +9,11 @@ import peterGames.InputManeger;
 import peterGames.util.Config;
 import peterGraphics.util.Graphic;
 
+/**
+ * Simple in game text. Tag: "text". Uses it's name as the text
+ * @author peter
+ *
+ */
 public class GameText extends GameObject {
 
 	protected Font font;
@@ -23,6 +28,7 @@ public class GameText extends GameObject {
 		super(game, Cfg);
 		name = Name;
 		font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+		tag = "text";
 	}
 	/**
 	 * Constructor for {@code GameText}
@@ -35,6 +41,7 @@ public class GameText extends GameObject {
 		super(game, Cfg);
 		name = Name;
 		font = font_;
+		tag = "text";
 	}
 
 	@Override

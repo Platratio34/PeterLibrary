@@ -1,5 +1,10 @@
 package peterGames.util;
 
+/**
+ * Key for custom key maping, links internal and external id to a name
+ * @author peter
+ *
+ */
 public class Key {
 	public int id;
 	public String name;

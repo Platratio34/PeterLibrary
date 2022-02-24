@@ -1,5 +1,10 @@
 package peterGames.timers;
 
+/**
+ * Event for TickTimer
+ * @author Peter Crall
+ *
+ */
 public interface TickEvent {
 	
 	/**

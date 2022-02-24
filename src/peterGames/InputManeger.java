@@ -7,6 +7,11 @@ import java.awt.Point;
 
 import peterGames.util.Key;
 
+/**
+ * Handels keybord input. Has internal and external IDs to allow for simple runtime key rebinding
+ * @author Peter Crall
+ *
+ */
 public class InputManeger implements KeyListener {
 	protected boolean[] externalD;
 	protected boolean[] externalU;

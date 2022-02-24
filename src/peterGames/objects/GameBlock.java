@@ -8,6 +8,11 @@ import peterGames.util.Config;
 import peterGraphics.util.Graphic;
 import vectorLibrary.LineSegment;
 
+/**
+ * Simple block GameObject. has a matching collision mask. Tag: "block"
+ * @author Peter Crall
+ *
+ */
 public class GameBlock extends GameObject {
 	protected int w;
 	protected int h;

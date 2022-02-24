@@ -7,6 +7,11 @@ import peterGames.InputManeger;
 import peterGames.util.Config;
 import peterGraphics.util.Graphic;
 
+/**
+ * Simple button in game. Tag: "button". Can be extended for custom functionality
+ * @author Peter Crall
+ *
+ */
 public abstract class GameButton extends GameObject {
 	
 	protected int w;
@@ -28,6 +33,7 @@ public abstract class GameButton extends GameObject {
 		w = W;
 		h = H;
 		pressed = false;
+		tag = "button";
 	}
 	/**
 	 * constructor
@@ -47,6 +53,7 @@ public abstract class GameButton extends GameObject {
 		w = W;
 		h = H;
 		pressed = false;
+		tag = "button";
 	}
 	
 	@Override

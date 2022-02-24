@@ -9,6 +9,11 @@ import java.util.UUID;
 
 import errorHandler.ErrorLogger;
 
+/**
+ * Loop timer for running set spaced ticks or frames
+ * @author Peter Crall
+ *
+ */
 public class TickTimer extends Thread {
 	
 	long del;

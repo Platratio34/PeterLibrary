@@ -7,6 +7,10 @@ import peterGraphics.util.Shape;
 import peterLibrary.*;
 import vectorLibrary.LineSegment;
 
+/**
+ * Mask for caculating collisions. Defined by an array of line segments
+ * @author Peter Crall
+ */
 public class CollisionMask {
 	
 	protected LineSegment[] lines;

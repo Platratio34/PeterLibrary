@@ -13,6 +13,11 @@ import java.util.stream.Stream;
 
 import inputs.Files;
 
+/**
+ * Manages saving and loading worlds
+ * @author Peter Crall
+ *
+ */
 public class WorldControler {
 	
 	private String[] worldFile;
