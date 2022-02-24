@@ -15,8 +15,42 @@ public class GameBlock extends GameObject {
 	protected int g;
 	protected int b;
 	
+	/**
+	 * Constructor for {@code GameBlock}
+	 * @param game : the current {@GameController} object
+	 * @param Cfg : the current {@code Config} from the game
+	 * @param W : the width of the block
+	 * @param H : the height of the block
+	 * @param R : the red value of the color
+	 * @param G : the green value of the color
+	 * @param B : the blue value of the color
+	 * @deprecated Use {@code GameBlock(GameController,Config,int,int,int,int,int,int,int) insted
+	 */
+	@Deprecated
 	public GameBlock(GameController game, Config Cfg, int W, int H, int R ,int B, int G) {
 		super(game, Cfg);
+		w = W;
+		h = H;
+		r = R;
+		g = G;
+		b = B;
+		tag = "block";
+	}
+	/**
+	 * Constructor for {@code GameBlock}
+	 * @param game : the current {@GameController}
+	 * @param Cfg : the curretn {@code Config} from game
+	 * @param x : the starting x coordinate
+	 * @param y : the starting y coordinate
+	 * @param W : the width of the block
+	 * @param H : the height of the block
+	 * @param R : the red value of the color
+	 * @param G : the green value of the color
+	 * @param B : the blue value of the color
+	 */
+	public GameBlock(GameController game, Config Cfg, int x, int y, int W, int H, int R ,int G, int B) {
+		super(game, Cfg);
+		moveA(x,y);
 		w = W;
 		h = H;
 		r = R;

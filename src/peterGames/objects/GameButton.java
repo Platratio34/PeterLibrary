@@ -15,15 +15,34 @@ public abstract class GameButton extends GameObject {
 	
 	/**
 	 * constructor
-	 * @param game : GameController object
-	 * @param Cfg : configuration
-	 * @param Name : name of button
-	 * @param W : width of button
-	 * @param H : height of button
+	 * @param game : the current {@code GameController} object
+	 * @param Cfg : the current {@code Config} from the game
+	 * @param Name : the name of button
+	 * @param W : the width of button
+	 * @param H : the height of button
 	 */
 	public GameButton(GameController game, Config Cfg, String Name, int W, int H) {
 		super(game, Cfg);
 		name = Name;
+		game.addMouseUser(this);
+		w = W;
+		h = H;
+		pressed = false;
+	}
+	/**
+	 * constructor
+	 * @param game : the current {@code GameController} object
+	 * @param Cfg : the current {@code Config} from the game
+	 * @param Name : the name of button
+	 * @param x : the starting x coordinate
+	 * @param y : the starting y coordinate
+	 * @param W : the width of button
+	 * @param H : the height of button
+	 */
+	public GameButton(GameController game, Config Cfg, String Name, int x, int y, int W, int H) {
+		super(game, Cfg);
+		name = Name;
+		moveA(x,y);
 		game.addMouseUser(this);
 		w = W;
 		h = H;
@@ -40,30 +59,31 @@ public abstract class GameButton extends GameObject {
 	}
 	
 	/**
-	 * returns the current state of the button
-	 * @return is button pressed
+	 * Gets the current state of the button
+	 * @return if the button is pressed
 	 */
 	public boolean isPressed() {
 		return pressed;
 	}
 	
 	/**
-	 * set the pressed state
-	 * @param Pressed : state to set to
+	 * Sets the state of the button
+	 * @param Pressed : the new state
 	 */
 	public void setPressed(boolean Pressed) {
 		pressed = Pressed;
+		onPressed(true);
 	}
 	
 	/**
-	 * on press event
-	 *  -called when button is pressed
-	 * @param pressed : is button pressed
+	 * Called when the button is pressed
+	 *  <li> Called from onMousePressed if it is inside the button size </li>
+	 * @param pressed : the new button state
 	 */
 	protected abstract void onPressed(boolean pressed);
 	
 	/**
-	 * waits for the next press of the button
+	 * Waits for the next press of the button, then returns. NOT RECOMENDED, ties up the main thred until the button is pressed
 	 * @return true
 	 */
 	public Boolean nextPress() {

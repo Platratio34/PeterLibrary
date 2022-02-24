@@ -13,13 +13,25 @@ import peterGraphics.util.Shape;
 
 public class GamePlayer extends GameObject {
 	
-	int[] controls = new int[4];
-	int speed;
-	public boolean up;
-	public boolean down;
-	public boolean left;
-	public boolean right;
+	/**
+	 * list of control ids
+	 */
+	private int[] controls = new int[4];
+	/**
+	 * The speed of the player
+	 */
+	protected int speed;
+	private boolean up;
+	private boolean down;
+	private boolean left;
+	private boolean right;
 	
+	/**
+	 * Constructor for {@code GamePlayer}
+	 * @param game : the current {@GameController}
+	 * @param Cfg : the curretn {@code Config} from game
+	 * @param Speed : the speed of the player
+	 */
 	public GamePlayer(GameController game, Config Cfg, int Speed) {
 		super(game, Cfg);
 		speed = Speed;
@@ -120,11 +132,18 @@ public class GamePlayer extends GameObject {
 	public String getType() {
 		return "GamePlayer";
 	}
-
+	
+	@Override
+	public String onSave() {
+		return "\t\tspeed:" + speed + ";\n";
+	}
+	
 	@Override
 	public GameObject newObj(String[] file) {
-		// TODO Auto-generated method stub
-		return null;
+		GamePlayer nP = new GamePlayer(parentGame, cfg, 0);
+		nP.setDefParm(file);
+		nP.speed = Integer.parseInt(file[6].substring(8,file[6].length()-1));
+		return nP;
 	}
 
 }

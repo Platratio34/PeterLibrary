@@ -19,7 +19,7 @@ sector<1>: {
 		destroyed:false;
 		name:"object";
 		tag:"null";
-		null;
+		speed:0;
 	}
 	object: {
 		type:Player;

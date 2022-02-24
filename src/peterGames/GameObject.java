@@ -468,7 +468,7 @@ public abstract class GameObject {
 	/**
 	 * Creates a new object of the same type based off of a portion of a world file
 	 *  <li> Called by the WorldController when loading a world </li>
-	 *  <li> should call {@code setDefParm(String[]) on the new object</li>
+	 *  <li> Should call {@code setDefParm(String[])} on the new object </li>
 	 * @param file : the lines of the world file pertaining to the object
 	 * @return A new object of the same class with all class specific parameters loaded
 	 */
@@ -476,7 +476,7 @@ public abstract class GameObject {
 	
 	/**
 	 * Sets all generic variables of {@code GameObject}
-	 *  <li> Sets position, rotation, destroyed state, name, and tag</li>
+	 *  <li> Sets position, rotation, destroyed state, name, and tag </li>
 	 * @param file : the lines of the world file pertaining to the object
 	 */
 	protected void setDefParm(String[] file) {

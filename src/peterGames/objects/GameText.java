@@ -11,32 +11,30 @@ import peterGraphics.util.Graphic;
 
 public class GameText extends GameObject {
 
-	Font font;
+	protected Font font;
 	
 	/**
-	 * default constructor
-	 * @param game : GameController
-	 * @param Cfg : configuration
-	 * @param Name : text to display
+	 * Constructor for {@code GameText}
+	 * @param game : the current {@GameController}
+	 * @param Cfg : the curretn {@code Config} from game
+	 * @param Name : the text to display
 	 */
 	public GameText(GameController game, Config Cfg, String Name) {
 		super(game, Cfg);
 		name = Name;
 		font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
-		// TODO Auto-generated constructor stub
 	}
 	/**
-	 * constructor
-	 * @param game : GameController
-	 * @param Cfg : configuration
-	 * @param Name : text to display
-	 * @param font_ : font to use
+	 * Constructor for {@code GameText}
+	 * @param game : the current {@GameController}
+	 * @param Cfg : the curretn {@code Config} from game
+	 * @param Name : the text to display
+	 * @param font_ : the font to use
 	 */
 	public GameText(GameController game, Config Cfg, String Name, Font font_) {
 		super(game, Cfg);
 		name = Name;
 		font = font_;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -75,8 +73,8 @@ public class GameText extends GameObject {
 	}
 	
 	/**
-	 * set the text to something
-	 * @param text : String to set the text to
+	 * Sets the text to something
+	 * @param text : the new text
 	 */
 	public void setText(String text) {
 		name = text;
@@ -85,9 +83,9 @@ public class GameText extends GameObject {
 		setDraw(texture);
 	}
 	/**
-	 * set the text to something with a font
-	 * @param text : String to set the text to
-	 * @param font_ : font to use
+	 * Sets the text to something, and changes the font
+	 * @param text : the new text
+	 * @param font_ : the new font
 	 */
 	public void setText(String text, Font font_) {
 		name = text;
@@ -105,14 +103,16 @@ public class GameText extends GameObject {
 	@Override
 	public String onSave() {
 		String out = "";
-		
-		out += "\t\tfont:[" + font.getFontName() + "," + font.getSize() + "];" + "\n";
+		out += "\t\tfont:[" + font.getFontName() + "," + font.getStyle() + "," + font.getSize() + "];" + "\n";
 		
 		return out;
 	}
 	@Override
 	public GameObject newObj(String[] file) {
-		// TODO Auto-generated method stub
+		GameText nT = new GameText(parentGame,cfg,"");
+		nT.setDefParm(file);
+		String[] fPrms = file[6].substring(8,file[6].length()-2).split(",");
+		setText(nT.name, new Font( fPrms[0], Integer.parseInt(fPrms[1]), Integer.parseInt(fPrms[2]) ) );
 		return null;
 	}
 
