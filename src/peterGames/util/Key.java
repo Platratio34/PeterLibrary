@@ -6,10 +6,10 @@ public class Key {
 	public int key;
 	
 	/**
-	 * default constructor
-	 * @param ID : internal id
-	 * @param Name : name of action
-	 * @param Key : external key id
+	 * Constructor for {@code Key}
+	 * @param ID : the internal id of the key
+	 * @param Name : the name of action
+	 * @param Key : the external id of the key (from {@code KeyEvent})
 	 */
 	public Key(int ID, String Name, int Key) {
 		id = ID;
@@ -18,8 +18,8 @@ public class Key {
 	}
 	
 	/**
-	 * returns a copy of the key
-	 * @return : copy of key
+	 * Returns a copy of the key
+	 * @return a copy of the key
 	 */
 	public Key clone() {
 		return new Key(id, name, key);

@@ -22,6 +22,12 @@ public class TickTimer extends Thread {
 	private ErrorLogger Eloger;
 	private String type;
 	
+	/**
+	 * Constructor for {@code TickTimer}
+	 * @param tps : the ticks per seconds
+	 * @param logger : {@code ErrorLogger} for logging errors to
+	 * @param Type : they type of timer for error logging
+	 */
 	public TickTimer(int tps, ErrorLogger logger, String Type) {
 		super("TickTimer");
 		type = Type;
@@ -39,19 +45,35 @@ public class TickTimer extends Thread {
 		addToDo(new TickEvent() { public void tick(long frame) { } }, UUID.randomUUID());
 	}
 	
+	/**
+	 * Adds a tick event to the timer
+	 * @param task : the event
+	 * @param taskUUID : the UUID of the event
+	 */
 	public void addToDo(TickEvent task, UUID taskUUID) {
 		//System.out.println("Adding Tick ToDo");
 		todo.put(taskUUID, task);
 	}
+	/**
+	 * Removes an event by UUID
+	 * @param taskUUID : the UUID of the task to remove
+	 */
 	public void removeToDo(UUID taskUUID) {
 		todo.remove(taskUUID);
 	}
 	
+	/**
+	 * Stops the timer
+	 */
 	public void end() {
 		running = false;
 		//System.out.println("Stopping ticker");
 	}
 	
+	/**
+	 * Sets the number of ticks per seconds
+	 * @param tps : the tps of the timer
+	 */
 	public void settps(int tps) {
 		fps = tps;
 		del = 1000000000 / this.fps;
@@ -59,6 +81,9 @@ public class TickTimer extends Thread {
 	
 	private long startTick = 0;
 	
+	/**
+	 * Starts the timer
+	 */
 	@Override
 	public void run() {
 		//System.out.println("Starting ticker with period " + del + "ns");
