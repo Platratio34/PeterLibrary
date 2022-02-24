@@ -155,8 +155,4 @@ public class InputManeger implements KeyListener {
 		}
 		return false;
 	}
-	
-	public Point getMousePos() {
-		return null;
-	}
 }

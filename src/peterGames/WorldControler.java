@@ -15,18 +15,35 @@ import inputs.Files;
 
 public class WorldControler {
 	
-	String[] worldFile;
-	int[] sectorIndex;
-	int[][] chunkIndex;
-	GameController game;
-	Map<String, GameObject> objs;
+	private String[] worldFile;
+	private int[] sectorIndex;
+	private int[][] chunkIndex;
+	private GameController game;
+	private Map<String, GameObject> objs;
 	
+	/**
+	 * Constructor for WorldController. Loads runs {@code loadWorld(String)} passing in {@code filename}
+	 * @param filename : the file to load
+	 * @param Game : a reference to the associated {@code GameController}
+	 */
+	@Deprecated
 	public WorldControler(String filename, GameController Game) {
 		game = Game;
 		objs = new HashMap<String, GameObject>();
-//		loadWorld(filename);
+		loadWorld(filename);
+	}
+	/**
+	 * Constructor for WorldController
+	 * @param game : a reference to the associated {@code GameController}
+	 */
+	public WorldControler(GameController game) {
+		this.game = game;
+		objs = new HashMap<String, GameObject>();
 	}
 	
+	/**
+	 * Loads "default.txt" using {@code getClass().getResourceAsStream(String)}
+	 */
 	public void loadDefault() {
 		ArrayList<String> strs = new ArrayList<String>();
 		try {
@@ -40,17 +57,28 @@ public class WorldControler {
 		}
 //		System.out.println("loading default");
 	}
+	/**
+	 * Loads a world from a {@code String[]}
+	 * @param lines : the array of strings representing the lines of the world file
+	 */
 	public void loadWorld(String[] lines) {
 		System.out.println("Starting world load from lines . . .");
 //		System.out.println(lines.length+"");
 		worldFile = lines;
 		loadWorld();
 	}
+	/**
+	 * Loads a world using a file path.
+	 * @param filename : the path of the file to load
+	 */
 	public void loadWorld(String filename) {
 		System.out.println("Starting world load: \"" + filename + "\" . . .");
 		worldFile = Files.fileAsArray(filename);
 		loadWorld();
 	}
+	/**
+	 * Loads the world from {@code worldFile}
+	 */
 	private void loadWorld() {
 		if(worldFile.length > 1) {
 			int size = 1;
@@ -125,14 +153,29 @@ public class WorldControler {
 		}
 	}
 	
+	/**
+	 * Loads the chunk at {@code (x,y)}
+	 * @param x : the x position of the chunk
+	 * @param y : the y position of the chunk
+	 */
 	public void loadChunk(int x, int y) {
 		
 	}
 	
+	/**
+	 * Saves the chunk at {@code (x,y)}
+	 * @param x : the x position of the chunk
+	 * @param y : the y position of the chunk
+	 */
 	public void saveChunk(int x, int y) {
 		
 	}
 	
+	/**
+	 * Saves a {@code GameObject[]} to a file
+	 * @param filename : the path of the file to save into
+	 * @param objects : the array of {@code GameObejcts} to save
+	 */
 	public void saveWorld(String filename, GameObject[] objects) {
 		try {
 			PrintStream stream = new PrintStream(new File(filename));
@@ -150,9 +193,12 @@ public class WorldControler {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Adds a default object for world loading
+	 * @param obj : the {@code GameObject} to add to the list of default objects
+	 */
 	public void addDefObj(GameObject obj) {
-//		System.out.println("adding " + obj.getType());
 		objs.put(obj.getType(), obj);
 	}
 }

@@ -9,15 +9,43 @@ import peterGraphics.util.Drawing;
 import peterGraphics.util.Graphic;
 
 public abstract class GameObject {
+	
+	/**
+	 * Texture of the object
+	 */
 	protected Graphic texture;
+	/**
+	 * Current location of the object
+	 */
 	protected Point point;
+	/**
+	 * Collision mask of the object
+	 */
 	protected CollisionMask mask;
+	/**
+	 * The name of the object. Instance specific
+	 */
 	protected String name;
+	/**
+	 * The game the object is in
+	 */
 	protected GameController parentGame;
+	/**
+	 * If the object is in the destroyed state
+	 */
 	protected boolean destroyed;
+	/**
+	 * The game configuration
+	 */
 	protected Config cfg;
+	/**
+	 * The tag of the object
+	 */
 	protected String tag;
 	
+	/**
+	 * Used for calling {@code collideEnter()} and {@code collideExit()} in {@code checkCollide()}
+	 */
 	private List<GameObject> lCollide;
 	
 	/**
@@ -45,9 +73,11 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * Initlization event
-	 *  -Sets texture
-	 *  -Sets collision mask
+	 * Initlization event. Should not be overrided, use {@code preInit()} or {@code postInit()} instead
+	 * <ul>
+	 *  <li> Sets texture </li>
+	 *  <li> Sets collision mask </li>
+	 * </ul>
 	 */
 	public void Init() {
 		setDraw(texture);
@@ -55,45 +85,57 @@ public abstract class GameObject {
 		texture.setPoint(point);
 		setCollisionMask(mask);
 	}
+	
 	/**
-	 * Sets up Collision Mask
-	 * @param mask : Mask to add to
+	 * Sets up the collision mask
+	 * @param mask : the mask to set up
 	 */
 	protected abstract void setCollisionMask(CollisionMask mask);
+	
 	/**
-	 * Sets up Graphic
-	 * @param texture : Graphic to add to
+	 * Sets up the texture
+	 * @param texture : the texture to set up
 	 */
 	protected abstract void setDraw(Graphic texture);
 	
 	/**
-	 * Pre-Init event
-	 *  -Called by GameController
+	 * Pre-Init event.
+	 * <ul>
+	 *  <li> Called by GameController at the beginning of the initialization phase </li>
+	 * </ul>
 	 */
 	public abstract void preInit();
+	
 	/**
-	 * Post-Init event
-	 *  -Called by GameController
+	 * Post-Init event.
+	 * <ul>
+	 *  <li> Called by GameController at the end of the initialization phase </li>
+	 * </ul>
 	 */
 	public abstract void postInit();
 	
 	/**
 	 * on Graphic Tick event
-	 *  -Called by GameController
-	 * Must have subscribed to graphic tick list on parentGame to use
+	 * <ul>
+	 *  <li> Called by GameController every frame </li>
+	 *  <li> Must have subscribed to graphic tick list on parentGame to be called </li>
+	 * </ul>
 	 */
 	public void onGTick() {
 		
 	}
+	
 	/**
 	 * On Tick Event
-	 *  -Called by GameController
-	 * @param input : Input manger to use from Game
+	 * <ul>
+	 *  <li> Called by GameController every logical tick </li>
+	 * </ul>
+	 * @param input : input maneger to use from Game
 	 */
 	public abstract void onTick(InputManeger input);
 	
 	/**
-	 * sets Graphic
+	 * Sets the texture
 	 * @param x : Graphic to set texture to
  	 */
 	public void setTexture(Graphic x) {
@@ -102,74 +144,78 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * on collision with object
-	 *  -Called by GameController during physics tick
-	 * @param object
+	 * Called  when the object collides with something else
+	 *  <li> Called by GameController during physics tick </li>
+	 *  <li> Also called by {@code moveC()} if the movement collided with something </li>
+	 * @param object : the object that collided with this object
 	 */
 	protected void collided(GameObject object) {}
 	
 	/**
-	 * on collision enter with object
-	 *  -Called by GameController during physics tick
+	 * Called on the first tick that an object is colliding with this object
+	 *  <li> Called by GameController during physics tick </li>
 	 * @param object
 	 */
 	protected void collideEnter(GameObject object) {}
 	
 	/**
-	 * on collision exit with object
-	 *  -Called by GameController during physics tick
+	 * Called when an object is no longer colliding with this object
+	 *  <li> Called by GameController during physics tick </li>
 	 * @param object
 	 */
 	protected void collideExit(GameObject object) {}
 	
 	/**
-	 * get X pos of object
-	 * @return int point.x
+	 * Gets the x position of the object
+	 * @return The current x position of the object
 	 */
 	public int getX() {
 		return point.x;
 	}
 	/**
-	 * get Y pos of object
-	 * @return int point.y
+	 * Gets the y position of the object
+	 * @return The current y position of the object
 	 */
 	public int getY() {
 		return point.y;
 	}
 	/**
-	 * get point of object
-	 * @return Point point
+	 * Gets combined point of the object
+	 * @return The current combined position
 	 */
 	public Point getPoint() {
 		return (Point) point.clone();
 	}
 	/**
-	 * sets point of object
-	 * @param p : Point to set to copy of
+	 * Sets the point of the object.
+	 * @param p : the point to set to
+	 * @deprecated Use {@code moveA()} instead
 	 */
+	@Deprecated
 	public void setPoint(Point p) {
 		point = (Point) p.clone();
 	}
 	
 	/**
-	 * sets the depth of the object
+	 * Sets the draw depth of the texture
+	 * @param Depth : the new draw depth of the texture
 	 */
 	public void setDepth(int Depth) {
 		texture.setDepth(Depth);
 	}
 	
 	/**
-	 * Moves the object by point
-	 * @param p : Point offest 
+	 * Moves the object by an amount
+	 * @param p : the amount to move by
 	 */
 	public void move(Point p) {
 		point.x += p.x;
 		point.y += p.y;
 	}
 	/**
-	 * Moves the object by x and y
-	 * @param x : x offest
-	 * @param y : y offest
+	 * Moves the object by an amount
+	 * @param x : the amount to move in the x axis
+	 * @param y : the amount to move in the y axis
 	 */
 	public void move(int x, int y) {
 		point.x += x;
@@ -177,9 +223,12 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * Moves only if it would not collide with somthing else
-	 * @param p : Amount to move by
-	 * @return if it moved
+	 * Moves only as much as it can so that it does not collide with something else.
+	 * If the movement would result in a collision, then it decreases the distance by one tenth and tries again, repeating until it does not collide.
+	 * If the initial movement would result in a collision, it calls {@code collided()} on this object and the object is is colliding with.
+	 * @param p : the amount to move by
+	 * @param ignoreTag : the tag to ignore in the collision check
+	 * @return If it moved at all, returns false if no movement along that direction is possible
 	 */
 	public boolean moveC(Point p, String ignoreTag) {
 		GameObject other = parentGame.collidingG(this, new Point(p.x + point.x, p.y + point.y),ignoreTag);
@@ -201,57 +250,75 @@ public abstract class GameObject {
 		return true;
 	}
 	/**
-	 * Moves only if it would not collide with somthing else
-	 * @param p : Amount to move by
-	 * @return if it moved
+	 * Moves only as much as it can so that it does not collide with something else.
+	 * If the movement would result in a collision, then it decreases the distance by one tenth and tries again, repeating until it does not collide.
+	 * If the initial movement would result in a collision, it calls {@code collided()} on this object and the object is is colliding with.
+	 * @param p : the amount to move by
+	 * @return If it moved at all, returns false if no movement along that direction is possible
 	 */
 	public boolean moveC(Point p) {
 		return moveC(p,"");
 	}
 	/**
-	 * Moves only if it would not collide with somthing else
-	 * @param x : Amount to move in the x
-	 * @param y : Amount to move in the y
-	 * @return if it moved
+	 * Moves only as much as it can so that it does not collide with something else.
+	 * If the movement would result in a collision, then it decreases the distance by one tenth and tries again, repeating until it does not collide.
+	 * If the initial movement would result in a collision, it calls {@code collided()} on this object and the object is is colliding with.
+	 * @param x : the amount to move in the x axis
+	 * @param y : the amount to move in the y axis
+	 * @return If it moved at all, returns false if no movement along that direction is possible
 	 */
 	public boolean moveC(int x, int y) {
 		return moveC(new Point(x,y),"");
 	}
+	/**
+	 * Moves only as much as it can so that it does not collide with something else.
+	 * If the movement would result in a collision, then it decreases the distance by one tenth and tries again, repeating until it does not collide.
+	 * If the initial movement would result in a collision, it calls {@code collided()} on this object and the object is is colliding with.
+	 * @param x : the amount to move in the x axis
+	 * @param y : the amount to move in the y axis
+	 * @param ignoreTag : the tag to ignore in the collision check
+	 * @return If it moved at all, returns false if no movement along that direction is possible
+	 */
 	public boolean moveC(int x, int y, String ignoreTag) {
 		return moveC(new Point(x,y),ignoreTag);
 	}
 	
+	/**
+	 * Moves to the point {@code (x,y)}
+	 * @param x : the x coordinate of the point to move to
+	 * @param y : the y coordinate of the point to move to
+	 */
 	public void moveA(int x, int y) {
 		point.x = x;
 		point.y = y;
 	}
 	
 	/**
-	 * get name of Object
-	 * @return String : name
+	 * Gets the name of the object
+	 * @return The name of the object
 	 */
 	public String getName() {
 		return name;
 	}
 	/**
-	 * get tag of object
-	 * @return String : tag
+	 * Gets the tag of the object
+	 * @return The tag of the object
 	 */
 	public String getTag() {
 		return tag;
 	}
 	/**
-	 * is object destroyed
-	 * @return boolean : destroyed
+	 * Gets if the object is in the destroyed state
+	 * @return If the object is destroyed
 	 */
 	public boolean isDestroyed() {
 		return destroyed;
 	}
 	
 	/**
-	 * Check if object is colliding with other and triggers collided() on the both if they are
-	 * @param other : GameObject to check collision against
-	 * @return boolean : is colliding
+	 * Check if the object is colliding with other and triggers collided() on the both if they are
+	 * @param other : the {@code GameObject} to check collision against
+	 * @return If they are colliding
 	 */
 	protected boolean checkcollide(GameObject other) {
 		if(mask.checkCollide(other.mask, this.point, other.point)) {
@@ -287,29 +354,30 @@ public abstract class GameObject {
 		} 
 	}
 	
-	@Deprecated
+	
 	/**
-	 *  *DEPRICATED*
-	 *  adds texture to Drawing object
+	 * Adds the texture to Drawing object
+	 * @deprecated
 	 * @param draw : Drawing object to add to
 	 */
+	@Deprecated
 	public void draw(Drawing draw) {
 		draw.addGraphic(texture,point.x,point.y);
 	}
-	@Deprecated
 	/**
-	 *  *DEPRICATED*
-	 *  adds debug texture to Drawing object
+	 * Adds the debug texture to Drawing object
+	 * @deprecated
 	 * @param draw : Drawing object to add to
 	 */
+	@Deprecated
 	public void drawD(Drawing draw) {
 		draw.addGraphic(mask.getGraphic(),point.x,point.y);
 	}
 	
 	/**
-	 * destroyes object
-	 *  -sets destroyed to true
-	 *  -sets texture draw to false
+	 * Destroys the object
+	 *  <li> sets destroyed to true </li>
+	 *  <li> sets texture draw to false </li>
 	 */
 	public void destroy() {
 		destroyed = true;
@@ -318,42 +386,42 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * On mouse down
-	 *  -must be subscribed to MouseLister list on parentGame
-	 *  -called by mouseListener
-	 * @param x : x pos of click
-	 * @param y : y pos of click
+	 * Called when the mouse is pressed
+	 *  <li> Called by the {@code mouseListener} on the window </li>
+	 *  <li> The object must be subscribed using {@code parentGame.addMouseListener()} to be called </li>
+	 * @param x : the x position of the click
+	 * @param y : the y position of the click
 	 */
-	public void onMousePressed(int x, int y) {
-		
-	}
+	public void onMousePressed(int x, int y) {}
 	
 	/**
-	 * set Destroyed status
-	 * @param x : is destroyed
+	 * Sets the destroyed state
+	 * @param x : the new destroyed state
 	 */
 	public void setDestroyed(boolean x) {
 		destroyed = x;
 		texture.setDraw(!x);
-		if(x);
-		onDestroy();
+		if(x) {
+			onDestroy();
+		}
 	}
 	
 	/**
-	 * on tick if destroyed
-	 *  -called by parentGame
-	 * @param input : Input manger to use from Game
+	 * Called instead of {@code onTick()} if the object is currently destroyed
+	 *  <li> Called by parentGame on the logical tick </li>
+	 * @param input : the input manager from parentGame
 	 */
-	public void deadTick(InputManeger input) {
-		
-	}
+	public void deadTick(InputManeger input) {}
 	
-	protected void onDestroy() {
-		
-	}
+	/**
+	 * Called when the object is destroyed
+	 */
+	protected void onDestroy() {}
 	
 	/**
 	 * Saves the object to a string
+	 *  <li> Called by parentGame on world save </li>
+	 *  <li> Calls {@code onSave()} </li>
 	 * @return the object as a string
 	 */
 	public String save() {
@@ -377,14 +445,14 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * Returns a string that is all of the special data<br>
-	 * all lines should start with "\t\t"<br>
-	 * all lines should end with ";" all text after this will be ignored<br>
-	 * use "[" and "]" to define a comma separated array<br>
-	 * use "{" and "}" to define a inner data area<br>
-	 * semicolons are not necessary after a "{" or "}"<br>
-	 * use "#" to denote a comment, any line that has this character outside of a string is counted<br>
-	 * put a ":" between the keyword and the value<br>
+	 * Returns a string that is all of the special data.
+	 * <li> All lines should start with "\t\t" </li>
+	 * <li> All lines should end with ";" all text after this will be ignored </li>
+	 * <li> Use "[" and "]" to define a comma separated array </li>
+	 * <li> Use "{" and "}" to define a inner data area </li>
+	 * <li> Semicolons are not necessary after a "{" or "}" </li>
+	 * <li> Use "#" to denote a comment, any line that has this character outside of a string is not interpreted </li>
+	 * <li> Put a ":" between the keyword and the value </li>
 	 * @return text
 	 */
 	public String onSave() {
@@ -392,13 +460,25 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * Returns the type of object
-	 * @return the type
+	 * Returns the type of object, class specific
+	 * @return the type of the object
 	 */
 	public abstract String getType();
 	
+	/**
+	 * Creates a new object of the same type based off of a portion of a world file
+	 *  <li> Called by the WorldController when loading a world </li>
+	 *  <li> should call {@code setDefParm(String[]) on the new object</li>
+	 * @param file : the lines of the world file pertaining to the object
+	 * @return A new object of the same class with all class specific parameters loaded
+	 */
 	public abstract GameObject newObj(String[] file);
 	
+	/**
+	 * Sets all generic variables of {@code GameObject}
+	 *  <li> Sets position, rotation, destroyed state, name, and tag</li>
+	 * @param file : the lines of the world file pertaining to the object
+	 */
 	protected void setDefParm(String[] file) {
 		String posS = file[1].substring(12,file[1].length()-2);
 		String[] posSA = posS.split(",");

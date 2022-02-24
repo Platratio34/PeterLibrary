@@ -8,6 +8,7 @@ import peterLibrary.*;
 import vectorLibrary.LineSegment;
 
 public class CollisionMask {
+	
 	protected LineSegment[] lines;
 	protected Graphic thing;
 	
@@ -34,6 +35,10 @@ public class CollisionMask {
 		lines = x.clone();
 	}
 	
+	/**
+	 * Adds a {@code LineSegment[]} to the current line array
+	 * @param x : the lines to add
+	 */
 	public void addLines(LineSegment[] x) {
 		LineSegment[] linesT = new LineSegment[lines.length + x.length];
 		int m = 0;
@@ -64,6 +69,10 @@ public class CollisionMask {
 		thing.line((int)line.getP1().x, (int)line.getP1().y, (int)line.getP2().x, (int)line.getP2().y, 255, 0, 0);
 	}
 	
+	/**
+	 * Adds lines from a {@code Shape}
+	 * @param s : the shape to add
+	 */
 	public void addShape(Shape s) {
 		addLines(s.getLines());
 	}
