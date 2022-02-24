@@ -8,20 +8,35 @@ import errorHandler.ErrorLogger;
 import errorHandler.ErrorType;
 import peterLibrary.Arrays;
 
+/**
+ * Equivelint of a texture
+ * @author Peter Crall
+ *
+ */
 public class Graphic {
 	private Shape shapes[];
 	private Point point;
 	private boolean draw;
 	private int deapth;
 	
+	/**
+	 * Constructor
+	 */
 	public Graphic() {
 		clear();
 	}
+	/**
+	 * Constructor
+	 * @param Shapes : array of shapes to draw
+	 */
 	public Graphic(Shape[] Shapes) {
 		clear();
 		shapes = Shapes;
 	}
 	
+	/**
+	 * Clears and resets the graphic
+	 */
 	public void clear() {
 		draw = true;
 		shapes = new Shape[1];
@@ -30,12 +45,20 @@ public class Graphic {
 		deapth = 0;
 	}
 	
+	/**
+	 * Sets the location of the graphic
+	 * @param point_ : the new location
+	 */
 	public void setPoint(Point point_) {
 		point = point_;
 //		System.out.println("point set");
 //		System.out.println(point.toString());
 	}
 	
+	/**
+	 * Sets if it should be drawn
+	 * @param Draw : if the graphic should be drawn
+	 */
 	public void setDraw(boolean Draw) {
 		draw = Draw;
 	}
@@ -43,13 +66,13 @@ public class Graphic {
 	//Outlined Stuff
 	/**
 	 * Makes a new outlined rectangle
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param w : width
-	 * @param h : hight
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param w : the width
+	 * @param h : the hight
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void rect(int x, int y, int w, int h, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -63,13 +86,13 @@ public class Graphic {
 	
 	/**
 	 * Makes a new line from point 1 to point 2
-	 * @param x : point 1 x
-	 * @param y : point 2 y
-	 * @param x2 : point 2 x
-	 * @param y2 : point 2 y
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : point 1 x coordinate
+	 * @param y : point 2 y coordinate
+	 * @param x2 : point 2 x coordinate
+	 * @param y2 : point 2 y coordinate
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void line(int x, int y, int x2, int y2, int r, int g, int b) {
 		
@@ -84,13 +107,13 @@ public class Graphic {
 	
 	/**
 	 * Makes a new outlined oval
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param w : width
-	 * @param h : hight
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param w : the width
+	 * @param h : the hight
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void circle(int x, int y, int w, int h, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -104,15 +127,15 @@ public class Graphic {
 	
 	/**
 	 * Makes a new 3 sided outlined polygon
-	 * @param x1 : vertex 1 x
-	 * @param y1 : vertex 1 y
-	 * @param x2 : vertex 2 x
-	 * @param y2 : vertex 2 y
-	 * @param x3 : vertex 3 x
-	 * @param y3 : vertex 3 y
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x1 : vertex 1 x coordinate
+	 * @param y1 : vertex 1 y coordinate
+	 * @param x2 : vertex 2 x coordinate
+	 * @param y2 : vertex 2 y coordinate
+	 * @param x3 : vertex 3 x coordinate
+	 * @param y3 : vertex 3 y coordinate
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void polygon(int x1, int y1, int x2, int y2, int x3, int y3, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -125,17 +148,17 @@ public class Graphic {
 	}
 	/**
 	 * Makes a new 4 sided outlined polygon
-	 * @param x1 : vertex 1 x
-	 * @param y1 : vertex 1 y
-	 * @param x2 : vertex 2 x
-	 * @param y2 : vertex 2 y
-	 * @param x3 : vertex 3 x
-	 * @param y3 : vertex 3 y
-	 * @param x4 : vertex 4 x
-	 * @param y4 : vertex 4 y
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x1 : vertex 1 x coordinate
+	 * @param y1 : vertex 1 y coordinate
+	 * @param x2 : vertex 2 x coordinate
+	 * @param y2 : vertex 2 y coordinate
+	 * @param x3 : vertex 3 x coordinate
+	 * @param y3 : vertex 3 y coordinate
+	 * @param x4 : vertex 4 x coordinate
+	 * @param y4 : vertex 4 y coordinate
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void polygon(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -148,11 +171,11 @@ public class Graphic {
 	}
 	/**
 	 * Makes a new n sided outlined polygon
-	 * @param x : int[] of x positions
-	 * @param y : int[] of y positions
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : array of x coordinates
+	 * @param y : array of y coordinates
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void polygon(int[] x, int[] y, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -167,13 +190,13 @@ public class Graphic {
 	//Filled stuff
 	/**
 	 * Makes a new filled rectangle
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param w : width
-	 * @param h : hight
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param w : the width
+	 * @param h : the hight
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void rectF(int x, int y, int w, int h, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -187,13 +210,13 @@ public class Graphic {
 	
 	/**
 	 * Makes a new filled oval
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param w : width
-	 * @param h : hight
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param w : the width
+	 * @param h : the hight
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void circleF(int x, int y, int w, int h, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -207,15 +230,15 @@ public class Graphic {
 	
 	/**
 	 * Makes a new 3 sided filled polygon
-	 * @param x1 : vertex 1 x
-	 * @param y1 : vertex 1 y
-	 * @param x2 : vertex 2 x
-	 * @param y2 : vertex 2 y
-	 * @param x3 : vertex 3 x
-	 * @param y3 : vertex 3 y
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x1 : vertex 1 x coordinate
+	 * @param y1 : vertex 1 y coordinate
+	 * @param x2 : vertex 2 x coordinate
+	 * @param y2 : vertex 2 y coordinate
+	 * @param x3 : vertex 3 x coordinate
+	 * @param y3 : vertex 3 y coordinate
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void polygonF(int x1, int y1, int x2, int y2, int x3, int y3, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -231,17 +254,17 @@ public class Graphic {
 	}
 	/**
 	 * Makes a new 4 sided filled polygon
-	 * @param x1 : vertex 1 x
-	 * @param y1 : vertex 1 y
-	 * @param x2 : vertex 2 x
-	 * @param y2 : vertex 2 y
-	 * @param x3 : vertex 3 x
-	 * @param y3 : vertex 3 y
-	 * @param x4 : vertex 4 x
-	 * @param y4 : vertex 4 y
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x1 : vertex 1 x coordinate
+	 * @param y1 : vertex 1 y coordinate
+	 * @param x2 : vertex 2 x coordinate
+	 * @param y2 : vertex 2 y coordinate
+	 * @param x3 : vertex 3 x coordinate
+	 * @param y3 : vertex 3 y coordinate
+	 * @param x4 : vertex 4 x coordinate
+	 * @param y4 : vertex 4 y coordinate
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void polygonF(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -254,11 +277,11 @@ public class Graphic {
 	}
 	/**
 	 * Makes a new n sided filled polygon
-	 * @param x : int[] of x positions
-	 * @param y : int[] of y positions
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : array of x coordinates
+	 * @param y : array of y coordinates
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the color value
 	 */
 	public void polygonF(int[] x, int[] y, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -272,12 +295,12 @@ public class Graphic {
 	
 	/**
 	 * Adds text to the screen
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param in : text
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param in : the text
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void text(int x, int y, char in, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -290,12 +313,12 @@ public class Graphic {
 	}
 	/**
 	 * Adds text to the screen
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param in : text
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param in : the text
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void text(int x, int y, String in, int r, int g, int b) {
 		Shape[] t = shapes;
@@ -308,13 +331,13 @@ public class Graphic {
 	}
 	/**
 	 * Adds text to the screen
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param in : text
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
-	 * @param font : Font to use
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param in : the text
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
+	 * @param font : the Font to use
 	 */
 	public void text(int x, int y, char in, int r, int g, int b, Font font) {
 		Shape[] t = shapes;
@@ -327,13 +350,13 @@ public class Graphic {
 	}
 	/**
 	 * Adds text to the screen
-	 * @param x : x pos
-	 * @param y : y pos
-	 * @param in : text
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
-	 * @param font : Font to use
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param in : the text
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
+	 * @param font : the Font to use
 	 */
 	public void text(int x, int y, String in, int r, int g, int b, Font font) {
 		Shape[] t = shapes;
@@ -345,21 +368,24 @@ public class Graphic {
 		shapes[shapes.length-1].newText(x, y, in, r, g, b, font);
 	}
 	
-	@Deprecated
+	
 	/**
-	 *  *DEPRECATED*
-	 * @return Shape[] : shapes
+	 * Returns a copy the array of shapes
+	 * @return A copy of the array of shapes
+	 * @deprecated Bad practice
 	 */
+	@Deprecated
 	public Shape[] getShape() {
 		return Arrays.copy(shapes);
 	}
-	@Deprecated
 	/**
-	 *  *DEPRECATED*
-	 * @param xo : x offset
-	 * @param yo : y offset
-	 * @return Shape[] : shapes with offset
+	 * Returns a copy the array of shapes offset by a position
+	 * @param xo : the offset in the x axis
+	 * @param yo : the offset in the y axis
+	 * @return A copy of the array of shapes offset
+	 * @deprecated Bad practice
 	 */
+	@Deprecated
 	public Shape[] getShape(int xo, int yo) {
 		//System.out.println("graphic DEBUG: offset "+ xo + "," + yo);
 		Shape[] o = new Shape[shapes.length];
@@ -375,8 +401,8 @@ public class Graphic {
 	
 	/**
 	 * Draws the shapes using the the Graphics object g
-	 * @param g : Graphics object
-	 * @param eLogger : ErrorLogger
+	 * @param g : the {@code java.awt.Graphics} object do draw on
+	 * @param eLogger : Logger for errors encounted in drawing
 	 */
 	public void draw(Graphics g, ErrorLogger eLogger, Camera camera) {
 //		System.out.println(deapth);
@@ -405,17 +431,25 @@ public class Graphic {
 			}
 		}
 	}
+	/**
+	 * Sets the draw depth of the graphic
+	 * @param d : the new draw depth
+	 */
 	public void setDepth(int d) {
 		deapth = d;
 	}
+	/**
+	 * Gets the draw depth
+	 * @return the current draw depth
+	 */
 	public int getDeapth() {
 		return deapth;
 	}
 	
 	/**
-	 * 
-	 * @param d : number of tabs
-	 * @return
+	 * Returns a representation of the graphic as a string, inteded for saving. WARNING there is currenly no load function
+	 * @param d : the number of tabs to start each line with
+	 * @return A string representation of the graphic
 	 */
 	public String save(int d) {
 		String out = "";

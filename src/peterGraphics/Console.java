@@ -23,10 +23,10 @@ public class Console {
 	
 	/**
 	 * Default constructor
-	 * override = false
-	 * exit = true
-	 * start = "Console:\n"
-	 * width and hight = 800
+	 *  <li> {@code override = false} </li>
+	 *  <li> {@code exit = true} </li>
+	 *  <li> {@code start = "Console:\n"} </li>
+	 *  <li> {@code width, hight = 800}px </li>
 	 */
 	public Console() {
 		startingText = "Console:\n";
@@ -43,10 +43,10 @@ public class Console {
 	}
 	/**
 	 * Paramatized constructor
-	 * exit = true
-	 * start = "Console:\n"
-	 * width and height = 800
-	 * @param overide: prevent built in sysouts
+	 *  <li> {@code exit = true} </li>
+	 *  <li> {@code start = "Console:\n"} </li>
+	 *  <li> {@code width, hight = 800}px </li>
+	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean overide) {
 		startingText = "Console:\n";
@@ -65,10 +65,10 @@ public class Console {
 	}
 	/**
 	 * Paramatized constructor
-	 * start = "Console:\n"
-	 * width and height = 800
-	 * @param exit: exit on window close
-	 * @param overide: overrides Sysout
+	 *  <li> {@code start = "Console:\n"} </li>
+	 *  <li> {@code width, hight = 800}px </li>
+	 * @param exit : should the program exit on window close
+	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean exit, boolean overide) {
 		startingText = "Console:\n";
@@ -89,10 +89,10 @@ public class Console {
 	}
 	/**
 	 * Paramatized constructor
-	 * width and height = 800
-	 * @param exit: exit on window close
-	 * @param overide: overrides Sysout
-	 * @param start: Starting text
+	 *  <li> {@code width, hight = 800}px </li>
+	 * @param exit : should the program exit on window close
+	 * @param overide : take over {@code System.out}
+	 * @param start : starting text
 	 */
 	public Console(boolean exit, boolean overide, String start) {
 		startingText = start+"\n";
@@ -114,11 +114,11 @@ public class Console {
 	}
 	/**
 	 * Paramatized constructor
-	 * start = "Console:\n"
-	 * @param exit: exit on window close
-	 * @param w: width of console
-	 * @param h: height of console
-	 * @param overide: overrides Sysout
+	 *  <li> {@code start = "Console:\n"} </li>
+	 * @param exit : should the program exit on window close
+	 * @param w : width of console in pixels
+	 * @param h : height of console in pixels
+	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean exit, int w, int h, boolean overide) {
 		startingText = "Console:\n";
@@ -139,11 +139,11 @@ public class Console {
 	}
 	/**
 	 * Paramatized constructor
-	 * @param exit: exit on window close
-	 * @param w: width of console
-	 * @param h: height of console
-	 * @param overide: overrides Sysout
-	 * @param start: Starting text
+	 * @param exit : should the program exit on window close
+	 * @param w : width of console in pixels
+	 * @param h : height of console in pixels
+	 * @param overide : take over {@code System.out}
+	 * @param start : starting text
 	 */
 	public Console(boolean exit, int w, int h, boolean overide, String start) {
 		startingText = start+"\n";
@@ -166,7 +166,7 @@ public class Console {
 	
 	/**
 	 * Sets the visibility of the console
-	 * @param visibility: visibility of console
+	 * @param visibility : the visibility of console
 	 */
 	public void visible(boolean visibility) {
 		frame.setVisible(visibility);
@@ -174,7 +174,7 @@ public class Console {
 	
 	/**
 	 * Appends the text and a newline character
-	 * @param x: text to append
+	 * @param x : the text to append
 	 */
 	public void appendln(String x) {
 		label.setText(label.getText() + x + "\n");
@@ -182,7 +182,7 @@ public class Console {
 	}
 	/**
 	 * Appends the integer and a newline character
-	 * @param x: integer to append
+	 * @param x : integer to append
 	 */
 	public void appendln(int x) {
 		label.setText(label.getText() + x + "\n");
@@ -190,7 +190,7 @@ public class Console {
 	}
 	/**
 	 * Appends the charecter and a newline character
-	 * @param x: charecter to append
+	 * @param x : charecter to append
 	 */
 	public void appendln(char x) {
 		label.setText(label.getText() + x + "\n");
@@ -198,7 +198,7 @@ public class Console {
 	}
 	/**
 	 * Appends the double and a newline character
-	 * @param x: double to append
+	 * @param x : double to append
 	 */
 	public void appendln(double x) {
 		label.setText(label.getText() + x + "\n");
@@ -206,7 +206,7 @@ public class Console {
 	}
 	/**
 	 * Appends the object and a newline character
-	 * @param x: object to append, toString() is used
+	 * @param x : object to append, {@code toString()} is used
 	 */
 	public void appendln(Object x) {
 		label.setText(label.getText() + x.toString() + "\n");
@@ -216,39 +216,39 @@ public class Console {
 
 	/**
 	 * Appends the text
-	 * @param x: text to append
+	 * @param x : text to append
 	 */
 	public void append(String x) {
 		label.setText(label.getText() + x);
 		update();
 	}
 	/**
-	 * Appends the integer
-	 * @param x: integer to append
+	 * Appends an integer
+	 * @param x : integer to append
 	 */
 	public void append(int x) {
 		label.setText(label.getText() + x);
 		update();
 	}
 	/**
-	 * Appends the character
-	 * @param x: character to append
+	 * Appends a character
+	 * @param x : character to append
 	 */
 	public void append(char x) {
 		label.setText(label.getText() + x);
 		update();
 	}
 	/**
-	 * Appends the double
-	 * @param x: double to append
+	 * Appends a double
+	 * @param x : double to append
 	 */
 	public void append(double x) {
 		label.setText(label.getText() + x);
 		update();
 	}
 	/**
-	 * Appends the object
-	 * @param x: object to append, toStrig() is used
+	 * Appends an object
+	 * @param x : object to append, {@code toString()} is used
 	 */
 	public void append(Object x) {
 		label.setText(label.getText() + x.toString());
@@ -265,7 +265,7 @@ public class Console {
 	
 	/**
 	 * Sets the text on the console
-	 * @param str: text to set the console to
+	 * @param str : the text to set the console to, the starting text is put on the begining
 	 */
 	public void setText(String str) {
 		label.setText(startingText + str);
@@ -273,8 +273,8 @@ public class Console {
 	}
 	/**
 	 * Sets the text on the console
-	 * @param str: text to set the console to
-	 * @param start: ?
+	 * @param str : text to set the console to
+	 * @param start : if the starting text should be used
 	 */
 	public void setText(String str, boolean start) {
 		if(start) {
@@ -285,15 +285,15 @@ public class Console {
 	
 	/**
 	 * Returns the full text of the console
-	 * @return the text of the console
+	 * @return the contnce of the console
 	 */
 	public String getText() {
 		return label.getText();
 	}
 	
 	/**
-	 * Waits for newline from user then returns line
-	 * @return input from user
+	 * Waits for newline from the user then returns the line
+	 * @return The input from the user
 	 */
 	public String scan() {
 		int start = label.getText().length();
@@ -323,8 +323,8 @@ public class Console {
 		return output;
 	}
 	/**
-	 * Waits for newline from user then returns line
-	 * @return input from user
+	 * Waits for newline from the user then returns tries to return an integer
+	 * @return The input from the user
 	 */
 	public int scanInt() {
 		int start = label.getText().length();
@@ -353,8 +353,8 @@ public class Console {
 	}
 	
 	/**
-	 * Override Sysout or returns it to it's normal output
-	 * @param overide: override sysout
+	 * Overrides {@code System.out} or returns it to it's normal output
+	 * @param overide : override {@code System.out}
 	 */
 	public void overideSystem (boolean overide) {
 		if(overide) {
@@ -365,7 +365,7 @@ public class Console {
 	}
 	
 	/**
-	 * Update the console frame;
+	 * Updates the console frame;
 	 */
 	public void update() {
 		label.setEditable(false);
@@ -382,14 +382,20 @@ public class Console {
 	}*/
 	
 	/**
-	 * Displays console content to default console
+	 * Displays console content to {@code System.out}
 	 */
-	public void disp() {
+	public void disp() throws Exception {
 		if(overided) {
 			System.out.println("Don't print the content of the console to the console!");
+//			throw new Exception("Tried to show the contence of the console to the System.out, when System.out has been set to the console");
 		}
 		System.out.println(" -- ++ -- Contence of Console -- ++ -- \n" + str + "\n -- ++ -- End of Console Contence -- ++ --\n");
 	}
+	
+	/**
+	 * Gets the {@code JFrame} of the console
+	 * @return the console {@code JFrame}
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}

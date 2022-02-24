@@ -8,6 +8,11 @@ import java.util.List;
 import javax.swing.JPanel;
 import errorHandler.*;
 
+/**
+ * An extension of JPanel for drawing {@code peterGraphics.util.Graphic} objects
+ * @author Peter Crall
+ *
+ */
 @SuppressWarnings("serial")
 public class Drawing extends JPanel {
 	
@@ -16,11 +21,14 @@ public class Drawing extends JPanel {
 	private ErrorLogger eLogger;
 	private Font font;
 	private Camera camera1;
+	/**
+	 * List of {@code GText} objects to draw on top
+	 */
 	public List<GText> gText;
 	
 	/**
 	 * Generic constructor
-	 *  -Font "TimesRoman", Font.PLAIN, 14
+	 *  <li> Font "TimesRoman", Font.PLAIN, 14 </li>
 	 */
 	public Drawing () {
 		clear();
@@ -29,8 +37,8 @@ public class Drawing extends JPanel {
 	}
 	/**
 	 * Constructor with eLogger, and font
-	 * @param log : ErrorLogger to use
-	 * @param Font : Font to use
+	 * @param log : the ErrorLogger to use
+	 * @param Font : the Font to use for text
 	 */
 	public Drawing (ErrorLogger log, Font Font) {
 		clear();
@@ -39,8 +47,8 @@ public class Drawing extends JPanel {
 	}
 	/**
 	 * Constructor with eLogger
-	 *  -Font "TimesRoman", Font.PLAIN, 14
-	 * @param log : ErrorLogger to use
+	 *  <li> Font "TimesRoman", Font.PLAIN, 14 </li>
+	 * @param log : the ErrorLogger to use
 	 */
 	public Drawing (ErrorLogger log) {
 		clear();
@@ -58,7 +66,7 @@ public class Drawing extends JPanel {
 	}
 	
 	/**
-	 * clears and resets the Drawing object
+	 * Clears and resets the Drawing object
 	 */
 	public void clear() {
 		gText = new ArrayList<GText>();
@@ -69,8 +77,8 @@ public class Drawing extends JPanel {
 	}
 	
 	/**
-	 * adds a updating Shape object
-	 * @param shape : Shape to add
+	 * Adds an updating Shape object
+	 * @param shape : the updating shape to add
 	 */
 	public void add(Shape shape) {
 		updatingShapes.add(shape);
@@ -264,20 +272,20 @@ public class Drawing extends JPanel {
 	
 	//Graphic input
 	/**
-	 * adds a graphic to the internal array
+	 * Adds a graphic to the internal array
 	 * @param img : Graphic to use
 	 */
 	public void addGraphic(Graphic img) {
 		graphics = addToArray(graphics, img);
 	}
-	@Deprecated
 	/**
-	 * *DEPRICATED* Use addGraphic(Graphic img) instead
-	 * adds a graphic to the Drawing object with a x and y offset
+	 * Adds a graphic to the Drawing object with a x and y offset
 	 * @param img : graphic to add
 	 * @param xo : x offset
 	 * @param yo : y offset
+	 * @deprecated Use {@code addGraphic(Graphic)} instead
 	 */
+	@Deprecated
 	public void addGraphic(Graphic img, int xo, int yo) {
 		try {
 			graphics = addToArray(graphics, new Graphic(img.getShape(xo,yo)));
@@ -289,7 +297,7 @@ public class Drawing extends JPanel {
 	}
 	
 	/**
-	 * adds a Graphic to a Graphic[]
+	 * Adds a Graphic to a Graphic[]
 	 * @param a : Graphic[]
 	 * @param b : Graphic to add
 	 * @return Graphic[] with Graphic b
@@ -303,6 +311,11 @@ public class Drawing extends JPanel {
 		return c;
 	}
 	
+	/**
+	 * Draws the Graphics and shapes
+	 *  <li> Called by the parent JFrame </li>
+	 * @param g : the {@code java.awt.Graphics} object to draw with
+	 */
 	public void paint(Graphics g) {
 		graphics = sortByDeapth(graphics);
 		g.setFont(font); 
@@ -337,6 +350,11 @@ public class Drawing extends JPanel {
 		}
 	}
 	
+	/**
+	 * Returns an array of Graphics sorted by draw depth
+	 * @param a : the input array
+	 * @return Array sorted by draw depth
+	 */
 	protected Graphic[] sortByDeapth(Graphic[] a) {
 		Graphic[][] b = new Graphic[30][a.length];
 		for(int i = 0; i < a.length; i++) {
@@ -358,16 +376,16 @@ public class Drawing extends JPanel {
 	}
 	
 	/**
-	 * gets the ErrorLogger from the Drawing object
-	 * @return ErrorLogger eLogger
+	 * Gets the ErrorLogger from the Drawing object
+	 * @return The error logger
 	 */
 	public ErrorLogger getELogger() {
 		return eLogger;
 	}
 	
 	/**
-	 * gets the main Camera from the Drawing object
-	 * @return Camera camera
+	 * Gets the main Camera from the Drawing object
+	 * @return The main camera
 	 */
 	public Camera getCamera() {
 		return camera1;

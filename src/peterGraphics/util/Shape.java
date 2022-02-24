@@ -7,16 +7,51 @@ import java.awt.Graphics;
 import vectorLibrary.LineSegment;
 import vectorLibrary.Vector2;
 
+/**
+ * A graphical shape, used by {@code Graphic}
+ * @author Peter Crall
+ *
+ */
 public class Shape {	
+	/**
+	 * x origin of the shape
+	 */
 	public int xA;
+	/**
+	 * y origin of the shape
+	 */
 	public int yA;
+	/**
+	 * Width of the shape
+	 */
 	public int wA;
+	/**
+	 * Height of the shape
+	 */
 	public int hA;
+	/**
+	 * Array of x coordinates for polygons
+	 */
 	public int[] px;
+	/**
+	 * Array of y coordinates for polygons
+	 */
 	public int[] py;
+	/**
+	 * Color of the shape
+	 */
 	public Color colorA;
+	/**
+	 * Type of shape
+	 */
 	public ShapeE shapeA;
+	/**
+	 * Text of the shape
+	 */
 	public String textA;
+	/**
+	 * Font of the text
+	 */
 	public Font fontA;
 	
 	/**
@@ -27,15 +62,15 @@ public class Shape {
 	}
 	/**
 	 * Shape constructor
-	 * @param x : x position
-	 * @param y : y position
-	 * @param w : width OR x position 2 (for lines)
-	 * @param h : height OR y position 2 (for lines)
-	 * @param pxI : x position array (for polygons)
-	 * @param pyI : y position array (for polygons)
-	 * @param color : color
-	 * @param shape : type of shape
-	 * @param text : text (for text type)
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param w : the width (for rectange or circle) OR x position 2 (for lines)
+	 * @param h : the height (for rectange or circle) OR y position 2 (for lines)
+	 * @param pxI : the x coordinate array (for polygons)
+	 * @param pyI : the y coordinate array (for polygons)
+	 * @param color : the color
+	 * @param shape : the type of shape
+	 * @param text : the text (for text type)
 	 */
 	public Shape(int x, int y, int w, int h, int[] pxI, int[] pyI, Color color, ShapeE shape, String text) {
 		clear();
@@ -53,14 +88,14 @@ public class Shape {
 	/**
 	 * Set shape
 	 *  -Not for text or polygon
-	 * @param shape : type of shape
-	 * @param x : x position
-	 * @param y : y position
-	 * @param w : width OR x position 2 (for lines)
-	 * @param h : height OR y position 2 (for lines)
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param w : the width (for rectange or circle) OR x position 2 (for lines)
+	 * @param h : the height (for rectange or circle) OR y position 2 (for lines)
+	 * @param r : the red value of the color
+	 * @param g : the green value of the color
+	 * @param b : the blue value of the color
+	 * @param shape : the type of shape
 	 */
 	public void newShape(ShapeE shape, int x, int y, int w, int h, int r, int g, int b) {
 		xA = x;
@@ -76,11 +111,11 @@ public class Shape {
 	
 	/**
 	 * Set shape to outlined polygon
-	 * @param pxI : x position array
-	 * @param pyI : y position array
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param pxI : the x coordinate array
+	 * @param pyI : the y coordinate array
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void newPolygon(int[] x, int[] y, int r, int g, int b) {
 		xA = 0;
@@ -95,11 +130,11 @@ public class Shape {
 	}
 	/**
 	 * Set shape to filled polygon
-	 * @param pxI : x position array
-	 * @param pyI : y position array
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
+	 * @param pxI : the x coordinate array
+	 * @param pyI : the y coordinate array
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
 	 */
 	public void newPolygonF(int[] x, int[] y, int r, int g, int b) {
 		xA = 0;
@@ -115,13 +150,13 @@ public class Shape {
 	
 	/**
 	 * Set shape to text
-	 * @param x : x position
-	 * @param y : y position
-	 * @param text : text to use
-	 * @param r : red color value
-	 * @param g : green color value
-	 * @param b : blue color value
-	 * @param font : font of text
+	 * @param x : the x coordinate
+	 * @param y : the y coordinate
+	 * @param text : the text to use
+	 * @param r : the red color value
+	 * @param g : the green color value
+	 * @param b : the blue color value
+	 * @param font : the font of text
 	 */
 	public void newText(int x, int y, String text, int r, int g, int b, Font font) {
 		xA = x;
@@ -153,10 +188,10 @@ public class Shape {
 	}
 	
 	/**
-	 * Returns an copy of the shape offset by a value
-	 * @param xo : x offset
-	 * @param yo : y offset
-	 * @return Offset Shape object by (xo,yo)
+	 * Returns an copy of the shape offset by an x and y value
+	 * @param xo : the x axis offset
+	 * @param yo : the y axis offset
+	 * @return An offset copy of the shape
 	 */
 	public Shape offset(int xo, int yo) {
 		//System.out.println("DEBUG: "+xo + "," + yo);
@@ -190,10 +225,10 @@ public class Shape {
 	}
 	
 	/**
-	 * Draws the shape using the Graphics object g
-	 * @param g : Graphics
-	 * @param xO : x offset
-	 * @param yO : y offset
+	 * Draws the shape using a {@code java.awt.Graphics} object at a position
+	 * @param g : the {@code java.awt.Graphics}
+	 * @param xO : the x offset
+	 * @param yO : the y offset
 	 */
 	public void draw(Graphics g, int xO, int yO, Camera camera) {
 		g.setColor(colorA);
@@ -235,6 +270,13 @@ public class Shape {
 		}
 	}
 	
+	/**
+	 * Offsets and zooms an array of points into a new array
+	 * @param a : the array of offset
+	 * @param offset : the amount to offset by
+	 * @param zoom : the zoom level
+	 * @return A copy of the array offset and zoomed
+	 */
 	protected int[] zoomOffset(int[] a, int offset, double zoom) {
 		int[] b = new int[a.length];
 		for(int i = 0; i < a.length; i++) {
@@ -245,20 +287,24 @@ public class Shape {
 	}
 	
 	/**
-	 * Copies this shape
-	 * @return copy of this shape object
+	 * Copies the shape
+	 * @return A copy of the shape
 	 */
 	public Shape copy() {
 		return new Shape(xA,yA,wA,hA,px,py,colorA,shapeA,textA);
 	}
 	
 	/**
-	 * update method for updating shapes
-	 *  -Called by Drawing object
+	 * Update method for updating shapes
+	 *  <li> Called by a Drawing object before drawing it</li>
 	 */
-	public void update() {
-		
-	}
+	public void update() {}
+	
+	/**
+	 * Returns a string representation of the shape
+	 * @param d : the number of tabs to start each line with
+	 * @return A string representation of the object
+	 */
 	public String save(int d) {
 		String out = "";
 		
@@ -321,7 +367,7 @@ public class Shape {
 	
 	/**
 	 * Creates an array of LineSemgnets, intend for inputing into a collision mask, of the shape
-	 * @return LineSemgnet array of the lines making up the shape
+	 * @return An array of the lines making up the shape
 	 */
 	public LineSegment[] getLines() {
 		LineSegment[] lines = new LineSegment[0];;
@@ -349,35 +395,35 @@ public class Shape {
 	
 	/**
 	 * Creates a new Rectangle Shape
-	 * @param x: x position
-	 * @param y: y position
-	 * @param w: width
-	 * @param h: height
-	 * @return
+	 * @param x: the x coordinate
+	 * @param y: the y coordinate
+	 * @param w: the width
+	 * @param h: the height
+	 * @return A new rectangle
 	 */
 	public static Shape Rect(int x, int y, int w, int h) {
 		return Rect(x,y,w,h,Color.black);
 	}
 	/**
 	 * Creates a new Rectangle Shape
-	 * @param x: x position
-	 * @param y: y position
-	 * @param w: width
-	 * @param h: height
+	 * @param x: the x coordinate
+	 * @param y: the y coordinate
+	 * @param w: the width
+	 * @param h: the height
 	 * @param c: the color of the shape
-	 * @return
+	 * @return A new rectangle
 	 */
 	public static Shape Rect(int x, int y, int w, int h, Color c) {
 		return new Shape(x,y,w,h,null,null,c,ShapeE.RECTANGLE,"");
 	}
 	/**
 	 * Creates a new filled Rectangle Shape
-	 * @param x: x position
-	 * @param y: y position
-	 * @param w: width
-	 * @param h: height
+	 * @param x: the x coordinate
+	 * @param y: the y coordinate
+	 * @param w: the width
+	 * @param h: the height
 	 * @param c: the color of the shape
-	 * @return
+	 * @return A new filled rectangle
 	 */
 	public static Shape RectF(int x, int y, int w, int h, Color c) {
 		return new Shape(x,y,w,h,null,null,c,ShapeE.RECTANGLEF,"");
