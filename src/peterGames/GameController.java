@@ -45,17 +45,27 @@ public class GameController {
 	protected int stage;
 	
 	protected JFrame frame;
+	/**
+	 * Logger for errors
+	 */
 	public ErrorLogger eLogger;
 	protected InputManeger inputManeger;
 	protected List<GameObject> mouseUsers;
 	protected List<GText> debugText;
 	protected List<GText> infoText;
-	public List<Boolean> flags;
-	public List<GameObject> deadTick;
-	public List<GameObject> gTick;
-	public WorldControler world;
+//	public List<Boolean> flags;
 	
+	private List<GameObject> deadTick;
+	private List<GameObject> gTick;
+	private WorldControler world;
+	
+	/**
+	 * The size of the world in pixels
+	 */
 	public Point worldSize;
+	/**
+	 * Offset for {@code worldSize} in pixels
+	 */
 	public Point worldOffset;
 	
 	private boolean worldLoaded;
@@ -64,7 +74,7 @@ public class GameController {
 	 * Resets all variables
 	*/
 	protected void reset() {
-		flags = new ArrayList<Boolean>();
+//		flags = new ArrayList<Boolean>();
 		mouseUsers = new ArrayList<GameObject>();
 		deadTick = new ArrayList<GameObject>();
 		gTick = new ArrayList<GameObject>();
@@ -517,6 +527,14 @@ public class GameController {
 			draw.addGraphic(x.texture);
 		}
 	}
+	
+	/**
+	 * Removes a GameObject from the global list.
+	 * IMPORTANT: If you want to keep the object, you must retain an external reference to it
+	 * @param x : the GameObject to remove
+	 * @return if the GameObject was removed,
+	 * 		returns false if the object was not in the list before attempting to remove it
+	 */
 	public boolean removeObject(GameObject x) {
 		if(objects.contains(x)) {
 			objects.remove(x);
@@ -565,9 +583,9 @@ public class GameController {
 		return colliding(gO,p,"");
 	}
 	/**
-	 * Checks if a GameObject at position p would collide with anythigh else
+	 * Checks if a GameObject at position would collide with anything else
 	 * @param gO : game object to check
-	 * @param p : position for gameobject
+	 * @param p : position for GameObject
 	 * @param ignoreTag : tag to ignore for the check
 	 * @return if it was colliding with anything
 	 */
@@ -583,6 +601,13 @@ public class GameController {
 		}
 		return false;
 	}
+	/**
+	 * Checks if a GameObject at position would collide with anything else, and returns the object it is colliding with.
+	 * @param gO : game object to check
+	 * @param p : position for GameObject
+	 * @param ignoreTag : tag to ignore for the check
+	 * @return if gO was colliding, returns the object it is colliding with, else returns {@code null}
+	 */
 	public GameObject collidingG(GameObject gO, Point p, String ignoreTag) {
 		for(int k = 0; k < objects.size(); k++) {
 			if(!objects.get(k).destroyed && objects.get(k) != gO) {
@@ -598,8 +623,8 @@ public class GameController {
 	
 	/**
 	 * Clamps a point the the window
-	 * @param a : Point to clamp
-	 * @return : Point clamped to screen
+	 * @param a : point to clamp
+	 * @return Point clamped to screen
 	 */
 	public Point clampToScreen(Point a) {
 		a.x = PeterMath.clampI(a.x, config.width, 0);
@@ -608,20 +633,27 @@ public class GameController {
 	}
 	
 	/**
-	 * adds a object the mouse user list
+	 * Adds an object the mouse user list
 	 * @param g : GameObject to add to the list
 	 */
 	public void addMouseUser(GameObject g) {
 		mouseUsers.add(g);
 	}
 	/**
-	 * removes a object the mouse user list
+	 * Removes an object the mouse user list
 	 * @param g : GameObject to remove to the list
 	 */
 	public void removeMouseUser(GameObject g) {
 		mouseUsers.remove(g);
 	}
 	
+	/**
+	 * Called from the JFrame when the mouse is pressed.
+	 * Calls {@code onMousePressed()} on all objects that have subscribed as mouse listeners.
+	 * To subscribe an object run {@code addMouseUser(GameObject)} passing the GameObject
+	 * @param x : x position of the click
+	 * @param y : y position of the click
+	 */
 	public void onMousePressed(int x, int y) {
 		for (int i = 0; i < mouseUsers.size(); i++) {
 			mouseUsers.get(i).onMousePressed(x, y);
@@ -640,14 +672,14 @@ public class GameController {
 	}
 	
 	/**
-	 * adds a object the dead tick list
+	 * Adds a object the dead tick list
 	 * @param g : GameObject to add to the list
 	 */
 	public void addDeadTick(GameObject g) {
 		deadTick.add(g);
 	}
 	/**
-	 * removes a object the dead tick list
+	 * Removes a object the dead tick list
 	 * @param g : GameObject to remove to the list
 	 */
 	public void removeDeadTick(GameObject g) {
@@ -655,21 +687,26 @@ public class GameController {
 	}
 	
 	/**
-	 * adds a object the graphic tick list
+	 * Adds a object the graphic tick list
 	 * @param g : GameObject to add to the list
 	 */
 	public void addGTick(GameObject g) {
 		gTick.add(g);
 	}
 	/**
-	 * removes a object the graphic tick list
+	 * Removes a object the graphic tick list
 	 * @param g : GameObject to remove to the list
 	 */
 	public void removeGTick(GameObject g) {
 		gTick.remove(g);
 	}
 	
-	public void clampToWorld(Point point) {
+	/**
+	 * Clamps a point to the size of the world as defined by {@code worldSize} offset by {@code worldOffset}
+	 * @param point : the point to clamp
+	 * @return The clamped point
+	 */
+	public Point clampToWorld(Point point) {
 		if(point.x < worldOffset.x) {
 			point.x = worldOffset.x;
 		}
@@ -683,29 +720,48 @@ public class GameController {
 		if(point.y > worldOffset.y + worldSize.y) {
 			point.y = worldOffset.y + worldSize.y;
 		}
+		return point;
 	}
 	
 	/**
-	 * saves the current world to the file
+	 * Saves the current world to the file
 	 * @param filename : file to save the world to
 	 */
 	public void saveWorld(String filename) {
 		world.saveWorld(filename,objects.toArray(new GameObject[0]));
 	}
 	
+	/**
+	 * Loads a world by name
+	 * @param filename : the path and name of the world file to load, should include the file extension
+	 */
 	public void loadWorld(String filename) {
 		worldLoaded = true;
 		world.loadWorld(filename);
 	}
+	/**
+	 * Loads a world from a {@code String[]}
+	 * Intended for loading from bundled recourses using {@code class.getResourceAsStream(String)}
+	 * @param lines : the file as an array of Strings by line
+	 */
 	public void loadWorld(String[] lines) {
 		worldLoaded = true;
 		world.loadWorld(lines);
 	}
-
+	
+	/**
+	 * Adds a default object for world loading
+	 * @param obj : the object to add the the default object map
+	 */
 	public void addDefObj(GameObject obj) {
 		world.addDefObj(obj);
 	}
 	
+	/**
+	 * Gets an {@code GameObject[]} of all objects with a tag. Finds alive and destroyed objects
+	 * @param tag : the tag to search with
+	 * @return an array of all of the objects, including destroyed objects, in the game with the tag
+	 */
 	public GameObject[] getObjectsByTag(String tag) {
 		ArrayList<GameObject> objs = new ArrayList<GameObject>();
 		for(int i = 0; i < objects.size(); i++) {
