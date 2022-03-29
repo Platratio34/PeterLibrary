@@ -35,4 +35,12 @@ public class YAMLSection {
 			
 		}
 	}
+	
+	public void setValue(String key, Object value) {
+		values.put(key, value.toString());
+	}
+	
+	public void setSection(String key, YAMLSection section) {
+		sections.put(key, section);
+	}
 }

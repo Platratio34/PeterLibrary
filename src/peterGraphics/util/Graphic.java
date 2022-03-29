@@ -407,6 +407,7 @@ public class Graphic {
 	public void draw(Graphics g, ErrorLogger eLogger, Camera camera) {
 //		System.out.println(deapth);
 		if(draw) {
+			onDraw(g, eLogger, camera);
 			for(int i = 0; i < shapes.length; i++) {
 				//System.out.println("TEST 2");
 				try {
@@ -431,6 +432,14 @@ public class Graphic {
 			}
 		}
 	}
+	/**
+	 * Called when the Graphic is being drawn for custom Graphics.
+	 * @param g java.awt.Graphics to draw on
+	 * @param eLogger Error Logger for drawing
+	 * @param camera Camera to draw from
+	 */
+	protected void onDraw(Graphics g, ErrorLogger eLogger, Camera camera) {}
+	
 	/**
 	 * Sets the draw depth of the graphic
 	 * @param d : the new draw depth

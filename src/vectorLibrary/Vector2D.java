@@ -1,5 +1,7 @@
 package vectorLibrary;
 
+import java.awt.Point;
+
 public class Vector2D {
 	public double x = 0;
 	public double y = 0;
@@ -41,6 +43,14 @@ public class Vector2D {
 	public Vector2D add(Vector2D v2) {
 		return new Vector2D(x+v2.x, y+v2.y);
 	}
+	/**
+	 * Adds this vector and v2, return a new vector witch is the sum of the two
+	 * @param v2: the point to add
+	 * @return Sum of the two vectors
+	 */
+	public Vector2D add(Point v2) {
+		return new Vector2D(x+v2.x, y+v2.y);
+	}
 	
 	/**
 	 * Subtracts v2 from this vector, return a new vector witch is the difference of the two
@@ -48,6 +58,14 @@ public class Vector2D {
 	 * @return Diffrence of the two vectors
 	 */
 	public Vector2D subtract(Vector2D v2) {
+		return new Vector2D(x-v2.x, y-v2.y);
+	}
+	/**
+	 * Subtracts v2 from this vector, return a new vector witch is the difference of the two
+	 * @param v2: the point to subtract
+	 * @return Diffrence of the two vectors
+	 */
+	public Vector2D subtract(Point v2) {
 		return new Vector2D(x-v2.x, y-v2.y);
 	}
 	
@@ -61,6 +79,15 @@ public class Vector2D {
 	}
 	
 	/**
+	 * Scales the vector, and returns a new integer vector which is scaled by size
+	 * @param size The amount to scale by
+	 * @return a new scaled Vector2
+	 */
+	public Vector2 scaleI(float size) {
+		return new Vector2((int)(size*x), (int)(size*y));
+	}
+	
+	/**
 	 * Returns the magnitude of the vector
 	 * @return the magnitude
 	 */
@@ -69,9 +96,9 @@ public class Vector2D {
 	}
 	
 	/**
-	 * Normalizes the vecotr. Scales the vector down so that the mangnitude is 1
+	 * Normalizes the vector. Scales the vector down so that the mangnitude is 1
 	 */
 	public void normalize() {
-		scale(magnitude());
+		scale(1d/magnitude());
 	}
 }
