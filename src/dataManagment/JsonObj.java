@@ -208,6 +208,9 @@ public class JsonObj {
 			setObject(key, (JsonObj)value);
 			return;
 		}
+		if (value instanceof JsonSerializable) {
+			setObject(key, ((JsonSerializable) value).serilize());
+		}
 		objects.put(key, new JsonObj(value));
 	}
 	
@@ -252,6 +255,9 @@ public class JsonObj {
 	 * @param value The Object to add
 	 */
 	public void addArray(Object value) {
+		if (value instanceof JsonSerializable) {
+			array.add(((JsonSerializable) value).serilize());
+		}
 		array.add(new JsonObj(value));
 	}
 	
@@ -374,5 +380,10 @@ public class JsonObj {
 	 */
 	public JsonObj[] getArr() {
 		return array.toArray(new JsonObj[0]);
+	}
+	public static JsonObj parse(String path) {
+		JsonObj obj = new JsonObj();
+		obj.load(new File(path));
+		return obj;
 	}
 }

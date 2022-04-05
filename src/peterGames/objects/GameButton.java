@@ -150,5 +150,13 @@ public abstract class GameButton extends GameObject {
 	public  String onSaved() {
 		return "\t\tnull;" + "\n";
 	}
+	
+	public String getType() {
+		return "Game Button";
+	}
+	
+	public GameButton newObj(String[] arr) {
+		return null;
+	}
 
 }
