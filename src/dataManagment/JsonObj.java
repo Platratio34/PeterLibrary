@@ -303,7 +303,7 @@ public class JsonObj {
 	 * @return if the object has the key
 	 */
 	public boolean hasKey(String key) {
-		return objects.containsKey(key);
+		return objects.containsKey(key) && objects.get(key)!=null;
 	}
 	
 	/**
@@ -381,9 +381,15 @@ public class JsonObj {
 	public JsonObj[] getArr() {
 		return array.toArray(new JsonObj[0]);
 	}
+<<<<<<< HEAD
 	public static JsonObj parse(String path) {
 		JsonObj obj = new JsonObj();
 		obj.load(new File(path));
+=======
+	public static JsonObj parse(String data) {
+		JsonObj obj = new JsonObj();
+		obj.load(data);
+>>>>>>> branch 'dev' of https://github.com/Platratio34/PeterLibrary
 		return obj;
 	}
 }
