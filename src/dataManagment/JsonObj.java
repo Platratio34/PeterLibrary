@@ -381,15 +381,14 @@ public class JsonObj {
 	public JsonObj[] getArr() {
 		return array.toArray(new JsonObj[0]);
 	}
-<<<<<<< HEAD
-	public static JsonObj parse(String path) {
+	public static JsonObj parseP(String path) {
 		JsonObj obj = new JsonObj();
 		obj.load(new File(path));
-=======
-	public static JsonObj parse(String data) {
+		return obj;
+	}
+	public static JsonObj parseD(String data) {
 		JsonObj obj = new JsonObj();
 		obj.load(data);
->>>>>>> branch 'dev' of https://github.com/Platratio34/PeterLibrary
 		return obj;
 	}
 }
