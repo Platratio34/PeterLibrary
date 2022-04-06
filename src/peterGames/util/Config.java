@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
+
 /**
  * Configuration file for a game. Has tps, fps, size, debug mode, and key maping
  * @author peter
  *
  */
-public class Config {
+public class Config implements JsonSerializable {
 	
 	/**
 	 * Frames per second
@@ -199,5 +202,48 @@ public class Config {
 	 */
 	public void addKey(Key key) {
 		keys.add(key.clone());
+	}
+
+	@Override
+	public JsonObj serilize() {
+		JsonObj obj = new JsonObj();
+		obj.setKey("fps", fps);
+		obj.setKey("tps", tps);
+		obj.setKey("width", width);
+		obj.setKey("hight", hight);
+		obj.setKey("debug", debug);
+		JsonObj kObj = new JsonObj();
+		obj.setObject("keys", kObj);
+		for(int i = 0; i< keys.size(); i++) {
+			kObj.addArray(keys.get(i));
+		}
+		return obj;
+	}
+
+	@Override
+	public void deserilize(JsonObj obj) {
+		if(obj.hasKey("fps")) {
+			fps = obj.getKey("fps").integer();
+		}
+		if(obj.hasKey("tps")) {
+			tps = obj.getKey("tps").integer();
+		}
+		if(obj.hasKey("width")) {
+			width = obj.getKey("width").integer();
+		}
+		if(obj.hasKey("hight")) {
+			hight = obj.getKey("hight").integer();
+		}
+		if(obj.hasKey("debug")) {
+			debug = obj.getKey("debug").integer();
+		}
+		if(obj.hasKey("keys")) {
+			JsonObj[] arr = obj.getKey("keys").getArr();
+			for(int i = 0; i < arr.length; i++) {
+				Key k = new Key(arr[i]);
+				addKey(k);
+			}
+		}
+		
 	}
 }
