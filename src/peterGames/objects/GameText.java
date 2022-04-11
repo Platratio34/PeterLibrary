@@ -96,10 +96,10 @@ public class GameText extends GameObject {
 	 */
 	public void setText(String text, Font font_) {
 		name = text;
+		font = font_;
 		texture.clear();
 		texture.setPoint(point);
 		setDraw(texture);
-		font = font_;
 	}
 	
 	@Override

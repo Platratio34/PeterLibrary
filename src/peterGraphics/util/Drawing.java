@@ -32,7 +32,7 @@ public class Drawing extends JPanel {
 	 */
 	public Drawing () {
 		clear();
-		eLogger = new ErrorLogger();
+		eLogger = new ErrorLogger("Drawing");
 		font = new Font("TimesRoman", Font.PLAIN, 14);
 	}
 	/**
@@ -61,7 +61,7 @@ public class Drawing extends JPanel {
 	 */
 	public Drawing (Font Font) {
 		clear();
-		eLogger = new ErrorLogger();
+		eLogger = new ErrorLogger("Drawing");
 		font = Font;
 	}
 	

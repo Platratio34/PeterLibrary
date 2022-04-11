@@ -87,7 +87,7 @@ public class GameController {
 		stage = 0;
 		frames = 0;
 		frame = new JFrame(name);
-		eLogger = new ErrorLogger();
+		eLogger = new ErrorLogger("Game Controller");
 		Afps = 0;
 		Atps = 0;
 		config = new Config();
@@ -774,5 +774,10 @@ public class GameController {
 			}
 		}
 		return objs.toArray(new GameObject[0]);
+	}
+	
+	public void repaint() {
+		frame.pack();
+		frame.repaint();
 	}
 }

@@ -1,17 +1,20 @@
 package peterGraphics;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class Console {
 	private JFrame frame = new JFrame("Testing");
-	private JTextArea label = new JTextArea("Console:\n");
+	private JEditorPane label;
 	private boolean enterHit = false;
 	private PrintStream oldPS;
 	private PrintStream outPS;
@@ -20,6 +23,33 @@ public class Console {
 	private JScrollPane scrolll = new JScrollPane(label);
 	private boolean overided;
 	private String startingText;
+	private String endingText = "</div>";
+	private String text = "";
+	
+	private boolean visible = true;
+	
+	private void init(boolean override, int w, int h, boolean exit, String start) {
+		label = new JEditorPane();
+		startingText = "<div style=\"color:#00ff00\">"+start+"<br/>";
+		label.setText(startingText + endingText);
+		oldPS = System.out;
+		out = new ByteArrayOutputStream();
+		outPS = new PrintStream(out);
+		if(override) {
+			overided = true;
+			System.setOut(outPS);
+		}
+		
+		if(exit) {
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		label.setFont(new Font("Consolas", Font.PLAIN, 12));
+		label.setPreferredSize(new Dimension(h, w));
+		label.setBackground(Color.BLACK);
+		label.setForeground(Color.GREEN);
+		label.setContentType("text/html");
+		update();
+	}
 	
 	/**
 	 * Default constructor
@@ -29,17 +59,7 @@ public class Console {
 	 *  <li> {@code width, hight = 800}px </li>
 	 */
 	public Console() {
-		startingText = "Console:\n";
-		oldPS = System.out;
-		out = new ByteArrayOutputStream();
-		outPS = new PrintStream(out);
-		System.setOut(outPS);
-		overided = true;
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(800, 800));
-		update();
+		init(true, 800, 800, true, "Console\n");
 	}
 	/**
 	 * Paramatized constructor
@@ -49,19 +69,7 @@ public class Console {
 	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean overide) {
-		startingText = "Console:\n";
-		oldPS = System.out;
-		out = new ByteArrayOutputStream();
-		outPS = new PrintStream(out);
-		if(overide) {
-			overided = true;
-			System.setOut(outPS);
-		}
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(800, 800));
-		update();
+		init(overide, 800, 800, true, "Console\n");
 	}
 	/**
 	 * Paramatized constructor
@@ -71,21 +79,7 @@ public class Console {
 	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean exit, boolean overide) {
-		startingText = "Console:\n";
-		oldPS = System.out;
-		out = new ByteArrayOutputStream();
-		outPS = new PrintStream(out);
-		if(overide) {
-			overided = true;
-			System.setOut(outPS);
-		}
-		
-		if(exit) {
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		}
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(800, 800));
-		update();
+		init(overide, 800, 800, exit, "Console\n");
 	}
 	/**
 	 * Paramatized constructor
@@ -95,22 +89,7 @@ public class Console {
 	 * @param start : starting text
 	 */
 	public Console(boolean exit, boolean overide, String start) {
-		startingText = start+"\n";
-		label.setText(start+"\n");
-		oldPS = System.out;
-		out = new ByteArrayOutputStream();
-		outPS = new PrintStream(out);
-		if(overide) {
-			overided = true;
-			System.setOut(outPS);
-		}
-		
-		if(exit) {
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		}
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(800, 800));
-		update();
+		init(overide, 800, 800, exit, start);
 	}
 	/**
 	 * Paramatized constructor
@@ -121,21 +100,7 @@ public class Console {
 	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean exit, int w, int h, boolean overide) {
-		startingText = "Console:\n";
-		oldPS = System.out;
-		out = new ByteArrayOutputStream();
-		outPS = new PrintStream(out);
-		if(overide) {
-			overided = true;
-			System.setOut(outPS);
-		}
-		
-		if(exit) {
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		}
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(h, w));
-		update();
+		init(overide, w, h, exit, "Console\n");
 	}
 	/**
 	 * Paramatized constructor
@@ -146,22 +111,7 @@ public class Console {
 	 * @param start : starting text
 	 */
 	public Console(boolean exit, int w, int h, boolean overide, String start) {
-		startingText = start+"\n";
-		label.setText(start+"\n");
-		oldPS = System.out;
-		out = new ByteArrayOutputStream();
-		outPS = new PrintStream(out);
-		if(overide) {
-			overided = true;
-			System.setOut(outPS);
-		}
-		
-		if(exit) {
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		}
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(h, w));
-		update();
+		init(overide, w, h, exit, start);
 	}
 	
 	/**
@@ -169,6 +119,7 @@ public class Console {
 	 * @param visibility : the visibility of console
 	 */
 	public void visible(boolean visibility) {
+		visible = visibility;
 		frame.setVisible(visibility);
 	}
 	
@@ -177,7 +128,18 @@ public class Console {
 	 * @param x : the text to append
 	 */
 	public void appendln(String x) {
-		label.setText(label.getText() + x + "\n");
+		text += x + "\n";
+		update();
+	}
+	/**
+	 * Appends the text and a newline character
+	 * @param x : the text to append
+	 * @param c : the color of the text
+	 */
+	public void appendln(String x, Color c) {
+		String fnt = "<span style=\"color:"+String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue())+"\">";
+//		String fnt = "<span style=\"color:red\">";
+		text += fnt + x + "</span>\n";
 		update();
 	}
 	/**
@@ -185,7 +147,7 @@ public class Console {
 	 * @param x : integer to append
 	 */
 	public void appendln(int x) {
-		label.setText(label.getText() + x + "\n");
+		text += x + "\n";
 		update();
 	}
 	/**
@@ -193,7 +155,7 @@ public class Console {
 	 * @param x : charecter to append
 	 */
 	public void appendln(char x) {
-		label.setText(label.getText() + x + "\n");
+		text += x + "\n";
 		update();
 	}
 	/**
@@ -201,7 +163,7 @@ public class Console {
 	 * @param x : double to append
 	 */
 	public void appendln(double x) {
-		label.setText(label.getText() + x + "\n");
+		text += x + "\n";
 		update();
 	}
 	/**
@@ -209,7 +171,7 @@ public class Console {
 	 * @param x : object to append, {@code toString()} is used
 	 */
 	public void appendln(Object x) {
-		label.setText(label.getText() + x.toString() + "\n");
+		text += x + "\n";
 		update();
 	}
 	
@@ -219,7 +181,7 @@ public class Console {
 	 * @param x : text to append
 	 */
 	public void append(String x) {
-		label.setText(label.getText() + x);
+		text += x;
 		update();
 	}
 	/**
@@ -227,7 +189,7 @@ public class Console {
 	 * @param x : integer to append
 	 */
 	public void append(int x) {
-		label.setText(label.getText() + x);
+		text += x;
 		update();
 	}
 	/**
@@ -235,7 +197,7 @@ public class Console {
 	 * @param x : character to append
 	 */
 	public void append(char x) {
-		label.setText(label.getText() + x);
+		text += x;
 		update();
 	}
 	/**
@@ -243,7 +205,7 @@ public class Console {
 	 * @param x : double to append
 	 */
 	public void append(double x) {
-		label.setText(label.getText() + x);
+		text += x;
 		update();
 	}
 	/**
@@ -251,7 +213,7 @@ public class Console {
 	 * @param x : object to append, {@code toString()} is used
 	 */
 	public void append(Object x) {
-		label.setText(label.getText() + x.toString());
+		text += x;
 		update();
 	}
 	
@@ -259,7 +221,7 @@ public class Console {
 	 * Clears the console
 	 */
 	public void clearText() {
-		label.setText(startingText);
+		text = "";
 		update();
 	}
 	
@@ -268,7 +230,7 @@ public class Console {
 	 * @param str : the text to set the console to, the starting text is put on the begining
 	 */
 	public void setText(String str) {
-		label.setText(startingText + str);
+		text = str;
 		update();
 	}
 	/**
@@ -278,7 +240,7 @@ public class Console {
 	 */
 	public void setText(String str, boolean start) {
 		if(start) {
-			label.setText(startingText + str);
+			text = str;
 		}
 		update();
 	}
@@ -288,7 +250,7 @@ public class Console {
 	 * @return the contnce of the console
 	 */
 	public String getText() {
-		return label.getText();
+		return text;
 	}
 	
 	/**
@@ -368,11 +330,13 @@ public class Console {
 	 * Updates the console frame;
 	 */
 	public void update() {
+		text = text.replace("\n", "<br/>");
+		label.setText(startingText + text + endingText);
 		label.setEditable(false);
 		frame.getContentPane().add(scrolll);
 		frame.getContentPane().add(label, BorderLayout.CENTER);
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(visible);
 		str = label.getText();
 	}
 	
@@ -398,5 +362,9 @@ public class Console {
 	 */
 	public JFrame getFrame() {
 		return frame;
+	}
+	
+	public void setTitle(String title) {
+		frame.setTitle(title);
 	}
 }

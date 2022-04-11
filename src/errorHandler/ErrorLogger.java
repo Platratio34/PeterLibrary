@@ -1,5 +1,7 @@
 package errorHandler;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,9 +9,11 @@ import javax.swing.JFrame;
 
 import peterGraphics.Console;
 
+import java.awt.Color;
+
 public class ErrorLogger {
 	
-	Console log = new Console(false,false,"Error Logger:");
+	protected Console log = new Console(false,false,"Error Logger:");
 	protected int nullPointers;
 	protected int arrayIOBs;
 	protected int stringIOBs;
@@ -19,11 +23,14 @@ public class ErrorLogger {
 	protected int lineT;
 	protected ErrorType typeT;
 	protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
+	public static Color ErrorColor = new Color(255, 10, 10);
+	public static Color WarnColor = new Color(255, 200, 0);
 	
 	/**
 	 * default constructor
 	 */
-	public ErrorLogger() {
+	public ErrorLogger(String name) {
+		log.setTitle(name);
 		reset();
 	}
 	
@@ -76,19 +83,19 @@ public class ErrorLogger {
 		if(type == ErrorType.NullPointer) {
 			nullPointers++;
 			//System.out.println(nullPointers);
-			log.appendln(dtf.format(now) + ": Error: Null Pointer; At: " + origin + "," + line);
+			log.appendln(dtf.format(now) + ": Error: Null Pointer; At: " + origin + "," + line, ErrorColor);
 		} else if(type == ErrorType.ArrayIndexOutOfBounds) {
 			arrayIOBs++;
-			log.appendln(dtf.format(now) + ": Error: Array Index Out of Bounds; At: " + origin + "," + line);
+			log.appendln(dtf.format(now) + ": Error: Array Index Out of Bounds; At: " + origin + "," + line, ErrorColor);
 		} else if(type == ErrorType.StringIndexOutOfBounds) {
 			stringIOBs++;
-			log.appendln(dtf.format(now) + ": Error: String Index Out of Bounds; At: " + origin + "," + line);
+			log.appendln(dtf.format(now) + ": Error: String Index Out of Bounds; At: " + origin + "," + line, ErrorColor);
 		} else if(type == ErrorType.StackOverflow) {
 			stachOverflows++;
-			log.appendln(dtf.format(now) + ": Error: Stack Overflow; At: " + origin + "," + line);
+			log.appendln(dtf.format(now) + ": Error: Stack Overflow; At: " + origin + "," + line, ErrorColor);
 		} else if(type == ErrorType.Security) {
 			nullPointers++;
-			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line);
+			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line, ErrorColor);
 		}
 		log.visible(true);
 	}
@@ -117,54 +124,35 @@ public class ErrorLogger {
 		if(type == ErrorType.NullPointer) {
 			nullPointers++;
 			//System.out.println(nullPointers);
-			log.appendln(dtf.format(now) + ": Error: Null Pointer; At: " + origin + "," + line + "; " + info);
+			log.appendln(dtf.format(now) + ": Error: Null Pointer; At: " + origin + "," + line + "; " + info, ErrorColor);
 		} else if(type == ErrorType.ArrayIndexOutOfBounds) {
 			arrayIOBs++;
-			log.appendln(dtf.format(now) + ": Error: Array Index Out of Bounds; At: " + origin + "," + line + "; " + info);
+			log.appendln(dtf.format(now) + ": Error: Array Index Out of Bounds; At: " + origin + "," + line + "; " + info, ErrorColor);
 		} else if(type == ErrorType.StringIndexOutOfBounds) {
 			stringIOBs++;
-			log.appendln(dtf.format(now) + ": Error: String Index Out of Bounds; At: " + origin + "," + line + "; " + info);
+			log.appendln(dtf.format(now) + ": Error: String Index Out of Bounds; At: " + origin + "," + line + "; " + info, ErrorColor);
 		} else if(type == ErrorType.StackOverflow) {
 			stachOverflows++;
-			log.appendln(dtf.format(now) + ": Error: Stack Overflow; At: " + origin + "," + line + "; " + info);
+			log.appendln(dtf.format(now) + ": Error: Stack Overflow; At: " + origin + "," + line + "; " + info, ErrorColor);
 		} else if(type == ErrorType.Security) {
 			SecurityExeptions++;
-			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line + "; " + info);
+			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line + "; " + info, ErrorColor);
 		}
 		log.visible(true);
 	}
-	@Deprecated
 	/**
-	 * *DEPREICATED* not yet working
 	 * Logs a new error
 	 * @param e : error
 	 * @param origin : class of origin
 	 * @param line : line of origin
 	 */
-	public void logError(Exception e, String origin, int line) {
+	public void logError(Exception e) {
 		
 		LocalDateTime now = LocalDateTime.now();
-		String info = "";
-		System.out.println(e.getCause());
-		
-		ErrorType type = null;
-		if(type == ErrorType.NullPointer) {
-			nullPointers++;
-			//System.out.println(nullPointers);
-			log.appendln(dtf.format(now) + ": Error: Null Pointer; At: " + origin + "," + line + "; " + info);
-		} else if(type == ErrorType.ArrayIndexOutOfBounds) {
-			arrayIOBs++;
-			log.appendln(dtf.format(now) + ": Error: Array Index Out of Bounds; At: " + origin + "," + line + "; " + info);
-		} else if(type == ErrorType.StringIndexOutOfBounds) {
-			stringIOBs++;
-			log.appendln(dtf.format(now) + ": Error: String Index Out of Bounds; At: " + origin + "," + line + "; " + info);
-		} else if(type == ErrorType.StackOverflow) {
-			stachOverflows++;
-			log.appendln(dtf.format(now) + ": Error: Stack Overflow; At: " + origin + "," + line + "; " + info);
-		} else if(type == ErrorType.Security) {
-			SecurityExeptions++;
-			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line + "; " + info);
-		}
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
+		log.appendln(dtf.format(now) + ": Error: " + sw, ErrorColor);
 		log.visible(true);
 	}
 	/**
@@ -176,8 +164,19 @@ public class ErrorLogger {
 	public void logError(String error, String origin, int line, String info) {
 		
 		LocalDateTime now = LocalDateTime.now();
-		log.appendln(dtf.format(now) + ": Error: " + error + "; At: " + origin + "," + line + "; " + info);
+		log.appendln(dtf.format(now) + ": Error: " + error + "; At: " + origin + "," + line + "; " + info, ErrorColor);
 		log.visible(true);
 	}
 	
+	public void logInfo(String info) {
+		LocalDateTime now = LocalDateTime.now();
+		log.appendln(dtf.format(now) + ": INFO: " + info);
+		log.visible(true);
+	}
+	
+	public void logWarn(String info) {
+		LocalDateTime now = LocalDateTime.now();
+		log.appendln(dtf.format(now) + ": WARN: " + info, WarnColor);
+		log.visible(true);
+	}
 }
