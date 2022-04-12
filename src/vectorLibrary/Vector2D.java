@@ -16,8 +16,8 @@ public class Vector2D implements JsonSerializable {
 	public Vector2D() {}
 	/**
 	 * Constructor for double 2d vector
-	 * @param xi: x value
-	 * @param yi: y value
+	 * @param xi : x value
+	 * @param yi : y value
 	 */
 	public Vector2D(double xi, double yi) {
 		x = xi;
@@ -25,14 +25,14 @@ public class Vector2D implements JsonSerializable {
 	}
 	/**
 	 * Constructor for double 2d vector
-	 * @param obj: JsonObj representing the vector
+	 * @param obj : JsonObj representing the vector
 	 */
 	public Vector2D(JsonObj obj) {
 		deserilize(obj);
 	}
 	
 	/**
-	 * Retruns a copy of the cector
+	 * Returns a copy of the vector
 	 * @return: exact copy of the vector
 	 */
 	public Vector2D copy() {
@@ -47,7 +47,7 @@ public class Vector2D implements JsonSerializable {
 	
 	/**
 	 * Adds this vector and v2, return a new vector witch is the sum of the two
-	 * @param v2: the vector to add
+	 * @param v2 : the vector to add
 	 * @return Sum of the two vectors
 	 */
 	public Vector2D add(Vector2D v2) {
@@ -55,7 +55,7 @@ public class Vector2D implements JsonSerializable {
 	}
 	/**
 	 * Adds this vector and v2, return a new vector witch is the sum of the two
-	 * @param v2: the point to add
+	 * @param v2 : the point to add
 	 * @return Sum of the two vectors
 	 */
 	public Vector2D add(Point v2) {
@@ -64,25 +64,25 @@ public class Vector2D implements JsonSerializable {
 	
 	/**
 	 * Subtracts v2 from this vector, return a new vector witch is the difference of the two
-	 * @param v2: the vector to subtract
-	 * @return Diffrence of the two vectors
+	 * @param v2 : the vector to subtract
+	 * @return Difference of the two vectors
 	 */
 	public Vector2D subtract(Vector2D v2) {
 		return new Vector2D(x-v2.x, y-v2.y);
 	}
 	/**
 	 * Subtracts v2 from this vector, return a new vector witch is the difference of the two
-	 * @param v2: the point to subtract
-	 * @return Diffrence of the two vectors
+	 * @param v2 : the point to subtract
+	 * @return Difference of the two vectors
 	 */
 	public Vector2D subtract(Point v2) {
 		return new Vector2D(x-v2.x, y-v2.y);
 	}
 	
 	/**
-	 * Scales the vector, and returns a new vecotr witch is scaled
-	 * @param s: the amount to scale by
-	 * @return The sclaed vector
+	 * Scales the vector, and returns a new vector witch is scaled
+	 * @param s : the amount to scale by
+	 * @return The scaled vector
 	 */
 	public Vector2D scale(double s) {
 		return new Vector2D(x*s, y*s);
@@ -106,7 +106,7 @@ public class Vector2D implements JsonSerializable {
 	}
 	
 	/**
-	 * Normalizes the vector. Scales the vector down so that the mangnitude is 1
+	 * Normalizes the vector. Scales the vector down so that the magnitude is 1
 	 */
 	public void normalize() {
 		scale(1d/magnitude());

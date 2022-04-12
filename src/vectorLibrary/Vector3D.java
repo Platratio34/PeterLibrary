@@ -9,7 +9,7 @@ public class Vector3D implements JsonSerializable {
 	public double z = 0;
 	public static Vector3D one = new Vector3D(1,1,1);
 	/**
-	 * Blank Constuctor for double 3d vector, x, y and z are set to 0
+	 * Blank Constructor for double 3d vector, x, y and z are set to 0
 	 */
 	public Vector3D() {}
 	/**
@@ -25,7 +25,7 @@ public class Vector3D implements JsonSerializable {
 	}
 	/**
 	 * Constructor for double 3d vector
-	 * @param obj: JsonObj representing the vector
+	 * @param obj : JsonObj representing the vector
 	 */
 	public Vector3D(JsonObj obj) {
 		deserilize(obj);
@@ -37,7 +37,7 @@ public class Vector3D implements JsonSerializable {
 	
 	/**
 	 * Adds this vector and v2, return a new vector witch is the sum of the two
-	 * @param v2: the vector to add
+	 * @param v2 : the vector to add
 	 * @return Sum of the two vectors
 	 */
 	public Vector3D add(Vector3D v2) {
@@ -46,24 +46,24 @@ public class Vector3D implements JsonSerializable {
 	
 	/**
 	 * Subtracts v2 from this vector, return a new vector witch is the difference of the two
-	 * @param v2: the vector to subtract
-	 * @return Diffrence of the two vectors
+	 * @param v2 : the vector to subtract
+	 * @return Difference of the two vectors
 	 */
 	public Vector3D subtract(Vector3D v2) {
 		return new Vector3D(x-v2.x, y-v2.y, z-v2.z);
 	}
 	
 	/**
-	 * Scales the vector, and returns a new vecotr witch is scaled
-	 * @param s: the amount to scale by
-	 * @return The sclaed vector
+	 * Scales the vector, and returns a new vector witch is scaled
+	 * @param s : the amount to scale by
+	 * @return The scaled vector
 	 */
 	public Vector3D scale(double s) {
 		return new Vector3D((x*s), (y*s), (z*s));
 	}
 	
 	/**
-	 * Retruns the magnitude of the vector
+	 * Returns the magnitude of the vector
 	 * @return the magnitude
 	 */
 	public double magnitude() {
@@ -71,7 +71,7 @@ public class Vector3D implements JsonSerializable {
 	}
 	
 	/**
-	 * Normalizes the vecotr. Scales the vector down so that the mangnitude is 1
+	 * Normalizes the vector. Scales the vector down so that the magnitude is 1
 	 */
 	public void normalize() {
 		scale(magnitude());
