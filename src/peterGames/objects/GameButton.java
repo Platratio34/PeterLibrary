@@ -1,5 +1,6 @@
 package peterGames.objects;
 
+import dataManagment.JsonObj;
 import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
@@ -146,8 +147,13 @@ public abstract class GameButton extends GameObject {
 		
 		return out;
 	}
+	@Override
+	public void onSave(JsonObj obj) {
+		obj.setKey("size", new Object[] {w,h});
+		obj.setKey("pres", pressed);
+	}
 	
-	public  String onSaved() {
+	public String onSaved() {
 		return "\t\tnull;" + "\n";
 	}
 	
@@ -155,6 +161,7 @@ public abstract class GameButton extends GameObject {
 		return "Game Button";
 	}
 	
+	@Override
 	public GameButton newObj(String[] arr) {
 		return null;
 	}

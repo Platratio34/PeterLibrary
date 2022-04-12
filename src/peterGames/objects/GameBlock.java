@@ -113,8 +113,8 @@ public class GameBlock extends GameObject {
 	}
 	@Override
 	public void onSave(JsonObj obj) {
-		obj.setKey("size", new int[] {w,h});
-		obj.setKey("color", new int[] {r,g,b});
+		obj.setKey("size", new Object[] {w,h});
+		obj.setKey("color", new Object[] {r,g,b});
 	}
 
 	@Override

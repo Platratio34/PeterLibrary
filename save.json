@@ -1,0 +1,35 @@
+{
+	"objects": [
+		{
+			"destroyed": false,
+			"pos": [0, 0],
+			"name": "game",
+			"tag": "null",
+			"type": "null"
+		},
+		{
+			"destroyed": false,
+			"pos": [11, 10],
+			"name": "object",
+			"tag": "null",
+			"type": "Player",
+			"dir": [1, 0]
+		},
+		{
+			"destroyed": false,
+			"pos": [11, 50],
+			"name": "object",
+			"tag": "null",
+			"type": "Player",
+			"dir": [1, 0]
+		},
+		{
+			"destroyed": false,
+			"pos": [0, 0],
+			"name": "object",
+			"tag": "player",
+			"type": "GamePlayer",
+			"speed": 2
+		}
+	]
+}

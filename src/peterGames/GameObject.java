@@ -532,8 +532,8 @@ public abstract class GameObject implements JsonSerializable {
 	public JsonObj serilize() {
 		JsonObj obj = new JsonObj();
 		obj.setKey("type", getType());
-		obj.setKey("pos", new int[] {point.x,point.y});
-		obj.setKey("destroyed", destroyed);
+		obj.setKey("pos", new Object[] {point.x,point.y});
+		obj.setKey("destroyed", destroyed); 
 		obj.setKey("name", name);
 		obj.setKey("tag", tag);
 		onSave(obj);

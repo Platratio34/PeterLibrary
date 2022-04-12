@@ -213,7 +213,7 @@ public class Config implements JsonSerializable {
 		obj.setKey("hight", hight);
 		obj.setKey("debug", debug);
 		JsonObj kObj = new JsonObj();
-		obj.setObject("keys", kObj);
+		obj.setKey("keys", kObj);
 		for(int i = 0; i< keys.size(); i++) {
 			kObj.addArray(keys.get(i));
 		}

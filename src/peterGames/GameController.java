@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 
 import dataManagment.JsonObj;
 import errorHandler.ErrorLogger;
+import peterGames.WorldControler.SaveType;
 import peterGames.objects.GameBlock;
 import peterGames.objects.GamePlayer;
 import peterGames.objects.GameText;
@@ -786,5 +787,9 @@ public class GameController {
 	public void repaint() {
 		frame.pack();
 		frame.repaint();
+	}
+
+	public void setSaveType(SaveType type) {
+		world.saveType = type;
 	}
 }

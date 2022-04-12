@@ -33,7 +33,7 @@ public class JsonObj {
 	 */
 	public JsonObj(Object value) {
 		clear();
-		if(value.getClass().isArray()) {
+		if(value instanceof Object[]) {
 			Object[] arr = (Object[])value;
 			for(int i = 0; i < arr.length; i++) {
 				array.add(new JsonObj(arr[i]));
@@ -196,11 +196,14 @@ public class JsonObj {
 		return toString(0, true);
 	}
 	
+	
 	/**
 	 * Sets entry key to a JSON object
+	 * @deprecated Use {@code setKey(String, Object)}
 	 * @param key The key to set
 	 * @param section the JSON object value
 	 */
+	@Deprecated
 	public void setObject(String key, JsonObj section) {
 		objects.put(key, section);
 	}
@@ -212,11 +215,12 @@ public class JsonObj {
 	 */
 	public void setKey(String key, Object value) {
 		if(value instanceof JsonObj) {
-			setObject(key, (JsonObj)value);
+			objects.put(key, (JsonObj)value);
 			return;
 		}
 		if (value instanceof JsonSerializable) {
-			setObject(key, ((JsonSerializable) value).serilize());
+			objects.put(key, ((JsonSerializable) value).serilize());
+			return;
 		}
 		objects.put(key, new JsonObj(value));
 	}
@@ -264,6 +268,7 @@ public class JsonObj {
 	public void addArray(Object value) {
 		if (value instanceof JsonSerializable) {
 			array.add(((JsonSerializable) value).serilize());
+			return;
 		}
 		array.add(new JsonObj(value));
 	}

@@ -79,8 +79,17 @@ public class Player extends GameObject {
 
 	@Override
 	public GameObject newObj(JsonObj obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Player np = new Player(parentGame, cfg);
+		np.setDefParm(obj);
+		JsonObj[] dirA = obj.getKey("dir").getArr();
+		np.dir.x = dirA[0].integer();
+		np.dir.y = dirA[1].integer();
+		return np;
+	}
+	
+	@Override
+	public void onSave(JsonObj obj) {
+		obj.setKey("dir", new Object[] {dir.x, dir.y});
 	}
 
 }
