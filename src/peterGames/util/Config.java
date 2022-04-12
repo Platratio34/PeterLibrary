@@ -82,9 +82,16 @@ public class Config implements JsonSerializable {
 		hight = Hight;
 		debug = Debug;
 	}
+	/**
+	 * Constructor for {@code Config}
+	 * @param obj : JsonObj representation of the config
+	 */
+	public Config(JsonObj obj) {
+		deserilize(obj);
+	}
 	
 	/**
-	 * Prints the config to {@code System.out}.
+	 * Prints the config to {@code System.out}.<br>
 	 * Prints the output of {@code save()}
 	 */
 	public void print() {

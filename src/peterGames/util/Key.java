@@ -4,7 +4,7 @@ import dataManagment.JsonObj;
 import dataManagment.JsonSerializable;
 
 /**
- * Key for custom key maping, links internal and external id to a name
+ * Key for custom key mapping, links internal and external id to a name
  * @author peter
  *
  */
