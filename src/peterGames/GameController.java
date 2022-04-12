@@ -171,7 +171,7 @@ public class GameController {
 		worldSize = new Point(config.width, config.hight);
 		worldOffset = new Point();
 		world = new WorldControler(this);
-		world.addDefObj(new GameBlock(this,config,0,0,0,0,0));
+		world.addDefObj(new GameBlock(this,config,0,0,0,0,0,0,0));
 		world.addDefObj(new GamePlayer(this,config,0));
 		world.addDefObj(new GameText(this,config,""));
 	}
