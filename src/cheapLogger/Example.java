@@ -10,14 +10,14 @@ public class Example {
 	public static int t2 = 0;
 	
 	public static void main(String[] args) {
-		// Creat a new instace of the CheapLogger creating a new custom LogEvent
-		// The Log event will be called in a seprate thead so you do not need to wory about it holding the main thread
+		// Create a new instance of the CheapLogger creating a new custom LogEvent
+		// The Log event will be called in a separate thread so you do not need to worry about it holding the main thread
 		logger = new CheapLogger(new LogEvent() {
 			public String onLog() {
 				// Create and return a string that will be logged
-				// When creating the string you can use instance and static varibles from the object that the LogEvent is created in
-				// Public, Private, and protected varibels can all be read
-				// For instnace I am using t and t2 in creating the string
+				// When creating the string you can use instance and static variables from the object that the LogEvent is created in
+				// Public, Private, and protected variables can all be read
+				// For instance I am using t and t2 in creating the string
 				return "Log:"+t+", "+t2;
 			}
 		});

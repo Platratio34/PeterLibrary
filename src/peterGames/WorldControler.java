@@ -50,7 +50,6 @@ public class WorldControler {
 	 * Loads "default.txt" using {@code getClass().getResourceAsStream(String)}
 	 */
 	public void loadDefault() {
-		ArrayList<String> strs = new ArrayList<String>();
 		try {
 			InputStream in = getClass().getResourceAsStream("default.txt");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));

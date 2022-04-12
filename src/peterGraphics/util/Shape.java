@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import vectorLibrary.LineSegment;
-import vectorLibrary.Vector2;
 
 /**
  * A graphical shape, used by {@code Graphic}
