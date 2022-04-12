@@ -1,6 +1,6 @@
 package dataManagment;
 
-public interface JsonSerializable<T> {
+public interface JsonSerializable {
 	
 	public JsonObj serilize();
 	public void deserilize(JsonObj obj);
