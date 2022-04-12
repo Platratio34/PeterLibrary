@@ -1,6 +1,9 @@
 package vectorLibrary;
 
-public class Vector3 {
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
+
+public class Vector3 implements JsonSerializable {
 	public int x = 0;
 	public int y = 0;
 	public int z = 0;
@@ -20,6 +23,13 @@ public class Vector3 {
 		x = xi;
 		y = yi;
 		z = zi;
+	}
+	/**
+	 * Constructor for 3d vector
+	 * @param obj: JsonObj representing the vector
+	 */
+	public Vector3(JsonObj obj) {
+		deserilize(obj);
 	}
 	
 	public String toString() {
@@ -59,5 +69,18 @@ public class Vector3 {
 	 */
 	public double magnitude() {
 		return Math.sqrt((x*x)+(y*y)+(z*z));
+	}
+	
+	@Override
+	public JsonObj serilize() {
+		return new JsonObj(new Object[] {x,y,z});
+	}
+	
+	@Override
+	public void deserilize(JsonObj obj) {
+		JsonObj[] arr = obj.getArr();
+		x = arr[0].integer();
+		y = arr[1].integer();
+		z = arr[1].integer();
 	}
 }

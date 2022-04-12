@@ -2,7 +2,10 @@ package vectorLibrary;
 
 import java.awt.Point;
 
-public class Vector2D {
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
+
+public class Vector2D implements JsonSerializable {
 	public double x = 0;
 	public double y = 0;
 	public static Vector2D one = new Vector2D(1,1);
@@ -19,6 +22,13 @@ public class Vector2D {
 	public Vector2D(double xi, double yi) {
 		x = xi;
 		y = yi;
+	}
+	/**
+	 * Constructor for double 2d vector
+	 * @param obj: JsonObj representing the vector
+	 */
+	public Vector2D(JsonObj obj) {
+		deserilize(obj);
 	}
 	
 	/**
@@ -100,5 +110,17 @@ public class Vector2D {
 	 */
 	public void normalize() {
 		scale(1d/magnitude());
+	}
+	
+	@Override
+	public JsonObj serilize() {
+		return new JsonObj(new Object[] {x,y});
+	}
+	
+	@Override
+	public void deserilize(JsonObj obj) {
+		JsonObj[] arr = obj.getArr();
+		x = arr[0].doubleP();
+		y = arr[1].doubleP();
 	}
 }

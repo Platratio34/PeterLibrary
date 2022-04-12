@@ -2,8 +2,9 @@ package vectorLibrary;
 
 import java.awt.Point;
 import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
 
-public class Vector2 {
+public class Vector2 implements JsonSerializable {
 	public int x = 0;
 	public int y = 0;
 	public static Vector2 one = new Vector2(1,1);
@@ -21,9 +22,20 @@ public class Vector2 {
 		x = xi;
 		y = yi;
 	}
+	/**
+	 * Constructor for 2d vector
+	 * @param p: Point equivalent of the vector
+	 */
 	public Vector2(Point p) {
 		x = p.x;
 		y = p.y;
+	}
+	/**
+	 * Constructor for 2d vector
+	 * @param obj: JsonObj representing the vector
+	 */
+	public Vector2(JsonObj obj) {
+		deserilize(obj);
 	}
 	
 	public String toString() {
@@ -74,5 +86,17 @@ public class Vector2 {
 		obj.addArray(x);
 		obj.addArray(y);
 		return obj;
+	}
+	
+	@Override
+	public JsonObj serilize() {
+		return new JsonObj(new Object[] {x,y});
+	}
+	
+	@Override
+	public void deserilize(JsonObj obj) {
+		JsonObj[] arr = obj.getArr();
+		x = arr[0].integer();
+		y = arr[1].integer();
 	}
 }
