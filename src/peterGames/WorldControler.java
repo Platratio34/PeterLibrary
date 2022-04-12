@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import dataManagment.JsonObj;
 import inputs.Files;
 
 /**
@@ -25,6 +26,8 @@ public class WorldControler {
 	private int[][] chunkIndex;
 	private GameController game;
 	private Map<String, GameObject> objs;
+	
+	public SaveType saveType = SaveType.PGS;
 	
 	/**
 	 * Constructor for WorldController. Loads runs {@code loadWorld(String)} passing in {@code filename}
@@ -84,76 +87,90 @@ public class WorldControler {
 	 * Loads the world from {@code worldFile}
 	 */
 	private void loadWorld() {
-		if(worldFile.length > 1) {
-			int size = 1;
-			for(int i = 0; i < worldFile[1].length(); i++) {
-				if(worldFile[1].charAt(i) == ':') {
-					for(int j = i + 1; j < worldFile[1].length(); j++) {
-						if(worldFile[1].charAt(j) == ';') {
-							String t = worldFile[1].substring(i+1,j);
-							size = Integer.valueOf(t);
-//							System.out.println(size);
-						}
-					}
-				}
-			}
-			
-			sectorIndex = new int[size];
-			for(int i = 0; i < worldFile.length; i++) {
-				if(worldFile[i].charAt(0) != '\t' && worldFile[i].charAt(0) != '}' && worldFile[i].length() > 0) {
-//					System.out.println(worldFile[i]);
-//					System.out.println(worldFile[i].substring(0,7));
-					if(worldFile[i].substring(0,7).equals("sector<")) {
-						for(int j = 7; j < worldFile[i].length(); j++) {
-//							System.out.println(worldFile[i].charAt(j) + ":" + j);
-							if(worldFile[i].charAt(j) == '>') {
-								String t = worldFile[i].substring(7,j);
-								int sector = Integer.valueOf(t); 
-								sectorIndex[sector] = i;
-								j = worldFile[i].length();
+		if(saveType == SaveType.PGS) {
+			if(worldFile.length > 1) {
+				int size = 1;
+				for(int i = 0; i < worldFile[1].length(); i++) {
+					if(worldFile[1].charAt(i) == ':') {
+						for(int j = i + 1; j < worldFile[1].length(); j++) {
+							if(worldFile[1].charAt(j) == ';') {
+								String t = worldFile[1].substring(i+1,j);
+								size = Integer.valueOf(t);
+	//							System.out.println(size);
 							}
 						}
 					}
 				}
-			}
-			for(int i = 0; i < sectorIndex.length; i++) {
-//				System.out.println(sectorIndex[i]);
-				if(i == 1) {
-					System.out.println("Loading Objects . . .");
-					int mLine = (sectorIndex.length>2?sectorIndex[2]-1:worldFile.length-1);
-					int cLine = sectorIndex[1] + 1;
-					while(cLine < mLine) {
-						if(worldFile[cLine].equals("\tobject: {")) {
-//							System.out.println("Found object");
-							String typ = worldFile[cLine+1].substring(7);
-							for(int c = 0; c < typ.length(); c++) {
-								if(typ.charAt(c)==';') {
-									typ = typ.substring(0,c);
+				
+				sectorIndex = new int[size];
+				for(int i = 0; i < worldFile.length; i++) {
+					if(worldFile[i].charAt(0) != '\t' && worldFile[i].charAt(0) != '}' && worldFile[i].length() > 0) {
+	//					System.out.println(worldFile[i]);
+	//					System.out.println(worldFile[i].substring(0,7));
+						if(worldFile[i].substring(0,7).equals("sector<")) {
+							for(int j = 7; j < worldFile[i].length(); j++) {
+	//							System.out.println(worldFile[i].charAt(j) + ":" + j);
+								if(worldFile[i].charAt(j) == '>') {
+									String t = worldFile[i].substring(7,j);
+									int sector = Integer.valueOf(t); 
+									sectorIndex[sector] = i;
+									j = worldFile[i].length();
 								}
 							}
-							ArrayList<String> lines = new ArrayList<String>();
-							for(int l = cLine+1; l < mLine; l++) {
-								if(worldFile[l].equals("\t}")) {
-									cLine=l;
-									l=mLine;
-								} else {
-									lines.add(worldFile[l]);
+						}
+					}
+				}
+				for(int i = 0; i < sectorIndex.length; i++) {
+	//				System.out.println(sectorIndex[i]);
+					if(i == 1) {
+						System.out.println("Loading Objects . . .");
+						int mLine = (sectorIndex.length>2?sectorIndex[2]-1:worldFile.length-1);
+						int cLine = sectorIndex[1] + 1;
+						while(cLine < mLine) {
+							if(worldFile[cLine].equals("\tobject: {")) {
+	//							System.out.println("Found object");
+								String typ = worldFile[cLine+1].substring(7);
+								for(int c = 0; c < typ.length(); c++) {
+									if(typ.charAt(c)==';') {
+										typ = typ.substring(0,c);
+									}
+								}
+								ArrayList<String> lines = new ArrayList<String>();
+								for(int l = cLine+1; l < mLine; l++) {
+									if(worldFile[l].equals("\t}")) {
+										cLine=l;
+										l=mLine;
+									} else {
+										lines.add(worldFile[l]);
+									}
+								}
+	//							System.out.println(typ);
+								if(objs.containsKey(typ)) {
+									String[] ls = lines.toArray(new String[0]);
+									game.addObject(objs.get(typ).newObj(ls));
 								}
 							}
-//							System.out.println(typ);
-							if(objs.containsKey(typ)) {
-								String[] ls = lines.toArray(new String[0]);
-								game.addObject(objs.get(typ).newObj(ls));
-							}
+							
+							
+							cLine++;
 						}
-						
-						
-						cLine++;
+					}
+				}
+			} else {
+				System.out.println("invalid world");
+			}
+		} else if(saveType == SaveType.JSON) {
+			JsonObj obj = JsonObj.parseD(worldFile);
+			if(obj.hasKey("objects")) {
+				JsonObj[] arr = obj.getKey("objects").getArr();
+				for(int i = 0; i < arr.length; i++) {
+					JsonObj o = arr[i];
+					String typ = o.getKey("type").string();
+					if(objs.containsKey(typ)) {
+						game.addObject(objs.get(typ).newObj(o));
 					}
 				}
 			}
-		} else {
-			System.out.println("invalid world");
 		}
 	}
 	
@@ -181,20 +198,35 @@ public class WorldControler {
 	 * @param objects : the array of {@code GameObejcts} to save
 	 */
 	public void saveWorld(String filename, GameObject[] objects) {
-		try {
-			PrintStream stream = new PrintStream(new File(filename));
-			stream.print("sector<0>: {" + "\n");
-			stream.print("\tsectors:" + 2 +";\n");
-			stream.print("\trefrences:;" + "\n");
-			stream.print("}" + "\n");
-			stream.print("sector<1>: {" + "\n");
-			for(int i = 0; i < objects.length; i++) {
-				stream.print(objects[i].save());
+		if(saveType == SaveType.PGS) {
+			try {
+				PrintStream stream = new PrintStream(new File(filename));
+				stream.print("sector<0>: {" + "\n");
+				stream.print("\tsectors:" + 2 +";\n");
+				stream.print("\trefrences:;" + "\n");
+				stream.print("}" + "\n");
+				stream.print("sector<1>: {" + "\n");
+				for(int i = 0; i < objects.length; i++) {
+					stream.print(objects[i].save());
+				}
+				stream.print("}");
+				System.out.println("---Save done---");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
-			stream.print("}");
-			System.out.println("---Save done---");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} else if(saveType == SaveType.JSON) {
+			JsonObj obj = new JsonObj();
+			JsonObj objArr = new JsonObj();
+			obj.setObject("objects", objArr);
+			for(int i = 0; i < objects.length; i++) {
+				objArr.addArray(objects[i]);
+			}
+			try {
+				PrintStream stream = new PrintStream(new File(filename));
+				stream.print(obj);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -204,5 +236,10 @@ public class WorldControler {
 	 */
 	public void addDefObj(GameObject obj) {
 		objs.put(obj.getType(), obj);
+	}
+	
+	public enum SaveType {
+		PGS,
+		JSON
 	}
 }

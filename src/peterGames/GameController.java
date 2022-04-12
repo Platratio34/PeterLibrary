@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.swing.JFrame;
 
+import dataManagment.JsonObj;
 import errorHandler.ErrorLogger;
 import peterGames.objects.GameBlock;
 import peterGames.objects.GamePlayer;
@@ -154,6 +155,12 @@ public class GameController {
 			@Override
 			public GameObject newObj(String[] file) {
 				return this;
+			}
+
+			@Override
+			public GameObject newObj(JsonObj obj) {
+				// TODO Auto-generated method stub
+				return null;
 			}
 			
 		});

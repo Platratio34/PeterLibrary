@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
 import peterGames.util.Config;
 import peterGraphics.util.Drawing;
 import peterGraphics.util.Graphic;
@@ -13,7 +15,7 @@ import peterGraphics.util.Graphic;
  * @author Peter Crall
  *
  */
-public abstract class GameObject {
+public abstract class GameObject implements JsonSerializable {
 	
 	/**
 	 * Texture of the object
@@ -449,6 +451,7 @@ public abstract class GameObject {
 		return out;
 	}
 	
+	
 	/**
 	 * Returns a string that is all of the special data.
 	 * <li> All lines should start with "\t\t" </li>
@@ -462,6 +465,14 @@ public abstract class GameObject {
 	 */
 	public String onSave() {
 		return "\t\tnull;" + "\n";
+	}
+	/**
+	 * Adds all custom parameters to object on save to JSON<br>
+	 * type, pos, rot, destroyed, name, and tag are already used
+	 * @param obj : The JsonObj representing the game object
+	 */
+	public void onSave(JsonObj obj) {
+		return;
 	}
 	
 	/**
@@ -478,6 +489,14 @@ public abstract class GameObject {
 	 * @return A new object of the same class with all class specific parameters loaded
 	 */
 	public abstract GameObject newObj(String[] file);
+	/**
+	 * Creates a new object of the same type from a JsonObj
+	 *  <li> Called by the WorldController when loading a world </li>
+	 *  <li> Should call {@code setDefParm(JsonObj)} on the new object </li>
+	 * @param obj : the JsonObj representing the object
+	 * @return A new object of the same class with all class specific parameters loaded
+	 */
+	public abstract GameObject newObj(JsonObj obj);
 	
 	/**
 	 * Sets all generic variables of {@code GameObject}
@@ -493,5 +512,37 @@ public abstract class GameObject {
 		destroyed = Boolean.parseBoolean(file[3].substring(12,file[3].length()-1));
 		name = file[4].substring(8,file[4].length()-2);
 		tag = file[5].substring(7,file[5].length()-2);
+	}
+	/**
+	 * Sets all generic variables of {@code GameObject}
+	 *  <li> Sets position, rotation, destroyed state, name, and tag </li>
+	 * @param obj : the JsonObj representing the object
+	 */
+	protected void setDefParm(JsonObj obj) {
+		JsonObj[] po = obj.getKey("pos").getArr();
+		point.x = po[0].integer();
+		point.y = po[1].integer();
+		// TODO when rotation is added, add it here
+		destroyed = obj.getKey("destroyed").bool();
+		name = obj.getKey("name").string();
+		tag = obj.getKey("tag").string();
+	}
+	
+	@Override
+	public JsonObj serilize() {
+		JsonObj obj = new JsonObj();
+		obj.setKey("type", getType());
+		obj.setKey("pos", new int[] {point.x,point.y});
+		obj.setKey("destroyed", destroyed);
+		obj.setKey("name", name);
+		obj.setKey("tag", tag);
+		onSave(obj);
+		return obj;
+	}
+
+
+	@Override
+	public void deserilize(JsonObj obj) {
+		setDefParm(obj);
 	}
 }

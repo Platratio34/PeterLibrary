@@ -2,6 +2,7 @@ package peterGames.objects;
 
 import java.util.List;
 
+import dataManagment.JsonObj;
 import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
@@ -143,12 +144,24 @@ public class GamePlayer extends GameObject {
 	public String onSave() {
 		return "\t\tspeed:" + speed + ";\n";
 	}
+	@Override
+	public void onSave(JsonObj obj) {
+		obj.setKey("speed", speed);
+	}
 	
 	@Override
 	public GameObject newObj(String[] file) {
 		GamePlayer nP = new GamePlayer(parentGame, cfg, 0);
 		nP.setDefParm(file);
 		nP.speed = Integer.parseInt(file[6].substring(8,file[6].length()-1));
+		return nP;
+	}
+
+	@Override
+	public GameObject newObj(JsonObj obj) {
+		GamePlayer nP = new GamePlayer(parentGame, cfg, 0);
+		nP.setDefParm(obj);
+		nP.speed = obj.getKey("speed").integer();
 		return nP;
 	}
 

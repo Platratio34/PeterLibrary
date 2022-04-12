@@ -1,5 +1,6 @@
 package peterGames.objects;
 
+import dataManagment.JsonObj;
 import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
@@ -110,6 +111,11 @@ public class GameBlock extends GameObject {
 		
 		return out;
 	}
+	@Override
+	public void onSave(JsonObj obj) {
+		obj.setKey("size", new int[] {w,h});
+		obj.setKey("color", new int[] {r,g,b});
+	}
 
 	@Override
 	public String getType() {
@@ -129,6 +135,19 @@ public class GameBlock extends GameObject {
 		nB.r = Integer.parseInt(colorA[0]);
 		nB.g = Integer.parseInt(colorA[1]);
 		nB.b = Integer.parseInt(colorA[2]);
+		return nB;
+	}
+	@Override
+	public GameObject newObj(JsonObj obj) {
+		GameBlock nB = new GameBlock(parentGame, cfg,0,0,0,0,0,0,0);
+		nB.setDefParm(obj);
+		JsonObj[] size = obj.getKey("size").getArr();
+		nB.w = size[0].integer();
+		nB.h = size[1].integer();
+		JsonObj[] color = obj.getKey("color").getArr();
+		nB.r = color[0].integer();
+		nB.g = color[1].integer();
+		nB.b = color[2].integer();
 		return nB;
 	}
 

@@ -33,7 +33,14 @@ public class JsonObj {
 	 */
 	public JsonObj(Object value) {
 		clear();
-		setValue(value);
+		if(value.getClass().isArray()) {
+			Object[] arr = (Object[])value;
+			for(int i = 0; i < arr.length; i++) {
+				array.add(new JsonObj(arr[i]));
+			}
+		} else {
+			setValue(value);
+		}
 	}
 	/**
 	 * Creates new JsonObj with a value or entries
@@ -390,5 +397,13 @@ public class JsonObj {
 		JsonObj obj = new JsonObj();
 		obj.load(data);
 		return obj;
+	}
+	public static JsonObj parseD(String[] data) {
+		String str = "";
+		for(int i = 0; i < data.length; i++) {
+			if(i>0) str += "\n";
+			str += data[i];
+		}
+		return parseD(str);
 	}
 }

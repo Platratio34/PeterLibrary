@@ -2,6 +2,7 @@ package peterGames.test;
 
 import java.awt.Point;
 
+import dataManagment.JsonObj;
 import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
@@ -72,6 +73,12 @@ public class Player extends GameObject {
 
 	@Override
 	public GameObject newObj(String[] file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GameObject newObj(JsonObj obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

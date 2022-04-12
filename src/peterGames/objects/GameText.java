@@ -2,6 +2,7 @@ package peterGames.objects;
 
 import java.awt.Font;
 
+import dataManagment.JsonObj;
 import peterGames.CollisionMask;
 import peterGames.GameController;
 import peterGames.GameObject;
@@ -115,12 +116,25 @@ public class GameText extends GameObject {
 		return out;
 	}
 	@Override
+	public void onSave(JsonObj obj) {
+		obj.setKey("font", new Object[] {font.getFontName(), font.getStyle(), font.getSize()});
+	}
+	
+	@Override
 	public GameObject newObj(String[] file) {
 		GameText nT = new GameText(parentGame,cfg,"");
 		nT.setDefParm(file);
 		String[] fPrms = file[6].substring(8,file[6].length()-2).split(",");
 		setText(nT.name, new Font( fPrms[0], Integer.parseInt(fPrms[1]), Integer.parseInt(fPrms[2]) ) );
-		return null;
+		return nT;
+	}
+	@Override
+	public GameObject newObj(JsonObj obj) {
+		GameText nT = new GameText(parentGame,cfg,"");
+		nT.setDefParm(obj);
+		JsonObj[] fnt = obj.getKey("font").getArr();
+		setText(nT.name, new Font( fnt[0].string(), fnt[0].integer(), fnt[0].integer() ) );
+		return nT;
 	}
 
 }
