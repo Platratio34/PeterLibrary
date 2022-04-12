@@ -45,7 +45,7 @@ public class JsonObj {
 	/**
 	 * Creates new JsonObj with a value or entries
 	 * @param str The value or JSON entries
-	 * @param parse If str is the value or JSON entries
+	 * @param parse If the string is the value or JSON entries
 	 */
 	public JsonObj(String str, boolean parse) {
         clear();
@@ -67,7 +67,7 @@ public class JsonObj {
     }
 	/**
 	 * Creates a new JsonObj as an JSON array
-	 * @param arr The contence of the array
+	 * @param arr The content of the array
 	 */
 	public JsonObj(JsonObj[] arr) {
 		clear();
@@ -77,7 +77,7 @@ public class JsonObj {
 	}
 	/**
 	 * Creates a new JsonObj as an JSON array
-	 * @param arr The contence of the array
+	 * @param arr The content of the array
 	 */
 	public JsonObj(ArrayList<JsonObj> arr) {
 		clear();
@@ -98,7 +98,7 @@ public class JsonObj {
 	/**
 	 * Parses a JSON file and loads the data into this object
 	 * @param file The file to parse
-	 * @return if parsing was succsesful
+	 * @return if parsing was successful
 	 */
 	public boolean load(File file) {
 		if(!file.exists()) {
@@ -116,7 +116,7 @@ public class JsonObj {
 	/**
 	 * Parses a JSON file and loads the data into this object
 	 * @param file The file to parse
-	 * @return if parsing was succsesful
+	 * @return if parsing was successful
 	 */
 	public boolean load(String file) {
 		JsonObj o2 = StringParser.parseObject(file).data;
@@ -387,22 +387,38 @@ public class JsonObj {
 	}
 	
 	/**
-	 * Gets the array
-	 * @return the JsonObj[]
+	 * Gets the JsonObj array
+	 * @return the JsonObj array
 	 */
 	public JsonObj[] getArr() {
 		return array.toArray(new JsonObj[0]);
 	}
+	
+	/**
+	 * Returns a JsonObj parsed from a file at path
+	 * @param path The path of the file to parse
+	 * @return A new JsonObj from file
+	 */
 	public static JsonObj parseP(String path) {
 		JsonObj obj = new JsonObj();
 		obj.load(new File(path));
 		return obj;
 	}
+	/**
+	 * Returns a JsonObj parsed from a string
+	 * @param data The string to parse
+	 * @return A new JsonObj from string
+	 */
 	public static JsonObj parseD(String data) {
 		JsonObj obj = new JsonObj();
 		obj.load(data);
 		return obj;
 	}
+	/**
+	 * Returns a JsonObj parsed from a string array
+	 * @param data The string array to parse
+	 * @return A new JsonObj from string
+	 */
 	public static JsonObj parseD(String[] data) {
 		String str = "";
 		for(int i = 0; i < data.length; i++) {
