@@ -165,5 +165,9 @@ public abstract class GameButton extends GameObject {
 	public GameButton newObj(String[] arr) {
 		return null;
 	}
+	@Override
+	public GameObject newObj(JsonObj obj) {
+		return null;
+	}
 
 }
