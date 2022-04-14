@@ -92,6 +92,8 @@ public class WorldControler {
 		if(filename.contains(".json")) {
 			saveType = SaveType.JSON;
 		}
+		if(saveType == SaveType.PGS && !filename.contains(".txt")) filename += ".txt";
+		if(saveType == SaveType.JSON && !filename.contains(".json")) filename += ".json";
 		System.out.println("Starting world load: \"" + filename + "\" . . .");
 		worldFile = Files.fileAsArray(filename);
 		loadWorld();

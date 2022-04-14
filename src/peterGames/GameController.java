@@ -558,7 +558,7 @@ public class GameController {
 	/**
 	 * runs gTick on all objects
 	 */
-	public void draw() {
+	private void draw() {
 		for(int i = 0; i < gTick.size(); i++) {
 			if(!gTick.get(i).destroyed) {
 //				gTick.get(i).draw(draw);
@@ -577,7 +577,7 @@ public class GameController {
 	/**
 	 * updates inputManeger and config
 	 */
-	public void update() {
+	private void update() {
 		System.out.println("---- Updating ----");
 		tickTimer.settps(config.tps);
 		frameTimer.settps(config.fps);
@@ -758,6 +758,7 @@ public class GameController {
 	 */
 	public void loadWorld(String[] lines) {
 		worldLoaded = true;
+		world.saveType = SaveType.PGS;
 		world.loadWorld(lines);
 	}
 	
