@@ -54,7 +54,13 @@ public class WorldControler {
 	 */
 	public void loadDefault() {
 		try {
-			InputStream in = getClass().getResourceAsStream("default.txt");
+			String f = "default";
+			if(saveType == SaveType.PGS) {
+				f += ".txt";
+			} else if(saveType == SaveType.JSON) {
+				f += ".json";
+			}
+			InputStream in = getClass().getResourceAsStream(f);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			worldFile = reader.lines().toArray(String[]::new);
 			
