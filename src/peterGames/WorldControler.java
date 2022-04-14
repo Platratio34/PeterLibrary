@@ -78,6 +78,7 @@ public class WorldControler {
 		System.out.println("Starting world load from lines . . .");
 //		System.out.println(lines.length+"");
 		worldFile = lines;
+		saveType = SaveType.PGS;
 		loadWorld();
 	}
 	/**
@@ -85,6 +86,12 @@ public class WorldControler {
 	 * @param filename : the path of the file to load
 	 */
 	public void loadWorld(String filename) {
+		if(filename.contains(".txt")) {
+			saveType = SaveType.PGS;
+		}
+		if(filename.contains(".json")) {
+			saveType = SaveType.JSON;
+		}
 		System.out.println("Starting world load: \"" + filename + "\" . . .");
 		worldFile = Files.fileAsArray(filename);
 		loadWorld();
@@ -204,7 +211,16 @@ public class WorldControler {
 	 * @param objects : the array of {@code GameObejcts} to save
 	 */
 	public void saveWorld(String filename, GameObject[] objects) {
+		if(filename.contains(".txt")) {
+			saveType = SaveType.PGS;
+		}
+		if(filename.contains(".json")) {
+			saveType = SaveType.JSON;
+		}
 		if(saveType == SaveType.PGS) {
+			if(!filename.contains(".txt")) {
+				filename += ".txt";
+			}
 			try {
 				PrintStream stream = new PrintStream(new File(filename));
 				stream.print("sector<0>: {" + "\n");
@@ -221,9 +237,12 @@ public class WorldControler {
 				e.printStackTrace();
 			}
 		} else if(saveType == SaveType.JSON) {
+			if(!filename.contains(".json")) {
+				filename += ".json";
+			}
 			JsonObj obj = new JsonObj();
 			JsonObj objArr = new JsonObj();
-			obj.setObject("objects", objArr);
+			obj.setKey("objects", objArr);
 			for(int i = 0; i < objects.length; i++) {
 				objArr.addArray(objects[i]);
 			}
