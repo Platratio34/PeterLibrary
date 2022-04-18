@@ -43,6 +43,7 @@ public abstract class GameObject implements JsonSerializable {
 	protected boolean destroyed;
 	/**
 	 * The game configuration
+	 * @deprecated use parentGame.getConfig()
 	 */
 	@Deprecated
 	protected Config cfg;
@@ -60,11 +61,21 @@ public abstract class GameObject implements JsonSerializable {
 	 * Parent constructor
 	 * @param game : GameController object
 	 * @param Cfg : Config of game
+	 * @deprecated Use constructor without Config
 	 */
+	@Deprecated
 	public GameObject(GameController game, Config Cfg) {
 		parentGame = game;
 		setup();
 		cfg = Cfg;
+	}
+	/**
+	 * Parent constructor
+	 * @param game : GameController object
+	 */
+	public GameObject(GameController game) {
+		parentGame = game;
+		setup();
 	}
 	
 	/**

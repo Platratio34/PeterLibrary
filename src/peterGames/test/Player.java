@@ -17,8 +17,8 @@ public class Player extends GameObject {
 	Point dir;
 	private int hN = 0;
 	
-	public Player(GameController game, Config Cfg) {
-		super(game, Cfg);
+	public Player(GameController game) {
+		super(game);
 		dir = new Point(1,0);
 		// TODO Auto-generated constructor stub
 	}
@@ -79,7 +79,7 @@ public class Player extends GameObject {
 
 	@Override
 	public GameObject newObj(JsonObj obj) {
-		Player np = new Player(parentGame, cfg);
+		Player np = new Player(parentGame);
 		np.setDefParm(obj);
 		JsonObj[] dirA = obj.getKey("dir").getArr();
 		np.dir.x = dirA[0].integer();

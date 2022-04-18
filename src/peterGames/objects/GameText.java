@@ -22,11 +22,13 @@ public class GameText extends GameObject {
 	/**
 	 * Constructor for {@code GameText}
 	 * @param game : the current {@GameController}
-	 * @param Cfg : the curretn {@code Config} from game
+	 * @param Cfg : the current {@code Config} from game
 	 * @param Name : the text to display
+	 * @deprecated Use GameText(GameContoller, String)
 	 */
+	@Deprecated
 	public GameText(GameController game, Config Cfg, String Name) {
-		super(game, Cfg);
+		super(game);
 		name = Name;
 		font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 		tag = "text";
@@ -34,22 +36,44 @@ public class GameText extends GameObject {
 	/**
 	 * Constructor for {@code GameText}
 	 * @param game : the current {@GameController}
-	 * @param Cfg : the curretn {@code Config} from game
+	 * @param Cfg : the current {@code Config} from game
+	 * @param Name : the text to display
+	 * @param font_ : the font to use
+	 * @deprecated Use GameText(GameContoller, String, Font)
+	 */
+	@Deprecated
+	public GameText(GameController game, Config Cfg, String Name, Font font_) {
+		super(game);
+		name = Name;
+		font = font_;
+		tag = "text";
+	}
+	/**
+	 * Constructor for {@code GameText}
+	 * @param game : the current {@GameController}
+	 * @param Name : the text to display
+	 */
+	public GameText(GameController game, String Name) {
+		super(game);
+		name = Name;
+		font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+		tag = "text";
+	}
+	/**
+	 * Constructor for {@code GameText}
+	 * @param game : the current {@GameController}
 	 * @param Name : the text to display
 	 * @param font_ : the font to use
 	 */
-	public GameText(GameController game, Config Cfg, String Name, Font font_) {
-		super(game, Cfg);
+	public GameText(GameController game, String Name, Font font_) {
+		super(game);
 		name = Name;
 		font = font_;
 		tag = "text";
 	}
 
 	@Override
-	protected void setCollisionMask(CollisionMask mask) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void setCollisionMask(CollisionMask mask) {}
 
 	@Override
 	protected void setDraw(Graphic texture) {
@@ -57,28 +81,16 @@ public class GameText extends GameObject {
 	}
 
 	@Override
-	public void preInit() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void preInit() {}
 
 	@Override
-	public void postInit() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void postInit() {}
 
 	@Override
-	public void onTick(InputManeger input) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTick(InputManeger input) {}
 
 	@Override
-	protected void collided(GameObject object) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void collided(GameObject object) {}
 	
 	/**
 	 * Sets the text to something
@@ -122,7 +134,7 @@ public class GameText extends GameObject {
 	
 	@Override
 	public GameObject newObj(String[] file) {
-		GameText nT = new GameText(parentGame,cfg,"");
+		GameText nT = new GameText(parentGame,"");
 		nT.setDefParm(file);
 		String[] fPrms = file[6].substring(8,file[6].length()-2).split(",");
 		setText(nT.name, new Font( fPrms[0], Integer.parseInt(fPrms[1]), Integer.parseInt(fPrms[2]) ) );
@@ -130,7 +142,7 @@ public class GameText extends GameObject {
 	}
 	@Override
 	public GameObject newObj(JsonObj obj) {
-		GameText nT = new GameText(parentGame,cfg,"");
+		GameText nT = new GameText(parentGame,"");
 		nT.setDefParm(obj);
 		JsonObj[] fnt = obj.getKey("font").getArr();
 		setText(nT.name, new Font( fnt[0].string(), fnt[0].integer(), fnt[0].integer() ) );

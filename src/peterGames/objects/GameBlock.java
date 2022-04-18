@@ -30,7 +30,7 @@ public class GameBlock extends GameObject {
 	 * @param R : the red value of the color
 	 * @param G : the green value of the color
 	 * @param B : the blue value of the color
-	 * @deprecated Use {@code GameBlock(GameController,Config,int,int,int,int,int,int,int) insted
+	 * @deprecated Use {@code GameBlock(GameController,int,int,int,int,int,int,int) instead
 	 */
 	@Deprecated
 	public GameBlock(GameController game, Config Cfg, int W, int H, int R ,int B, int G) {
@@ -45,7 +45,7 @@ public class GameBlock extends GameObject {
 	/**
 	 * Constructor for {@code GameBlock}
 	 * @param game : the current {@GameController}
-	 * @param Cfg : the curretn {@code Config} from game
+	 * @param Cfg : the current {@code Config} from game
 	 * @param x : the starting x coordinate
 	 * @param y : the starting y coordinate
 	 * @param W : the width of the block
@@ -53,9 +53,11 @@ public class GameBlock extends GameObject {
 	 * @param R : the red value of the color
 	 * @param G : the green value of the color
 	 * @param B : the blue value of the color
+	 * @deprecated Use {@code GameBlock(GameController,int,int,int,int,int,int,int) instead
 	 */
+	@Deprecated
 	public GameBlock(GameController game, Config Cfg, int x, int y, int W, int H, int R ,int G, int B) {
-		super(game, Cfg);
+		super(game);
 		moveA(x,y);
 		w = W;
 		h = H;
@@ -64,7 +66,28 @@ public class GameBlock extends GameObject {
 		b = B;
 		tag = "block";
 	}
-
+	/**
+	 * Constructor for {@code GameBlock}
+	 * @param game : the current {@GameController}
+	 * @param x : the starting x coordinate
+	 * @param y : the starting y coordinate
+	 * @param W : the width of the block
+	 * @param H : the height of the block
+	 * @param R : the red value of the color
+	 * @param G : the green value of the color
+	 * @param B : the blue value of the color
+	 */
+	public GameBlock(GameController game, int x, int y, int W, int H, int R ,int G, int B) {
+		super(game);
+		moveA(x,y);
+		w = W;
+		h = H;
+		r = R;
+		g = G;
+		b = B;
+		tag = "block";
+	}
+	
 	@Override
 	protected void setCollisionMask(CollisionMask mask) {
 		mask.addLine(new LineSegment(0,0,0,h));
@@ -124,7 +147,7 @@ public class GameBlock extends GameObject {
 
 	@Override
 	public GameObject newObj(String[] file) {
-		GameBlock nB = new GameBlock(parentGame, cfg, 0,0,0,0,0);
+		GameBlock nB = new GameBlock(parentGame,0,0,0,0,0,0,0);
 		nB.setDefParm(file);
 		String sizeS = file[6].substring(8,file[6].length()-2);
 		String[] sizeA = sizeS.split(",");
@@ -139,7 +162,7 @@ public class GameBlock extends GameObject {
 	}
 	@Override
 	public GameObject newObj(JsonObj obj) {
-		GameBlock nB = new GameBlock(parentGame, cfg,0,0,0,0,0,0,0);
+		GameBlock nB = new GameBlock(parentGame,0,0,0,0,0,0,0);
 		nB.setDefParm(obj);
 		JsonObj[] size = obj.getKey("size").getArr();
 		nB.w = size[0].integer();
