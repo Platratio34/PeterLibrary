@@ -241,7 +241,11 @@ public abstract class GameObject implements JsonSerializable {
 		GameObject other = parentGame.collidingG(this, new Point(p.x + point.x, p.y + point.y),ignoreTag);
 		GameObject other2 = other;
 		while(other != null) {
-			if(p.x == 0 && p.y == 0) {
+			if(p.x < 1 && p.y < 1) {
+				if(other != null) {
+					collided(other);
+					other.collided(this);
+				}
 				return false;
 			}
 			p.x /= 2;
