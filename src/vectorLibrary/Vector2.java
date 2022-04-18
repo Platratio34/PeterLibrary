@@ -35,7 +35,7 @@ public class Vector2 implements JsonSerializable {
 	 * @param obj : JsonObj representing the vector
 	 */
 	public Vector2(JsonObj obj) {
-		deserilize(obj);
+		deserialize(obj);
 	}
 	
 	public String toString() {
@@ -89,12 +89,12 @@ public class Vector2 implements JsonSerializable {
 	}
 	
 	@Override
-	public JsonObj serilize() {
+	public JsonObj serialize() {
 		return new JsonObj(new Object[] {x,y});
 	}
 	
 	@Override
-	public void deserilize(JsonObj obj) {
+	public void deserialize(JsonObj obj) {
 		JsonObj[] arr = obj.getArr();
 		x = arr[0].integer();
 		y = arr[1].integer();

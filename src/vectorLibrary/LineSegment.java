@@ -1,10 +1,15 @@
 package vectorLibrary;
+
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
+
 /**
  * 
  * @author Peter Crall
  *
  */
-public class LineSegment {
+public class LineSegment implements JsonSerializable {
+	
 	protected Vector2D p1;
 	protected Vector2D p2;
 	protected double m;
@@ -33,6 +38,13 @@ public class LineSegment {
 		p2 = point2;
 		
 		update();
+	}
+	/**
+	 * Makes a new LineSegment between from JSON
+	 * @param obj the JSON object representing the line segment
+	 */
+	public LineSegment(JsonObj obj) {
+		deserialize(obj);
 	}
 	
 	public Vector2D getP1() {
@@ -156,5 +168,22 @@ public class LineSegment {
 	public LineSegment offset(int xo, int yo) {
 //		System.out.println("offseting line " + xo + "," + yo);
 		return new LineSegment(p1.x + xo, p1.y + yo, p2.x + xo, p2.y + yo);
+	}
+	@Override
+	public JsonObj serialize() {
+		JsonObj obj = new JsonObj();
+		obj.setKey("p1", p1);
+		obj.setKey("p2", p2);
+ 		return obj;
+	}
+	@Override
+	public void deserialize(JsonObj obj) {
+		if(obj.hasKey("p1")) {
+			p1.deserialize(obj.getKey("p1"));
+		}
+		if(obj.hasKey("p2")) {
+			p2.deserialize(obj.getKey("p2"));
+		}
+		update();
 	}
 }

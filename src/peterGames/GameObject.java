@@ -529,7 +529,7 @@ public abstract class GameObject implements JsonSerializable {
 	}
 	
 	@Override
-	public JsonObj serilize() {
+	public JsonObj serialize() {
 		JsonObj obj = new JsonObj();
 		obj.setKey("type", getType());
 		obj.setKey("pos", new Object[] {point.x,point.y});
@@ -542,7 +542,7 @@ public abstract class GameObject implements JsonSerializable {
 
 
 	@Override
-	public void deserilize(JsonObj obj) {
+	public void deserialize(JsonObj obj) {
 		setDefParm(obj);
 	}
 }

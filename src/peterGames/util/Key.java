@@ -29,7 +29,7 @@ public class Key implements JsonSerializable {
 	 * @param obj JsonObj to deserilize from
 	 */
 	public Key(JsonObj obj) {
-		deserilize(obj);
+		deserialize(obj);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class Key implements JsonSerializable {
 	}
 
 	@Override
-	public JsonObj serilize() {
+	public JsonObj serialize() {
 		JsonObj obj = new JsonObj();
 		obj.setKey("id", id);
 		obj.setKey("name", name);
@@ -50,7 +50,7 @@ public class Key implements JsonSerializable {
 	}
 
 	@Override
-	public void deserilize(JsonObj obj) {
+	public void deserialize(JsonObj obj) {
 		if(obj.hasKey("id")) {
 			id = obj.getKey("id").integer();
 		}

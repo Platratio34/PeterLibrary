@@ -28,7 +28,7 @@ public class Vector3D implements JsonSerializable {
 	 * @param obj : JsonObj representing the vector
 	 */
 	public Vector3D(JsonObj obj) {
-		deserilize(obj);
+		deserialize(obj);
 	}
 	
 	public String toString() {
@@ -78,12 +78,12 @@ public class Vector3D implements JsonSerializable {
 	}
 	
 	@Override
-	public JsonObj serilize() {
+	public JsonObj serialize() {
 		return new JsonObj(new Object[] {x,y,z});
 	}
 	
 	@Override
-	public void deserilize(JsonObj obj) {
+	public void deserialize(JsonObj obj) {
 		JsonObj[] arr = obj.getArr();
 		x = arr[0].doubleP();
 		y = arr[1].doubleP();

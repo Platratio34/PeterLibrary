@@ -219,7 +219,7 @@ public class JsonObj {
 			return;
 		}
 		if (value instanceof JsonSerializable) {
-			objects.put(key, ((JsonSerializable) value).serilize());
+			objects.put(key, ((JsonSerializable) value).serialize());
 			return;
 		}
 		objects.put(key, new JsonObj(value));
@@ -267,7 +267,7 @@ public class JsonObj {
 	 */
 	public void addArray(Object value) {
 		if (value instanceof JsonSerializable) {
-			array.add(((JsonSerializable) value).serilize());
+			array.add(((JsonSerializable) value).serialize());
 			return;
 		}
 		array.add(new JsonObj(value));

@@ -87,7 +87,7 @@ public class Config implements JsonSerializable {
 	 * @param obj : JsonObj representation of the config
 	 */
 	public Config(JsonObj obj) {
-		deserilize(obj);
+		deserialize(obj);
 	}
 	
 	/**
@@ -212,7 +212,7 @@ public class Config implements JsonSerializable {
 	}
 
 	@Override
-	public JsonObj serilize() {
+	public JsonObj serialize() {
 		JsonObj obj = new JsonObj();
 		obj.setKey("fps", fps);
 		obj.setKey("tps", tps);
@@ -228,7 +228,7 @@ public class Config implements JsonSerializable {
 	}
 
 	@Override
-	public void deserilize(JsonObj obj) {
+	public void deserialize(JsonObj obj) {
 		if(obj.hasKey("fps")) {
 			fps = obj.getKey("fps").integer();
 		}
