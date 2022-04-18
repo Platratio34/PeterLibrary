@@ -44,6 +44,7 @@ public abstract class GameObject implements JsonSerializable {
 	/**
 	 * The game configuration
 	 */
+	@Deprecated
 	protected Config cfg;
 	/**
 	 * The tag of the object
