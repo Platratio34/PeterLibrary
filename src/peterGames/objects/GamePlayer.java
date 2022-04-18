@@ -66,23 +66,10 @@ public class GamePlayer extends GameObject {
 
 	@Override
 	public void postInit() {
-		List<Key> keys = cfg.keys;
-		for(int i = 0; i < keys.size(); i++) {
-			Key key = keys.get(i);
-			if(key.name.equalsIgnoreCase("up")) {
-				controls[0] = key.id;
-			} else if(key.name.equalsIgnoreCase("down")) {
-				controls[1] = key.id;
-			} else if(key.name.equalsIgnoreCase("left")) {
-				controls[2] = key.id;
-			} else if(key.name.equalsIgnoreCase("right")) {
-				controls[3] = key.id;
-			} else if(key.name.equalsIgnoreCase("forward")) {
-				controls[0] = key.id;
-			} else if(key.name.equalsIgnoreCase("back")) {
-				controls[1] = key.id;
-			}
-		}
+		controls[0] = cfg.getKeyE("up");
+		controls[1] = cfg.getKeyE("down");
+		controls[2] = cfg.getKeyE("left");
+		controls[3] = cfg.getKeyE("right");
 	}
 
 	@Override

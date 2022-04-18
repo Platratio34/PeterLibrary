@@ -1,7 +1,6 @@
 package peterGames.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import dataManagment.JsonObj;
@@ -23,9 +22,9 @@ public class Config implements JsonSerializable {
 	 */
 	public int tps;
 	/**
-	 * List of key associations
+	 * Map of key associations
 	 */
-	public List<Key> keys;
+	public HashMap<String, Key> keys;
 	/**
 	 * Width of the window
 	 */
@@ -44,9 +43,9 @@ public class Config implements JsonSerializable {
 	 * @return Copy of this config
 	 */
 	public Config copy() {
-		List<Key> Keys = new ArrayList<Key> (keys.size());
-		for(int i = 0; i < keys.size(); i++) {
-			Keys.add(keys.get(i));
+		HashMap<String, Key> Keys = new HashMap<String, Key> ();
+		for(Key k : keys.values()) {
+			Keys.put(k.name, k);
 		}
 		return new Config(fps,tps,Keys,width,hight,debug);
 	}
@@ -57,7 +56,7 @@ public class Config implements JsonSerializable {
 	public Config() {
 		fps = 1;
 		tps = 1;
-		keys = new ArrayList<Key> ();
+		keys = new HashMap<String, Key> ();
 		width = 1;
 		hight = 1;
 		debug = 0;
@@ -71,12 +70,12 @@ public class Config implements JsonSerializable {
 	 * @param Hight : the height of the window
 	 * @param Debug : the debug mode
 	 */
-	public Config(int Fps, int Tps, List<Key> Keys, int Width, int Hight, int Debug) {
+	public Config(int Fps, int Tps, HashMap<String, Key> Keys, int Width, int Hight, int Debug) {
 		fps = Fps;
 		tps = Tps;
-		keys = new ArrayList<Key> ();
-		for(int i = 0; i < Keys.size(); i++) {
-			keys.add(Keys.get(i));
+		keys = new HashMap<String, Key> ();
+		for(Key k : Keys.values()) {
+			keys.put(k.name, k);
 		}
 		width = Width;
 		hight = Hight;
@@ -107,8 +106,8 @@ public class Config implements JsonSerializable {
 		out += "\tfps: " + fps + " , tps: " + tps + " , width: " + width + " , hight: " + hight + "\n";
 		out += "\tdebug mode: " + debug + "\n";
 		out += "\tKeys: " + keys.size() + " {\n";
-		for(int i = 0; i< keys.size(); i++) {
-			out += "\t\tid: " + keys.get(i).id + " , key: " + keys.get(i).key + " , name: " + keys.get(i).name +"\n";
+		for(Key k : keys.values()) {
+			out += "\t\tid: " + k.id + " , key: " + k.key + " , name: " + k.name +"\n";
 		}
 		out += "\t}" + "\n";
 		out += "}" + "\n";
@@ -126,7 +125,7 @@ public class Config implements JsonSerializable {
 		int Iwidth = 0;
 		int Ihight = 0;
 		int Idebug = 0;
-		List<Key> keys2 =  new ArrayList<Key> ();
+		HashMap<String, Key> keys2 =  new HashMap<String, Key> ();
 		if(scan.next().equals("Config")) {
 			scan.nextLine();
 			scan.next();
@@ -181,7 +180,7 @@ public class Config implements JsonSerializable {
 				if(scan.hasNext()) {
 					c = scan.next();
 				}
-				keys2.add(new Key(a,c,b));
+				keys2.put(c, new Key(a,c,b));
 			}
 			
 		}
@@ -201,14 +200,14 @@ public class Config implements JsonSerializable {
 	 * @param key : the external id of the key (from {@code KeyEvent})
 	 */
 	public void addKey(int id, String name, int key) {
-		keys.add(new Key(id, name, key));
+		keys.put(name, new Key(id, name, key));
 	}
 	/**
 	 * Adds a key to list of keys
 	 * @param key : the key to add
 	 */
 	public void addKey(Key key) {
-		keys.add(key.clone());
+		keys.put(key.name, key.clone());
 	}
 
 	@Override
@@ -221,8 +220,8 @@ public class Config implements JsonSerializable {
 		obj.setKey("debug", debug);
 		JsonObj kObj = new JsonObj();
 		obj.setKey("keys", kObj);
-		for(int i = 0; i< keys.size(); i++) {
-			kObj.addArray(keys.get(i));
+		for(Key k : keys.values()) {
+			kObj.addArray(k);
 		}
 		return obj;
 	}
@@ -252,5 +251,12 @@ public class Config implements JsonSerializable {
 			}
 		}
 		
+	}
+
+	public int getKeyE(String key) {
+		if(keys.containsKey(key)) {
+			return keys.get(key).key;
+		}
+		return 0;
 	}
 }
