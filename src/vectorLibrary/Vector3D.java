@@ -74,7 +74,7 @@ public class Vector3D implements JsonSerializable {
 	 * Normalizes the vector. Scales the vector down so that the magnitude is 1
 	 */
 	public void normalize() {
-		scale(magnitude());
+		scale(1d/magnitude());
 	}
 	
 	@Override
