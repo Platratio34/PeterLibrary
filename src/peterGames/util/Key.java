@@ -9,8 +9,18 @@ import dataManagment.JsonSerializable;
  *
  */
 public class Key implements JsonSerializable {
+	
+	/**
+	 * Internal ID
+	 */
 	public int id;
+	/**
+	 * Key Name
+	 */
 	public String name;
+	/**
+	 * External ID
+	 */
 	public int key;
 	
 	/**

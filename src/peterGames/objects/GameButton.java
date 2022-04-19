@@ -26,9 +26,27 @@ public abstract class GameButton extends GameObject {
 	 * @param Name : the name of button
 	 * @param W : the width of button
 	 * @param H : the height of button
+	 * @deprecated use a constructor without Config
 	 */
+	@Deprecated
 	public GameButton(GameController game, Config Cfg, String Name, int W, int H) {
-		super(game, Cfg);
+		super(game);
+		name = Name;
+		game.addMouseUser(this);
+		w = W;
+		h = H;
+		pressed = false;
+		tag = "button";
+	}
+	/**
+	 * constructor
+	 * @param game : the current {@code GameController} object
+	 * @param Name : the name of button
+	 * @param W : the width of button
+	 * @param H : the height of button
+	 */
+	public GameButton(GameController game, String Name, int W, int H) {
+		super(game);
 		name = Name;
 		game.addMouseUser(this);
 		w = W;
@@ -45,9 +63,30 @@ public abstract class GameButton extends GameObject {
 	 * @param y : the starting y coordinate
 	 * @param W : the width of button
 	 * @param H : the height of button
+	 * @deprecated use a constructor without Config
 	 */
+	@Deprecated
 	public GameButton(GameController game, Config Cfg, String Name, int x, int y, int W, int H) {
-		super(game, Cfg);
+		super(game);
+		name = Name;
+		moveA(x,y);
+		game.addMouseUser(this);
+		w = W;
+		h = H;
+		pressed = false;
+		tag = "button";
+	}
+	/**
+	 * constructor
+	 * @param game : the current {@code GameController} object
+	 * @param Name : the name of button
+	 * @param x : the starting x coordinate
+	 * @param y : the starting y coordinate
+	 * @param W : the width of button
+	 * @param H : the height of button
+	 */
+	public GameButton(GameController game, String Name, int x, int y, int W, int H) {
+		super(game);
 		name = Name;
 		moveA(x,y);
 		game.addMouseUser(this);

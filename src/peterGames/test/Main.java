@@ -28,16 +28,16 @@ public class Main {
 		cfg.addKey(3,"right",KeyEvent.VK_D);
 		
 		// Add custom GameObjects for save file loading
-		game.addDefObj(new Player(game, cfg));
+		game.addDefObj(new Player(game));
 		
 		// Add objects to the game via code
-		Player player = new Player(game, cfg);
+		Player player = new Player(game);
 		player.move(10,10);
 		game.addObject(player);
-		Player player2 = new Player(game, cfg);
+		Player player2 = new Player(game);
 		player2.move(10,50);
 		game.addObject(player2);
-		game.addObject(new GamePlayer(game,cfg,2));
+		game.addObject(new GamePlayer(game,2));
 		
 		// Load a save file
 //		game.loadWorld("save.json");

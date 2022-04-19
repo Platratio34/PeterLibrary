@@ -2,11 +2,12 @@ package peterGames;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
+import java.util.HashMap;
+
 import peterGames.util.Key;
 
 /**
- * Handels keybord input. Has internal and external IDs to allow for simple runtime key rebinding
+ * Handles keyboard input. Has internal and external IDs to allow for simple runtime key rebinding
  * @author Peter Crall
  *
  */
@@ -14,13 +15,13 @@ public class InputManeger implements KeyListener {
 	protected boolean[] externalD;
 	protected boolean[] externalU;
 	protected boolean[] externalT;
-	protected List<Key> keys;
+	protected HashMap<String, Key> keys;
 	
 	/**
 	 * default constructor
 	 * @param Keys : List of type Key to use
 	 */
-	public InputManeger(List<Key> Keys) {
+	public InputManeger(HashMap<String, Key> Keys) {
 		reset();
 		keys = Keys;
 	}
@@ -29,7 +30,7 @@ public class InputManeger implements KeyListener {
 	 * sets the List of type Key
 	 * @param Keys : list to set to
 	 */
-	public void setKeys(List<Key> Keys) {
+	public void setKeys(HashMap<String, Key> Keys) {
 		keys = Keys;
 	}
 	
@@ -107,10 +108,21 @@ public class InputManeger implements KeyListener {
 	 * @return was pressed
 	 */
 	public boolean wasKeyPressedI(int id) {
-		for(int i = 0; i < keys.size(); i++) {
-			if(keys.get(i).id==id) {
-				return externalD[keys.get(i).key];
+		for(Key k : keys.values()) {
+			if(k.id == id) {
+				return externalD[k.key];
 			}
+		}
+		return false;
+	}
+	/**
+	 * checks if key was pressed by name
+	 * @param key : name of the key
+	 * @return was pressed
+	 */
+	public boolean wasKeyPressed(String key) {
+		if(keys.containsKey(key)) {
+			return externalD[keys.get(key).key];
 		}
 		return false;
 	}
@@ -129,10 +141,21 @@ public class InputManeger implements KeyListener {
 	 * @return was released
 	 */
 	public boolean wasKeyReleasedI(int id) {
-		for(int i = 0; i < keys.size(); i++) {
-			if(keys.get(i).id==id) {
-				return externalU[keys.get(i).key];
+		for(Key k : keys.values()) {
+			if(k.id == id) {
+				return externalU[k.key];
 			}
+		}
+		return false;
+	}
+	/**
+	 * checks if key was released by name
+	 * @param key : name of the key
+	 * @return was released
+	 */
+	public boolean wasKeyReleased(String key) {
+		if(keys.containsKey(key)) {
+			return externalU[keys.get(key).key];
 		}
 		return false;
 	}
@@ -143,7 +166,7 @@ public class InputManeger implements KeyListener {
 	 * @return was typed
 	 */
 	public boolean wasKeyTyped(int id) {
-		return externalD[id];
+		return externalT[id];
 	}
 	/**
 	 * checks if key was typed by internal id
@@ -151,10 +174,21 @@ public class InputManeger implements KeyListener {
 	 * @return was typed
 	 */
 	public boolean wasKeyTypedI(int id) {
-		for(int i = 0; i < keys.size(); i++) {
-			if(keys.get(i).id==id) {
-				return externalT[keys.get(i).key];
+		for(Key k : keys.values()) {
+			if(k.id == id) {
+				return externalT[k.key];
 			}
+		}
+		return false;
+	}
+	/**
+	 * checks if key was typed by name
+	 * @param key : name of the key
+	 * @return was typed
+	 */
+	public boolean wasKeyTyped(String key) {
+		if(keys.containsKey(key)) {
+			return externalT[keys.get(key).key];
 		}
 		return false;
 	}
