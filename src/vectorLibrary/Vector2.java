@@ -80,7 +80,9 @@ public class Vector2 implements JsonSerializable {
 	/**
 	 * Returns a JsonObj representing the vector
 	 * @return a new JsonObj with 2 parameters, x and y
+	 * @deprecated Use serialize() insted
 	 */
+	@Deprecated
 	public JsonObj save() {
 		JsonObj obj = new JsonObj();
 		obj.addArray(x);
