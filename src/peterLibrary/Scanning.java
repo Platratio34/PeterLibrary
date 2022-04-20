@@ -4,30 +4,30 @@ import java.util.Scanner;
 
 public class Scanning {
 	public static String scanNext() {
-		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.print(">");
 		String output = scan.next();
+		scan.close();
 		return output;
 	}
 	public static void scanNext(String output) {
-		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.print(">");
 		output = scan.next();
+		scan.close();
 	}
 	
 	public static String scanNextLine() {
-		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.print(">");
 		String output = scan.nextLine();
+		scan.close();
 		return output;
 	}
 	public static void scanNextLine(String output) {
-		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.print(">");
 		output = scan.nextLine();
+		scan.close();
 	}
 }
