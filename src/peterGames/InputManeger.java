@@ -117,7 +117,7 @@ public class InputManeger implements KeyListener {
 	}
 	/**
 	 * checks if key was pressed by name
-	 * @param key : name of the key
+	 * @param key : name of the key from the configuration
 	 * @return was pressed
 	 */
 	public boolean wasKeyPressed(String key) {
@@ -150,7 +150,7 @@ public class InputManeger implements KeyListener {
 	}
 	/**
 	 * checks if key was released by name
-	 * @param key : name of the key
+	 * @param key : name of the key from the configuration
 	 * @return was released
 	 */
 	public boolean wasKeyReleased(String key) {
@@ -183,7 +183,7 @@ public class InputManeger implements KeyListener {
 	}
 	/**
 	 * checks if key was typed by name
-	 * @param key : name of the key
+	 * @param key : name of the key from the configuration
 	 * @return was typed
 	 */
 	public boolean wasKeyTyped(String key) {
