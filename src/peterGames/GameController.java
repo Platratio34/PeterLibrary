@@ -99,7 +99,7 @@ public class GameController {
 		config.fps = 30;
 		config.debug = 0;
 		objects = new ArrayList<GameObject>();
-		addObject(new GameObject(this, config) {
+		addObject(new GameObject(this) {
 			
 			@Override
 			protected void setCollisionMask(CollisionMask mask) {
@@ -179,9 +179,9 @@ public class GameController {
 		worldSize = new Point(config.width, config.hight);
 		worldOffset = new Point();
 		world = new WorldControler(this);
-		world.addDefObj(new GameBlock(this,config,0,0,0,0,0,0,0));
-		world.addDefObj(new GamePlayer(this,config,0));
-		world.addDefObj(new GameText(this,config,""));
+		world.addDefObj(new GameBlock(this,0,0,0,0,0,0,0));
+		world.addDefObj(new GamePlayer(this,0));
+		world.addDefObj(new GameText(this,""));
 	}
 	
 	//getters and setters
@@ -209,6 +209,7 @@ public class GameController {
 	 */
 	public void setconfig(Config x) {
 		config = x.copy();
+		if(inputManeger != null) inputManeger.setKeys(config.keys);
 		frameTime = 1000/config.fps;
 		tickTime = 1000/config.tps;
 		update();

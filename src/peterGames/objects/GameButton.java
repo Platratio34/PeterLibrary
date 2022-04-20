@@ -133,7 +133,7 @@ public abstract class GameButton extends GameObject {
 	 * Waits for the next press of the button, then returns. NOT RECOMENDED, ties up the main thred until the button is pressed
 	 * @return true
 	 */
-	public Boolean nextPress() {
+	public boolean nextPress() {
 		while(!pressed) {
 			System.out.print("");
 		}

@@ -252,11 +252,4 @@ public class Config implements JsonSerializable {
 		}
 		
 	}
-
-	public int getKeyE(String key) {
-		if(keys.containsKey(key)) {
-			return keys.get(key).key;
-		}
-		return 0;
-	}
 }
