@@ -2,6 +2,7 @@ package peterLibrary;
 
 import java.util.Scanner;
 
+@Deprecated
 public class Scanning {
 	public static String scanNext() {
 		Scanner scan = new Scanner(System.in);
