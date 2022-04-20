@@ -336,7 +336,13 @@ public class JsonObj {
 	 * @return the value
 	 */
 	public String string() {
-		return value;
+		String str = value;
+		str = str.replace("\\\\",  "\\");
+		str = str.replace("\\n",  "\n");
+		str = str.replace("\\r",  "\r");
+		str = str.replace("\\t",  "\t");
+		str = str.replace("\\\"",  "\"");
+		return str;
 	}
 	/**
 	 * Returns a integer from the value
