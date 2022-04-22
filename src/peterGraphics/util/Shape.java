@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
 import vectorLibrary.LineSegment;
 
 /**
@@ -11,7 +13,7 @@ import vectorLibrary.LineSegment;
  * @author Peter Crall
  *
  */
-public class Shape {	
+public class Shape implements JsonSerializable {	
 	/**
 	 * x origin of the shape
 	 */
@@ -84,6 +86,10 @@ public class Shape {
 		textA = text;
 	}
 	
+	public Shape(JsonObj obj) {
+		clear();
+		deserialize(obj);
+	}
 	/**
 	 * Set shape
 	 *  -Not for text or polygon
@@ -426,5 +432,63 @@ public class Shape {
 	 */
 	public static Shape RectF(int x, int y, int w, int h, Color c) {
 		return new Shape(x,y,w,h,null,null,c,ShapeE.RECTANGLEF,"");
+	}
+	@Override
+	public JsonObj serialize() {
+		JsonObj obj = new JsonObj();
+		obj.setKey("x", xA);
+		obj.setKey("y", yA);
+		obj.setKey("w", wA);
+		obj.setKey("h", hA);
+		obj.setKey("px", px);
+		obj.setKey("py", py);
+		obj.setKey("cl", new Object[] {colorA.getRed(), colorA.getGreen(), colorA.getBlue(), colorA.getAlpha()});
+		obj.setKey("sh", shapeA);
+		obj.setKey("tx", textA);
+		obj.setKey("ft", new Object[] {fontA.getFontName(), fontA.getStyle(), fontA.getSize()});
+		return obj;
+	}
+	@Override
+	public void deserialize(JsonObj obj) {
+		if(obj.hasKey("x")) {
+			xA = obj.getKey("x").integer();
+		}
+		if(obj.hasKey("y")) {
+			yA = obj.getKey("y").integer();
+		}
+		if(obj.hasKey("w")) {
+			wA = obj.getKey("w").integer();
+		}
+		if(obj.hasKey("h")) {
+			hA = obj.getKey("h").integer();
+		}
+		if(obj.hasKey("px")) {
+			JsonObj[] arr = obj.getKey("px").getArr();
+			px = new int[arr.length];
+			for(int i = 0; i < arr.length; i++) {
+				px[i] = arr[i].integer();
+			}
+		}
+		if(obj.hasKey("py")) {
+			JsonObj[] arr = obj.getKey("py").getArr();
+			py = new int[arr.length];
+			for(int i = 0; i < arr.length; i++) {
+				py[i] = arr[i].integer();
+			}
+		}
+		if(obj.hasKey("cl")) {
+			JsonObj[] arr = obj.getKey("cl").getArr();
+			colorA = new Color(arr[0].integer(), arr[1].integer(), arr[2].integer(), arr[3].integer());
+		}
+		if(obj.hasKey("sh")) {
+			shapeA = ShapeE.valueOf(obj.getKey("sh").string());
+		}
+		if(obj.hasKey("tx")) {
+			textA = obj.getKey("tx").string();
+		}
+		if(obj.hasKey("ft")) {
+			JsonObj[] arr = obj.getKey("ft").getArr();
+			fontA = new Font(arr[0].string(), arr[1].integer(), arr[2].integer());
+		}
 	}
 }

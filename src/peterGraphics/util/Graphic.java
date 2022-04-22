@@ -3,18 +3,21 @@ package peterGraphics.util;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import dataManagment.JsonObj;
+import dataManagment.JsonSerializable;
 import errorHandler.ErrorLogger;
 import errorHandler.ErrorType;
-import peterLibrary.Arrays;
 
 /**
  * Equivelint of a texture
  * @author Peter Crall
  *
  */
-public class Graphic {
-	private Shape shapes[];
+public class Graphic implements JsonSerializable {
+	private ArrayList<Shape> shapes;
 	private Point point;
 	private boolean draw;
 	private int deapth;
@@ -31,7 +34,17 @@ public class Graphic {
 	 */
 	public Graphic(Shape[] Shapes) {
 		clear();
-		shapes = Shapes;
+	    for(Shape s : Shapes) {
+	         shapes.add(s);
+	    }
+	}
+	/**
+	 * Constructor
+	 * @param obj : JSON representing the graphic
+	 */
+	public Graphic(JsonObj obj) {
+		clear();
+		deserialize(obj);
 	}
 	
 	/**
@@ -39,8 +52,7 @@ public class Graphic {
 	 */
 	public void clear() {
 		draw = true;
-		shapes = new Shape[1];
-		shapes[0] = new Shape();
+		shapes = new ArrayList<Shape>();
 		point = new Point();
 		deapth = 0;
 	}
@@ -75,13 +87,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void rect(int x, int y, int w, int h, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[t.length].newShape(ShapeE.RECTANGLE, x, y, w, h, r, g, b);
+		Shape s = new Shape();
+		s.newShape(ShapeE.RECTANGLE, x, y, w, h, r, g, b);
+		shapes.add(s);
 	}
 	
 	/**
@@ -95,14 +103,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void line(int x, int y, int x2, int y2, int r, int g, int b) {
-		
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newShape(ShapeE.LINE, x, y, x2, y2, r, g, b);
+		Shape s = new Shape();
+		s.newShape(ShapeE.LINE, x, y, x2, y2, r, g, b);
+		shapes.add(s);
 	}
 	
 	/**
@@ -116,13 +119,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void circle(int x, int y, int w, int h, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newShape(ShapeE.CIRCLE, x, y, w, h, r, g, b);
+		Shape s = new Shape();
+		s.newShape(ShapeE.CIRCLE, x, y, w, h, r, g, b);
+		shapes.add(s);
 	}
 	
 	/**
@@ -138,13 +137,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void polygon(int x1, int y1, int x2, int y2, int x3, int y3, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newPolygon(new int[] { x1,x2,x3 }, new int[] { y1,y2,y3 }, r, g, b);
+		Shape s = new Shape();
+		s.newPolygon(new int[] { x1,x2,x3 }, new int[] { y1,y2,y3 }, r, g, b);
+		shapes.add(s);
 	}
 	/**
 	 * Makes a new 4 sided outlined polygon
@@ -161,13 +156,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void polygon(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newPolygon(new int[] { x1,x2,x3,x4 }, new int[] { y1,y2,y3,y4 }, r, g, b);
+		Shape s = new Shape();
+		s.newPolygon(new int[] { x1,x2,x3,x4 }, new int[] { y1,y2,y3,y4 }, r, g, b);
+		shapes.add(s);
 	}
 	/**
 	 * Makes a new n sided outlined polygon
@@ -178,13 +169,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void polygon(int[] x, int[] y, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newPolygon(x, y, r, g, b);
+		Shape s = new Shape();
+		s.newPolygon(x, y, r, g, b);
+		shapes.add(s);
 	}
 	
 	//Filled stuff
@@ -199,13 +186,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void rectF(int x, int y, int w, int h, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newShape(ShapeE.RECTANGLEF, x, y, w, h, r, g, b);
+		Shape s = new Shape();
+		s.newShape(ShapeE.RECTANGLEF, x, y, w, h, r, g, b);
+		shapes.add(s);
 	}
 	
 	/**
@@ -219,13 +202,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void circleF(int x, int y, int w, int h, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newShape(ShapeE.CIRCLEF, x, y, w, h, r, g, b);
+		Shape s = new Shape();
+		s.newShape(ShapeE.CIRCLEF, x, y, w, h, r, g, b);
+		shapes.add(s);
 	}
 	
 	/**
@@ -241,16 +220,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void polygonF(int x1, int y1, int x2, int y2, int x3, int y3, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newPolygonF(new int[] { x1,x2,x3 }, new int[] { y1,y2,y3 }, r, g, b);
-		//System.out.println("poly setup");
-		//Arrays.printArray(shapes[shapes.length-1].px);
-		//System.out.println();
+		Shape s = new Shape();
+		s.newPolygonF(new int[] { x1,x2,x3 }, new int[] { y1,y2,y3 }, r, g, b);
+		shapes.add(s);
 	}
 	/**
 	 * Makes a new 4 sided filled polygon
@@ -267,13 +239,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void polygonF(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newPolygonF(new int[] { x1,x2,x3,x4 }, new int[] { y1,y2,y3,y4 }, r, g, b);
+		Shape s = new Shape();
+		s.newPolygonF(new int[] { x1,x2,x3,x4 }, new int[] { y1,y2,y3,y4 }, r, g, b);
+		shapes.add(s);
 	}
 	/**
 	 * Makes a new n sided filled polygon
@@ -284,13 +252,9 @@ public class Graphic {
 	 * @param b : the color value
 	 */
 	public void polygonF(int[] x, int[] y, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i].copy();
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newPolygonF(x, y, r, g, b);
+		Shape s = new Shape();
+		s.newPolygonF(x, y, r, g, b);
+		shapes.add(s);
 	}
 	
 	/**
@@ -303,13 +267,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void text(int x, int y, char in, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i];
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newText(x, y, Character.toString(in), r, g, b, new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		Shape s = new Shape();
+		s.newText(x, y, Character.toString(in), r, g, b, new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		shapes.add(s);
 	}
 	/**
 	 * Adds text to the screen
@@ -321,13 +281,9 @@ public class Graphic {
 	 * @param b : the blue color value
 	 */
 	public void text(int x, int y, String in, int r, int g, int b) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i];
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newText(x, y, in, r, g, b, new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		Shape s = new Shape();
+		s.newText(x, y, in, r, g, b, new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		shapes.add(s);
 	}
 	/**
 	 * Adds text to the screen
@@ -340,13 +296,9 @@ public class Graphic {
 	 * @param font : the Font to use
 	 */
 	public void text(int x, int y, char in, int r, int g, int b, Font font) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i];
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newText(x, y, Character.toString(in), r, g, b, font);
+		Shape s = new Shape();
+		s.newText(x, y, Character.toString(in), r, g, b, font);
+		shapes.add(s);
 	}
 	/**
 	 * Adds text to the screen
@@ -359,44 +311,9 @@ public class Graphic {
 	 * @param font : the Font to use
 	 */
 	public void text(int x, int y, String in, int r, int g, int b, Font font) {
-		Shape[] t = shapes;
-		shapes = new Shape[t.length+1];
-		for(int i = 0;i < t.length; i++) {
-			shapes[i] = t[i];
-		}
-		shapes[t.length] = new Shape();
-		shapes[shapes.length-1].newText(x, y, in, r, g, b, font);
-	}
-	
-	
-	/**
-	 * Returns a copy the array of shapes
-	 * @return A copy of the array of shapes
-	 * @deprecated Bad practice
-	 */
-	@Deprecated
-	public Shape[] getShape() {
-		return Arrays.copy(shapes);
-	}
-	/**
-	 * Returns a copy the array of shapes offset by a position
-	 * @param xo : the offset in the x axis
-	 * @param yo : the offset in the y axis
-	 * @return A copy of the array of shapes offset
-	 * @deprecated Bad practice
-	 */
-	@Deprecated
-	public Shape[] getShape(int xo, int yo) {
-		//System.out.println("graphic DEBUG: offset "+ xo + "," + yo);
-		Shape[] o = new Shape[shapes.length];
-		o = Arrays.copy(shapes);
-		
-			for(int i = 1; i < o.length; i++) {
-				o[i] = o[i].offset(xo,yo);
-				//System.out.println("graphic DEBUG: output " + o[i].xA + "," + o[i].yA + "," + o[i].wA + "," + o[i].hA);
-			}
-		
-		return o;
+		Shape s = new Shape();
+		s.newText(x, y, in, r, g, b, font);
+		shapes.add(s);
 	}
 	
 	/**
@@ -408,15 +325,15 @@ public class Graphic {
 //		System.out.println(deapth);
 		if(draw) {
 			onDraw(g, eLogger, camera);
-			for(int i = 0; i < shapes.length; i++) {
+			for(int i = 0; i < shapes.size(); i++) {
 				//System.out.println("TEST 2");
 				try {
 					//System.out.println(shapes[i]);
 	//				System.out.println(point.toString());
 					if(deapth < 20) {
-						shapes[i].draw(g, point.x, point.y, camera);
+						shapes.get(i).draw(g, point.x, point.y, camera);
 					} else {
-						shapes[i].draw(g, point.x, point.y, new Camera());
+						shapes.get(i).draw(g, point.x, point.y, new Camera());
 					}
 				}
 				catch(ArrayIndexOutOfBoundsException e) {
@@ -460,23 +377,57 @@ public class Graphic {
 	 * @param d : the number of tabs to start each line with
 	 * @return A string representation of the graphic
 	 */
+	@Deprecated
 	public String save(int d) {
 		String out = "";
-		for(int j = 1; j < shapes.length; j++) {
-			for(int i = 0; i < d; i++) {
-				out += "\t";
-			}
-			out += "shape:{" + "\n";
-			out += shapes[j].save(d+1);
-			for(int i = 0; i < d; i++) {
-				out += "\t";
-			}
-			out += "}" + "\n";
-		}
+		System.out.println("Uses of Depricated function: Graphic.save(int)");
+//		for(int j = 1; j < shapes.length; j++) {
+//			for(int i = 0; i < d; i++) {
+//				out += "\t";
+//			}
+//			out += "shape:{" + "\n";
+//			out += shapes[j].save(d+1);
+//			for(int i = 0; i < d; i++) {
+//				out += "\t";
+//			}
+//			out += "}" + "\n";
+//		}
 //		for(int i = 0; i < d; i++) {
 //			out += "\t";
 //		}
 //		out += "TEXT;" + "\n";
 		return out;
+	}
+	@Override
+	public JsonObj serialize() {
+		JsonObj obj = new JsonObj();
+		obj.setKey("point", new Object[] {point.x, point.y});
+		obj.setKey("draw", draw);
+		obj.setKey("deapth", deapth);
+		JsonObj arr = new JsonObj();
+		obj.setKey("shapes", arr);
+		for(int i = 0; i < shapes.size(); i++) {
+			arr.addArray(shapes.get(i));
+		}
+		return obj;
+	}
+	@Override
+	public void deserialize(JsonObj obj) {
+		if(obj.hasKey("point")) {
+			point.x = obj.getKey("point").arr(0).integer();
+			point.y = obj.getKey("point").arr(1).integer();
+		}
+		if(obj.hasKey("draw")) {
+			draw = obj.getKey("draw").bool();
+		}
+		if(obj.hasKey("deapth")) {
+			deapth = obj.getKey("deapth").integer();
+		}
+		if(obj.hasKey("shapes")) {
+			JsonObj[] arr = obj.getKey("shapes").getArr();
+			for(int i = 0; i < arr.length; i++) {
+				shapes.add(new Shape(arr[i]));
+			}
+		}
 	}
 }
