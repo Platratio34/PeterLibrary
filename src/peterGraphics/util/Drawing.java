@@ -287,13 +287,15 @@ public class Drawing extends JPanel {
 	 */
 	@Deprecated
 	public void addGraphic(Graphic img, int xo, int yo) {
-		try {
-			graphics = addToArray(graphics, new Graphic(img.getShape(xo,yo)));
-		}
-		catch(NullPointerException e) {
-			//eLogger.logError(e, "a", 1);
-			eLogger.logError(ErrorType.NullPointer, "Drawing.java", 169, " " + xo + "," + yo);
-		}
+		System.out.println("Use of Depricated method: Drawing.addGraphic(Graphic,int,int)");
+		eLogger.logError("Depricated Function", "Drawing.java", 289, " addGraphic(Graphic,int,int) is fully depricated and no longer does anything");
+//		try {
+//			graphics = addToArray(graphics, new Graphic(img.getShape(xo,yo)));
+//		}
+//		catch(Exception e) {
+//			//eLogger.logError(e, "a", 1);
+//			eLogger.logError(ErrorType.NullPointer, "Drawing.java", 169, " " + xo + "," + yo);
+//		}
 	}
 	
 	/**
