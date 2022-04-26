@@ -3,6 +3,7 @@ package cheapLogger;
 // Import the package
 import cheapLogger.*;
 
+@SuppressWarnings("unused") // just to make it stop yelling at me
 public class Example {
 	
 	static CheapLogger logger;
