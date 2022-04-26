@@ -15,8 +15,8 @@ import java.nio.file.Files;
  */
 public class JsonObj {
 
-	private Map<String, JsonObj> objects;
-	private List<JsonObj> array;
+	private HashMap<String, JsonObj> objects;
+	private ArrayList<JsonObj> array;
 	private String value;
 	private boolean lit;
 	private boolean cmpt = false;
@@ -398,6 +398,16 @@ public class JsonObj {
 	 */
 	public JsonObj[] getArr() {
 		return array.toArray(new JsonObj[0]);
+	}
+	
+	public HashMap<String, JsonObj> getMap() {
+		return objects;
+	}
+	
+	public void removeKey(String key) {
+		if(objects.containsKey(key)) {
+			objects.remove(key);
+		}
 	}
 	
 	/**
