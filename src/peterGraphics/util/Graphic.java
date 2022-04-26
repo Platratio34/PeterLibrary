@@ -4,8 +4,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import dataManagment.JsonObj;
 import dataManagment.JsonSerializable;
 import errorHandler.ErrorLogger;

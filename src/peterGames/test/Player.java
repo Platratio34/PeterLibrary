@@ -8,7 +8,6 @@ import peterGames.GameController;
 import peterGames.GameObject;
 import peterGames.InputManeger;
 import peterGames.objects.GamePlayer;
-import peterGames.util.Config;
 import peterGraphics.util.Graphic;
 import peterGraphics.util.Shape;
 
