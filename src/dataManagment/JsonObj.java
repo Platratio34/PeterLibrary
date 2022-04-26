@@ -1,12 +1,10 @@
 package dataManagment;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import java.nio.file.Files;
+import java.util.Map.Entry;
 
 /**
  * A java representation of a JSON object
@@ -175,7 +173,7 @@ public class JsonObj {
 		}
 		String str = "{";
 		boolean s = true;
-		for (Map.Entry<String, JsonObj> ent : objects.entrySet()) {
+		for (Entry<String, JsonObj> ent : objects.entrySet()) {
 			if(!s) {
 				str += ",";
 			}
