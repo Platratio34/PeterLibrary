@@ -26,6 +26,8 @@ public class ErrorLogger {
 	public static Color ErrorColor = new Color(255, 10, 10);
 	public static Color WarnColor = new Color(255, 200, 0);
 	
+	public boolean showOnError = true;
+	
 	/**
 	 * default constructor
 	 */
@@ -97,7 +99,7 @@ public class ErrorLogger {
 			nullPointers++;
 			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line, ErrorColor);
 		}
-		log.visible(true);
+		if(showOnError) log.visible(true);
 	}
 	/**
 	 * Logs a new error
@@ -138,7 +140,7 @@ public class ErrorLogger {
 			SecurityExeptions++;
 			log.appendln(dtf.format(now) + ": Error: Security Exeption; At: " + origin + "," + line + "; " + info, ErrorColor);
 		}
-		log.visible(true);
+		if(showOnError) log.visible(true);
 	}
 	/**
 	 * Logs a new error
@@ -153,7 +155,7 @@ public class ErrorLogger {
 		PrintWriter pw = new PrintWriter(sw);
 		e.printStackTrace(pw);
 		log.appendln(dtf.format(now) + ": Error: " + sw, ErrorColor);
-		log.visible(true);
+		if(showOnError) log.visible(true);
 	}
 	/**
 	 * Logs a new error
@@ -165,18 +167,18 @@ public class ErrorLogger {
 		
 		LocalDateTime now = LocalDateTime.now();
 		log.appendln(dtf.format(now) + ": Error: " + error + "; At: " + origin + "," + line + "; " + info, ErrorColor);
-		log.visible(true);
+		if(showOnError) log.visible(true);
 	}
 	
 	public void logInfo(String info) {
 		LocalDateTime now = LocalDateTime.now();
 		log.appendln(dtf.format(now) + ": INFO: " + info);
-		log.visible(true);
+		if(showOnError) log.visible(true);
 	}
 	
 	public void logWarn(String info) {
 		LocalDateTime now = LocalDateTime.now();
 		log.appendln(dtf.format(now) + ": WARN: " + info, WarnColor);
-		log.visible(true);
+		if(showOnError) log.visible(true);
 	}
 }
