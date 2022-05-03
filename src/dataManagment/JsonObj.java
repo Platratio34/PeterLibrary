@@ -415,8 +415,9 @@ public class JsonObj {
 	 */
 	public static JsonObj parseP(String path) {
 		JsonObj obj = new JsonObj();
-		obj.load(new File(path));
-		return obj;
+		if(obj.load(new File(path)))
+			return obj;
+		return null;
 	}
 	/**
 	 * Returns a JsonObj parsed from a string
