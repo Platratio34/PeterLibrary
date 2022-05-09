@@ -13,7 +13,7 @@ import java.awt.Color;
 
 public class ErrorLogger {
 	
-	protected Console log = new Console(false,false,"Error Logger:");
+	protected Console log;
 	protected int nullPointers;
 	protected int arrayIOBs;
 	protected int stringIOBs;
@@ -27,11 +27,18 @@ public class ErrorLogger {
 	public static Color WarnColor = new Color(255, 200, 0);
 	
 	public boolean showOnError = true;
+	private boolean toFile = false;
 	
 	/**
 	 * default constructor
 	 */
 	public ErrorLogger(String name) {
+		log = new Console(false,false,"Error Logger:");
+		log.setTitle(name);
+		reset();
+	}
+	public ErrorLogger(String name, boolean toFile) {
+		log = new Console(false,false,"Error Logger:", toFile);
 		log.setTitle(name);
 		reset();
 	}

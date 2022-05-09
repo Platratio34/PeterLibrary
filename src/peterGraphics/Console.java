@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -13,25 +16,29 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 public class Console {
-	private JFrame frame = new JFrame("Testing");
+	private JFrame frame;
 	private JEditorPane label;
 	private boolean enterHit = false;
 	private PrintStream oldPS;
 	private PrintStream outPS;
 	private ByteArrayOutputStream out;
 	private String str;
-	private JScrollPane scrolll = new JScrollPane(label);
+	private JScrollPane scrolll;
 	private boolean overided;
 	private String startingText;
 	private String endingText = "</div>";
 	private String text = "";
 	
 	private boolean visible = true;
+	private boolean toFile = false;
 	
-	private void init(boolean override, int w, int h, boolean exit, String start) {
-		label = new JEditorPane();
-		startingText = "<div style=\"color:#00ff00\">"+start+"<br/>";
-		label.setText(startingText + endingText);
+	private void init(boolean override, int w, int h, boolean exit, String start, boolean toFile) {
+		this.toFile = toFile;
+		if(!toFile) {
+			startingText = "<div style=\"color:#00ff00\">"+start+"<br/>";
+		} else {
+			startingText = start+"\n";
+		}
 		oldPS = System.out;
 		out = new ByteArrayOutputStream();
 		outPS = new PrintStream(out);
@@ -39,15 +46,21 @@ public class Console {
 			overided = true;
 			System.setOut(outPS);
 		}
-		
-		if(exit) {
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		if(!toFile) {
+			frame = new JFrame("Testing");
+			scrolll = new JScrollPane(label);
+			label = new JEditorPane();
+			label.setText(startingText + endingText);
+			if(exit) {
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+			label.setFont(new Font("Consolas", Font.PLAIN, 12));
+			label.setPreferredSize(new Dimension(h, w));
+			label.setBackground(Color.BLACK);
+			label.setForeground(Color.GREEN);
+			label.setContentType("text/html");
 		}
-		label.setFont(new Font("Consolas", Font.PLAIN, 12));
-		label.setPreferredSize(new Dimension(h, w));
-		label.setBackground(Color.BLACK);
-		label.setForeground(Color.GREEN);
-		label.setContentType("text/html");
 		update();
 	}
 	
@@ -59,7 +72,7 @@ public class Console {
 	 *  <li> {@code width, hight = 800}px </li>
 	 */
 	public Console() {
-		init(true, 800, 800, true, "Console\n");
+		init(true, 800, 800, true, "Console\n", false);
 	}
 	/**
 	 * Paramatized constructor
@@ -69,7 +82,7 @@ public class Console {
 	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean overide) {
-		init(overide, 800, 800, true, "Console\n");
+		init(overide, 800, 800, true, "Console\n", false);
 	}
 	/**
 	 * Paramatized constructor
@@ -79,7 +92,7 @@ public class Console {
 	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean exit, boolean overide) {
-		init(overide, 800, 800, exit, "Console\n");
+		init(overide, 800, 800, exit, "Console\n", false);
 	}
 	/**
 	 * Paramatized constructor
@@ -89,7 +102,10 @@ public class Console {
 	 * @param start : starting text
 	 */
 	public Console(boolean exit, boolean overide, String start) {
-		init(overide, 800, 800, exit, start);
+		init(overide, 800, 800, exit, start, false);
+	}
+	public Console(boolean exit, boolean overide, String start, boolean toFile) {
+		init(overide, 800, 800, exit, start, toFile);
 	}
 	/**
 	 * Paramatized constructor
@@ -100,7 +116,7 @@ public class Console {
 	 * @param overide : take over {@code System.out}
 	 */
 	public Console(boolean exit, int w, int h, boolean overide) {
-		init(overide, w, h, exit, "Console\n");
+		init(overide, w, h, exit, "Console\n", false);
 	}
 	/**
 	 * Paramatized constructor
@@ -111,7 +127,7 @@ public class Console {
 	 * @param start : starting text
 	 */
 	public Console(boolean exit, int w, int h, boolean overide, String start) {
-		init(overide, w, h, exit, start);
+		init(overide, w, h, exit, start, false);
 	}
 	
 	/**
@@ -120,7 +136,7 @@ public class Console {
 	 */
 	public void visible(boolean visibility) {
 		visible = visibility;
-		frame.setVisible(visibility);
+		if(!toFile) frame.setVisible(visibility);
 	}
 	
 	/**
@@ -138,8 +154,8 @@ public class Console {
 	 */
 	public void appendln(String x, Color c) {
 		String fnt = "<span style=\"color:"+String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue())+"\">";
-//		String fnt = "<span style=\"color:red\">";
-		text += fnt + x + "</span>\n";
+		if(!toFile) text += fnt + x + "</span>\n";
+		else text += x;
 		update();
 	}
 	/**
@@ -330,14 +346,25 @@ public class Console {
 	 * Updates the console frame;
 	 */
 	public void update() {
-		text = text.replace("\n", "<br/>");
-		label.setText(startingText + text + endingText);
-		label.setEditable(false);
-		frame.getContentPane().add(scrolll);
-		frame.getContentPane().add(label, BorderLayout.CENTER);
-		frame.pack();
-		frame.setVisible(visible);
-		str = label.getText();
+		if(!toFile) {
+			text = text.replace("\n", "<br/>");
+			label.setText(startingText + text + endingText);
+			label.setEditable(false);
+			frame.getContentPane().add(scrolll);
+			frame.getContentPane().add(label, BorderLayout.CENTER);
+			frame.pack();
+			frame.setVisible(visible);
+			str = label.getText();
+		} else {
+			try {
+				BufferedWriter bWr = new BufferedWriter(new FileWriter("log.log"));
+				bWr.write(startingText + text);
+				bWr.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/*public void add(peterGraphics.util.Drawing draw) {
@@ -365,6 +392,6 @@ public class Console {
 	}
 	
 	public void setTitle(String title) {
-		frame.setTitle(title);
+		if(!toFile) frame.setTitle(title);
 	}
 }
