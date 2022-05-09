@@ -1,10 +1,10 @@
 package dataManagment;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 /**
  * A java representation of a JSON object
@@ -104,7 +104,13 @@ public class JsonObj {
 			return false;
 		}
 		try {
-			String f = Files.readString(file.toPath());
+//			String f = Files.readString(file.toPath());
+			String f = "";
+			Scanner s = new Scanner(file);
+			while(s.hasNextLine()) {
+				f += s.nextLine();
+			}
+			s.close();
 			return load(f);
 		} catch (Exception e) {
 			e.printStackTrace();
