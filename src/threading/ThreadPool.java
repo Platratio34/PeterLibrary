@@ -41,6 +41,9 @@ public class ThreadPool<I ,O> {
 	public O takeOut() throws InterruptedException {
 		return outputs.take();
 	}
+	public boolean hasOut() {
+		return !outputs.isEmpty();
+	}
 	
 	public void stopAllThreads() {
 		for(PoolThread<I, O> t : pool) {
