@@ -10,7 +10,8 @@ public class PoolThread<I, O> {
 			while(running) {
 				try {
 //					System.out.println("waiting");
-					pool.putOut(runable.run(pool.takeIn()));
+					O o = runable.run(pool.takeIn());
+					if(o != null) pool.putOut(o);
 				} catch(InterruptedException e) {
 					e.printStackTrace();
 				}
