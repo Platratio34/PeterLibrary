@@ -67,7 +67,6 @@ public class ThreadPool<I ,O> {
 			@Override
 			public Integer run(Integer data) {
 //				System.out.println("Started input " + data);
-				int in = (int)data;
 				int i = 0;
 				while(i < 0xffff) {
 					i++;
