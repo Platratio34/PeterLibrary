@@ -105,6 +105,7 @@ public class ThreadPool<I ,O> {
 			while(n < nTries) {
 				try {
 					int data = pool.takeOut();
+					@SuppressWarnings("unused")
 					String msg = data+"";
 					if(data < max) {
 						msg += " - " + (max-data);
