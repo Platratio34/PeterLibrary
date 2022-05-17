@@ -107,35 +107,72 @@ public class JobPool {
 	}
 	
 	public static void main(String[] args) {
-		JobPool pool = new JobPool(8);
-		int totalJobs = 1000;
-		Thread t = new Thread(() -> {
+		JobPool pool = new JobPool(14);
+		int totalJobs = 10000;
+		pool.newJob((Job job2) -> {
 			System.out.println("Starting jobs");
 			for(int i = 0; i < totalJobs; i++) {
 				int in = i;
 				pool.newJobBatch(1, (Job job) -> {
-					for(int j = 0; j < 1000; j++) {
+					long st = System.currentTimeMillis();
+					for(int j = 0; j < 0x01ffff; j++) {
 						job.output = ""+j;
 					}
-					job.output = "Job " + in + " done";
+//					job.output = "Job " + in + " done";
+					job.output = new Object[] {"Job " + in + " done", System.currentTimeMillis() - st};
 				});
 			}
 			System.out.println("Done starting jobs");
 		});
-		t.start();
 		int done = 0;
+		long sTime = System.currentTimeMillis();
+		long lTime = System.currentTimeMillis();
+		float avgTime = -1;
 		while(done < totalJobs) {
 			ArrayList<Job> jbs = pool.getJobsByBatch(1);
 			if(jbs != null) {
-				System.out.println("Got " + jbs.size() + " jobs");
+				long time = System.currentTimeMillis();
+				System.out.println("Got " + jbs.size() + " jobs after " + (time - lTime) + "ms");
+//				if(done > 0) {
+//					float dt = (float)(time-lTime);
+//					dt /= (float)jbs.size();
+//					if(avgTime == -1) {
+//						avgTime = dt;
+//					} else {
+//						avgTime += dt;
+//						avgTime /= 2f;
+//					}
+//				}
+//				lTime = time;
 				for(Job j : jbs) {
-					System.out.println("| " + j.output);
-					done++;
+					if(avgTime == -1) {
+						avgTime = (long)((Object[])j.output)[1];
+					}
+					avgTime += (long)((Object[])j.output)[1];
 				}
+				avgTime /= (float)jbs.size();
+				done += jbs.size();
+				System.out.println(" | Total done: " + done);
+//				for(Job j : jbs) {
+//					System.out.println("| " + j.output);
+//					done++;
+//				}
 			} else {
-				System.out.println("No jobs waiting");
+//				System.out.println("No jobs waiting");
+			}
+			if(done < totalJobs) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+		long time = System.currentTimeMillis();
+		System.out.println("Total time: " + (time - sTime) + "ms");
+		System.out.println("Expected time per: " + ((time - sTime)/(float)done) + "ms");
+		System.out.println("Average time: " + avgTime + "ms");
 		pool.stop();
 	}
 }
