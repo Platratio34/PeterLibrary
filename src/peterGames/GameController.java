@@ -794,4 +794,8 @@ public class GameController {
 	public void setSaveType(SaveType type) {
 		world.saveType = type;
 	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
 }
