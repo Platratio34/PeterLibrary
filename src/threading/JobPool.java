@@ -67,6 +67,10 @@ public class JobPool {
 		}
 	}
 	
+	public void clearDoneJobs() {
+		doneJobMap = new HashMap<Integer, Job>();
+	}
+	
 	public Job getJobById(int id) {
 		pullDone();
 		if(doneJobMap.containsKey(id)) {
