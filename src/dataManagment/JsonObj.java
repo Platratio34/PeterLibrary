@@ -386,7 +386,7 @@ public class JsonObj {
 	
 	/**
 	 * Returns the element at index i of the array
-	 * @param i The index
+	 * @param i The index to get
 	 * @return element at i
 	 */
 	public JsonObj arr(int i) {
@@ -394,6 +394,28 @@ public class JsonObj {
 			return array.get(i);
 		}
 		return null;
+	}
+	
+	/**
+	 * Sets the element at index i to a new JsonObj
+	 * @param i The index to set
+	 * @param obj The new value
+	 * @return If the index was in the array
+	 */
+	public boolean arrSet(int i, JsonObj obj) {
+		if(i < array.size()) {
+			array.set(i, obj);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Gets the length of the array
+	 * @return The length of the array
+	 */
+	public int length() {
+		return array.size();
 	}
 	
 	/**
@@ -417,7 +439,8 @@ public class JsonObj {
 	/**
 	 * Returns a JsonObj parsed from a file at path
 	 * @param path The path of the file to parse
-	 * @return A new JsonObj from file
+	 * @return A new JsonObj from file<br>
+	 * 	null if file does not exist
 	 */
 	public static JsonObj parseP(String path) {
 		JsonObj obj = new JsonObj();
@@ -447,5 +470,16 @@ public class JsonObj {
 			str += data[i];
 		}
 		return parseD(str);
+	}
+	
+	@Override
+	public boolean equals(Object x) {
+		if(x == this) {
+			return true;
+		}
+		if(!(x instanceof JsonObj)) {
+			return false;
+		}
+		return ((JsonObj)x).string().equals(string());
 	}
 }
