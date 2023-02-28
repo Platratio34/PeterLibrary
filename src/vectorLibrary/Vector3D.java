@@ -77,6 +77,13 @@ public class Vector3D implements JsonSerializable {
 		scale(1d/magnitude());
 	}
 	
+	public double dot(Vector3D b) {
+		return (x*b.x) + (y*b.y) + (z*b.z);
+	}
+//	public Vector3D cross(Vector3D b) {
+//		
+//	}
+	
 	@Override
 	public JsonObj serialize() {
 		return new JsonObj(new Object[] {x,y,z});
@@ -88,5 +95,17 @@ public class Vector3D implements JsonSerializable {
 		x = arr[0].doubleP();
 		y = arr[1].doubleP();
 		z = arr[1].doubleP();
+	}
+	public static Vector3D fromCoords(String text) {
+		String[] parts = text.split(",");
+		if(parts.length != 3) {
+			return new Vector3D();
+		}
+		Vector3D v = new Vector3D();
+		v.x = Double.parseDouble(parts[0]);
+		v.y = Double.parseDouble(parts[1]);
+		v.z = Double.parseDouble(parts[2]);
+		
+		return v;
 	}
 }
